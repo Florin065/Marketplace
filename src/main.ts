@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { Quasar } from 'quasar'
+import { createRouter, createWebHistory } from 'vue-router'
 import './style.css'
 
 // Import icon libraries
@@ -20,6 +21,8 @@ import '@quasar/extras/themify/themify.css'
 import '@quasar/extras/line-awesome/line-awesome.css'
 import '@quasar/extras/bootstrap-icons/bootstrap-icons.css'
 
+import routes from './router/routes'
+
 // A few examples for animations from Animate.css:
 // import @quasar/extras/animate/fadeIn.css
 // import @quasar/extras/animate/fadeOut.css
@@ -33,9 +36,15 @@ import App from './App.vue'
 
 const myApp = createApp(App)
 
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
 myApp.use(Quasar, {
   plugins: {}, // import Quasar plugins and add here
 })
 
 // Assumes you have a <div id="app"></div> in your index.html
+myApp.use(router)
 myApp.mount('#app')
