@@ -50,69 +50,99 @@
                 </q-card-actions>
             </q-card-section>
 
-            <q-card class="text-h6" align="left" style="font-size: 17px; margin-top: 20px" :flat="true">Email</q-card>
-            <q-input
-            v-model="user.email"
-            class="label-style"
-            placeholder="exemplu@gmail.com"
-            style="margin-bottom: 0px; height: 60px"
-            standout
-            outlined
-            :dense="true"
-            />
-            <q-card class="text-h6" align="left" style="font-size: 17px" :flat="true">Parola</q-card>
-            <q-input
-            v-model="user.password"
-            class="label-style"
-            placeholder="Introdu parola ta"
-            type="password"
-            style="margin-bottom: -10px; height: 60px"
-            standout
-            outlined
-            :dense="true"
-            />
-
-            <div class="q-gutter-x-sm text-left" style="margin-left: 10px">
-                <router-link to="/forgot-password" class="text-h6" style="font-size: 14px;">Am uitat parola</router-link>
-            </div>
-
-            <q-card-actions vertical class="q-px-md action-style" flat bordered style="margin-top: 20px">
-                <q-btn 
-                    class = "button-style atn"
-                    label="Autentificare"
-                    style="height: 50px; width: 100%; background-color: #01ff9c; color: #ffff"
-                    :ripple="true"
-                    :disable="!isOn()"
+            <q-form ref="form" @submit="submitLogIn">
+                <q-card class="text-h6" align="left" style="font-size: 17px; margin-top: 20px" :flat="true">Email</q-card>
+                <q-input
+                v-model="user.email"
+                class="label-style"
+                placeholder="exemplu@gmail.com"
+                style="margin-bottom: 0px; height: 60px"
+                standout
+                outlined
+                :dense="true"
                 />
-            </q-card-actions>
-            <q-card-actions class="q-px-md" align="center">
-                <q-card class="text-h6" style="font-size: 15px; margin-right: 20px;" :flat="true">Nu ai cont inca?</q-card>
-                <q-btn
-                class="button-style"
-                label="Creeaza cont"
-                bordered
-                text-color="blue"
-                to="/register"
-                style="height: 40px; width: 150px"
-                >
+                <q-card class="text-h6" align="left" style="font-size: 17px" :flat="true">Parola</q-card>
+                <q-input
+                v-model="user.password"
+                class="label-style"
+                placeholder="Introdu parola ta"
+                type="password"
+                style="margin-bottom: -10px; height: 60px"
+                standout
+                outlined
+                :dense="true"
+                />
 
-                </q-btn>
-            </q-card-actions>
+                <div class="q-gutter-x-sm text-left" style="margin-left: 10px">
+                    <router-link to="/forgot-password" class="text-h6" style="font-size: 14px;">Am uitat parola</router-link>
+                </div>
+
+                <q-card-actions vertical class="q-px-md action-style" flat bordered style="margin-top: 20px">
+                    <q-btn 
+                        class = "button-style atn"
+                        label="Autentificare"
+                        style="height: 50px; width: 100%; background-color: #01ff9c; color: #ffff"
+                        :ripple="true"
+                        :disable="!isOn()"
+                        type="submit"
+                    />
+                </q-card-actions>
+                <q-card-actions class="q-px-md" align="center">
+                    <q-card class="text-h6" style="font-size: 15px; margin-right: 20px;" :flat="true">Nu ai cont inca?</q-card>
+                    <q-btn
+                    class="button-style"
+                    label="Creeaza cont"
+                    bordered
+                    text-color="blue"
+                    to="/register"
+                    style="height: 40px; width: 150px"
+                    >
+
+                    </q-btn>
+                </q-card-actions>
+            </q-form>
         </q-page-container>
     </q-page>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+import login from '../../firebase/firebase-login'
+import { Notify } from 'quasar';
+import { useRouter } from 'vue-router'
 
-const user = ref({
+const user = reactive({
     email: '',
     password: ''
 })
 
 function isOn() {
-    return user.value.email.length > 0 && user.value.password.length > 0
+    return user.email.length > 0 && user.password.length > 0
 }
+
+interface FormType {
+    validate: () => boolean
+}
+
+const form = ref<FormType | null>(null)
+const router = useRouter()
+
+async function submitLogIn() {
+    if (form.value?.validate()) {
+        try {
+            await login(user)
+            router.push('/')
+        } catch (error) {
+            console.error(error)
+            Notify.create({
+                message: error.message,
+                color: 'negative',
+                position: 'top'
+            })
+        }
+    }
+}
+
 
 </script>
 
