@@ -12,15 +12,15 @@
       </q-header>
       <q-page class="flex-center">
         <div>
-          <h4 class="text-h4 text-bold" style="color:#0CD496; margin-bottom: 30px; margin-top: -20px">Formular de înregistrare</h4>
+          <h4 class="text-h4 text-bold" style="color:#0CD496; margin-bottom: 10px;">Formular de înregistrare</h4>
         </div>
   
         <q-tabs dense class="text-bold text-primary">
-          <q-tab style="width:1000px" name="persoana_fizica" label="Persoană fizică" @click="tab = 'persoana_fizica'" />
-          <q-tab style="width:1000px" name="persoana_juridica" label="Persoană Juridică" @click="tab = 'persoana_juridica'" />
+          <q-tab style="width:500px" name="persoana_fizica" label="Persoană fizică" @click="tab = 'persoana_fizica'" />
+          <q-tab style="width:500px" name="persoana_juridica" label="Persoană Juridică" @click="tab = 'persoana_juridica'" />
         </q-tabs>
   
-        <q-card style="width: fit; height: fit; border-radius: 16px">
+        <q-card style="width: 1000px; height: fit; border-radius: 16px">
           <q-card-section>
             <q-tab-panels v-model="tab" animated>
               <q-tab-panel name="persoana_fizica">
@@ -30,13 +30,8 @@
                   <div class="row">
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px; margin-top:1em">Nume <span style="color:red">*</span></div>
-                      <q-input
-                        v-model="formDataFizica.nume"
-                        label="Nume"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                      <q-input v-model="formDataFizica.nume" label="Nume"
+                        outlined dense class="q-pa-sm" required
                       />
                     </div>
                     <div class="col">
@@ -44,10 +39,7 @@
                       <q-input
                         v-model="formDataFizica.prenume"
                         label="Prenume"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                        outlined dense class="q-pa-sm" required
                       />
                     </div>
                   </div>
@@ -55,19 +47,8 @@
                   <div class="row">
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">Țară <span style="color:red">*</span></div>
-                      <q-select
-                      :model-value="model"
-                      use-input
-                      hide-selected
-                      dense
-                      outlined
-                      fill-input
-                      input-debounce="0"
-                      :options="options"
-                      option-value="code"
-                      option-label="name"
-                      class="q-pa-sm"
-                      @filter="filterFn"
+                      <q-select :model-value="formDataFizica.tara" :options="options" option-value="code" option-label="name" @filter="filterFn" 
+                        use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
                     >
                       <template v-slot:no-option>
                         <q-item>
@@ -81,13 +62,8 @@
   
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">Județ <span style="color:red">*</span></div>
-                      <q-input
-                        v-model="formDataFizica.judet"
-                        label="Selectează județul"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                      <q-input v-model="formDataFizica.judet" label="Selectează județul"
+                      outlined dense class="q-pa-sm" required
                        />
                     </div>
                   </div>
@@ -95,24 +71,14 @@
                   <div class="row">
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">Localitate <span style="color: red;">*</span></div>
-                        <q-input
-                            v-model="formDataFizica.localitate"
-                            label="Localitate"
-                            outlined
-                            dense
-                            class="q-pa-sm"
-                            required
+                        <q-input v-model="formDataFizica.localitate" label="Localitate"
+                        outlined dense class="q-pa-sm" required
                         />
                     </div>
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">Adresă <span style="color:red">*</span></div>
-                      <q-input
-                        v-model="formDataFizica.adresa"
-                        label="Adresă"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                      <q-input v-model="formDataFizica.adresa" label="Adresă"
+                      outlined dense class="q-pa-sm" required
                       />
                     </div>
                   </div>
@@ -120,27 +86,18 @@
                   <div class="row">
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">Email <span style="color:red">*</span></div>
-                      <q-input
-                        v-model="formDataFizica.email"
-                        label="Mail"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                      <q-input v-model="formDataFizica.email" label="Mail"
+                        outlined dense class="q-pa-sm" required
                       />
                     </div>
                     <div class="col">
                         <div style="text-align: left; margin-left: 10px;">Număr de telefon <span style="color:red">*</span></div>
                         <q-input v-model="numar_telefon_pers_fizica"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                        outlined dense class="q-pa-sm" required
                         >
                           <template v-slot:prepend>
                             <q-select v-model="cod_tara_pers_fizica" :options="countryCodes"
-                            dense
-                            style="width:55px; margin-left:-12px" />
+                            dense style="width:55px; margin-left:-12px" />
                           </template>
                         </q-input>
                       </div>
@@ -149,14 +106,8 @@
                   <div class="row">
                     <div class="col">
                         <div style="text-align: left; margin-left: 10px;">Parolă <span style="color:red">*</span></div>
-                        <q-input
-                          v-model="formDataFizica.parola"
-                          :type="showPassword ? 'text' : 'password'"
-                          label="Parolă"
-                          outlined
-                          dense
-                          class="q-pa-sm"
-                          required
+                        <q-input v-model="formDataFizica.parola" :type="showPassword ? 'text' : 'password'" label="Parolă"
+                          outlined dense class="q-pa-sm" required
                         >
                           <template v-slot:prepend>
                             <q-icon name="lock" />
@@ -168,14 +119,8 @@
                       </div>
                       <div class="col">
                         <div style="text-align: left; margin-left: 10px;">Confirmare parolă <span style="color:red">*</span></div>
-                        <q-input
-                          v-model="formDataFizica.confirmare_parola"
-                          :type="showConfirmPassword ? 'text' : 'password'"
-                          label="Confirmare parolă"
-                          outlined
-                          dense
-                          class="q-pa-sm"
-                          required
+                        <q-input v-model="formDataFizica.confirmare_parola" :type="showConfirmPassword ? 'text' : 'password'" label="Confirmare parolă"
+                          outlined dense class="q-pa-sm" required
                         >
                           <template v-slot:prepend>
                             <q-icon name="lock" />
@@ -194,38 +139,23 @@
                 <q-form @submit="submitForm">
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px; margin-top:1em">Nume Companie <span style="color:red">*</span></div>
-                      <q-input
-                        v-model="formDataJuridica.denumire_companie"
-                        label="Firma S.R.L"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                      <q-input v-model="formDataJuridica.denumire_companie" label="Firma S.R.L"
+                        outlined dense class="q-pa-sm" required
                       />
                     </div>
 
                   <div class="row">
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">CIF/CUI <span style="color:red">*</span></div>
-                      <q-input
-                        v-model="formDataJuridica.cui"
-                        label="Introdu CUI sau CIF companie"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                      <q-input v-model="formDataJuridica.cui" label="Introdu CUI sau CIF companie"
+                        outlined dense class="q-pa-sm" required
                       />
                     </div>
       
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">Număr de înregistrare la registrul comerțului (J/F) <span style="color:red">*</span></div>
-                      <q-input
-                        v-model="formDataJuridica.numar_inregistrare"
-                        label="Format: J05/1225/2011"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                      <q-input v-model="formDataJuridica.numar_inregistrare" label="Format: J05/1225/2011"
+                        outlined dense class="q-pa-sm" required
                       />
                     </div>
                   </div>
@@ -238,19 +168,8 @@
                   <div class="row">
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">Țară <span style="color:red">*</span></div>
-                      <q-select
-                        :model-value="model"
-                        use-input
-                        hide-selected
-                        dense
-                        outlined
-                        fill-input
-                        input-debounce="0"
-                        :options="options"
-                        option-value="code"
-                        option-label="name"
-                        class="q-pa-sm"
-                        @filter="filterFn"
+                      <q-select :model-value="formDataFizica.tara" :options="options" option-value="code" option-label="name" @filter="filterFn"
+                        use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
                       >
                         <template v-slot:no-option>
                           <q-item>
@@ -264,13 +183,8 @@
   
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">Județ <span style="color:red">*</span></div>
-                      <q-input
-                        v-model="formDataJuridica.judet"
-                        label="Selectează județul"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                      <q-input v-model="formDataJuridica.judet" label="Selectează județul"
+                        outlined dense class="q-pa-sm" required
                        />
                     </div>
                   </div>
@@ -278,24 +192,14 @@
                   <div class="row">
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">Localitate <span style="color: red;">*</span></div>
-                        <q-input
-                            v-model="formDataJuridica.localitate"
-                            label="Localitate"
-                            outlined
-                            dense
-                            class="q-pa-sm"
-                            required
+                        <q-input v-model="formDataJuridica.localitate" label="Localitate"
+                          outlined dense class="q-pa-sm" required
                         />
                     </div>
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">Adresă <span style="color:red">*</span></div>
-                      <q-input
-                        v-model="formDataJuridica.adresa"
-                        label="Adresă"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                      <q-input v-model="formDataJuridica.adresa" label="Adresă"
+                        outlined dense class="q-pa-sm" required
                       />
                     </div>
                   </div>
@@ -303,28 +207,18 @@
                   <div class="row">
                     <div class="col">
                       <div style="text-align: left; margin-left: 10px;">Email <span style="color:red">*</span></div>
-                      <q-input
-                        v-model="formDataJuridica.email"
-                        label="Mail"
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                      <q-input v-model="formDataJuridica.email" label="Mail"
+                        outlined dense class="q-pa-sm" required
                       />
                     </div>
                     <div class="col">
                         <div style="text-align: left; margin-left: 10px;">Număr de telefon <span style="color:red">*</span></div>
-                        <q-input v-model="numar_telefon_pers_juridica
-                "
-                        outlined
-                        dense
-                        class="q-pa-sm"
-                        required
+                        <q-input v-model="numar_telefon_pers_juridica"
+                          outlined dense class="q-pa-sm" required
                         >
                           <template v-slot:prepend>
                             <q-select v-model="cod_tara_pers_juridica" :options="countryCodes"
-                            dense
-                            style="width:55px; margin-left:-12px;" />
+                            dense style="width:55px; margin-left:-12px;" />
                           </template>
                         </q-input>
                       </div>
@@ -333,14 +227,8 @@
                   <div class="row">
                     <div class="col">
                         <div style="text-align: left; margin-left: 10px;">Parolă <span style="color:red">*</span></div>
-                        <q-input
-                          v-model="formDataJuridica.parola"
-                          :type="showPassword ? 'text' : 'password'"
-                          label="Parolă"
-                          outlined
-                          dense
-                          class="q-pa-sm"
-                          required
+                        <q-input v-model="formDataJuridica.parola" :type="showPassword ? 'text' : 'password'" label="Parolă"
+                          outlined dense class="q-pa-sm" required
                         >
                           <template v-slot:prepend>
                             <q-icon name="lock" />
@@ -353,21 +241,15 @@
                       </div>
                       <div class="col">
                         <div style="text-align: left; margin-left: 10px;">Confirmare parolă <span style="color:red">*</span></div>
-                        <q-input
-                          v-model="formDataJuridica.confirmare_parola"
-                          :type="showConfirmPassword ? 'text' : 'password'"
-                          label="Confirmare parolă"
-                          outlined
-                          dense
-                          class="q-pa-sm"
-                          required
+                        <q-input v-model="formDataJuridica.confirmare_parola" :type="showConfirmPassword ? 'text' : 'password'" label="Confirmare parolă"
+                          outlined dense class="q-pa-sm" required
                         >
                           <template v-slot:prepend>
                             <q-icon name="lock" />
                           </template>
                           <template v-slot:append>
                             <q-icon :name="showConfirmPassword ? 'visibility_off' : 'visibility'"
-                            @click="togglePasswordVisibility(showConfirmPassword, 'confirm')" />
+                              @click="togglePasswordVisibility(showConfirmPassword, 'confirm')" />
                           </template>
                         </q-input>
                       </div>
@@ -384,11 +266,7 @@
         </div>
   
         <div class="q-mt-md text-center">
-          <q-btn
-            label="Creează cont"
-            text-color="white"
-            style="background: #0CD496; width: 1000px; height: 50px"
-            @click="submitForm"
+          <q-btn label="Creează cont" text-color="white" style="background: #0CD496; width: 1000px; height: 50px" @click="submitForm"
           />
         </div>
   
@@ -405,6 +283,7 @@
   import { onMounted, ref, computed, watch } from 'vue';
   import { useRouter } from 'vue-router';
   import countries from './components/countries.json';
+  import 
   
   const router = useRouter();
   
@@ -484,17 +363,12 @@
   };
 
   const options = ref(countries);
-  const model = ref('Romania');
 
   const filterFn = (val, update, abort) => {
     update(() => {
       const needle = val.toLowerCase();
       options.value = countries.filter(v => v.name.toLowerCase().indexOf(needle) > -1);
     });
-  };
-
-  const setModel = (val) => {
-    model.value = val;
   };
 
   </script>
