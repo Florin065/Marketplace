@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  /* overflow: hidden; */
 }
 
 h1 {
@@ -59,11 +60,12 @@ button:focus-visible {
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 100%;
+  margin:auto;
+  height: auto;
   text-align: center;
 }
+
 
 @media (prefers-color-scheme: light) {
   :root {
