@@ -16,14 +16,14 @@
       </div>
 
       <q-tabs dense class="text-bold text-primary">
-        <q-tab style="width:500px" name="persoana_fizica" label="Persoană fizică" @click="tab = 'persoana_fizica'; formData.isPersoanaFizica = true" />
-        <q-tab style="width:500px" name="persoana_juridica" label="Persoană Juridică" @click="tab = 'persoana_juridica'; formData.isPersoanaFizica = false" />
+        <q-tab style="width:500px" name="persoana_fizica" label="Persoană fizică" @click="helper.tab = 'persoana_fizica'; formData.isPersoanaFizica = true; clearFormData()" />
+        <q-tab style="width:500px" name="persoana_juridica" label="Persoană Juridică" @click="helper.tab = 'persoana_juridica'; formData.isPersoanaFizica = false; clearFormData()" />
       </q-tabs>
 
       <q-card style="width: 1000px; height: fit; border-radius: 16px">
         <q-card-section>
           <q-form @submit="submitForm">
-            <q-tab-panels v-model="tab">
+            <q-tab-panels v-model="helper.tab">
               <q-tab-panel name="persoana_fizica">
                 <div style="text-align: left; color:#2563EB; margin-top: -20px">Date persoană fizică</div>
                 <q-separator />
@@ -80,7 +80,7 @@
             <div class="row">
               <div class="col">
                 <div style="text-align: left; margin-left: 10px;">Țară <span style="color:red">*</span></div>
-                <q-select v-model="formData.tara" :options="optionsCountries" option-value="iso2" option-label="country" @filter="filterCountries"
+                <q-select v-model="formData.tara" :options="locationData.optionsCountries" option-value="iso2" option-label="country" @filter="filterCountries"
                   use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
                 >
                   <template v-slot:no-option>
@@ -95,7 +95,7 @@
 
               <div class="col">
                 <div style="text-align: left; margin-left: 10px;">Județ <span style="color:red">*</span></div>
-                <q-select v-model="formData.judet" :options="optionsStates" option-value="state" option-label="name" @filter="filterCounties"
+                <q-select v-model="formData.judet" :options="locationData.optionsStates" option-value="state" option-label="name" @filter="filterCounties"
                   use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
                 >
                   <template v-slot:no-option>
@@ -112,7 +112,7 @@
             <div class="row">
               <div class="col">
                 <div style="text-align: left; margin-left: 10px;">Localitate <span style="color: red;">*</span></div>
-                <q-select v-model="formData.localitate" :options="optionsCities" option-value="city" option-label="name" @filter="filterCities"
+                <q-select v-model="formData.localitate" :options="locationData.optionsCities" option-value="city" option-label="name" @filter="filterCities"
                   use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
                 >
                   <template v-slot:no-option>
@@ -143,11 +143,11 @@
 
               <div class="col">
                 <div style="text-align: left; margin-left: 10px;">Număr de telefon <span style="color:red">*</span></div>
-                <q-input v-model="numar_telefon"
+                <q-input v-model="helper.numar_telefon"
                   outlined dense class="q-pa-sm" required
                 >
                   <template v-slot:prepend>
-                    <q-select v-model="prefix_tara" :options="countryCodes"
+                    <q-select v-model="helper.prefix_tara" :options="countryCodes"
                       dense style="width:55px; margin-left:-12px" />
                   </template>
                 </q-input>
@@ -157,30 +157,34 @@
             <div class="row">
               <div class="col">
                 <div style="text-align: left; margin-left: 10px;">Parolă <span style="color:red">*</span></div>
-                <q-input v-model="formData.parola" :type="showPassword ? 'text' : 'password'"
+                <q-input v-model="formData.parola" :type="helper.showPassword ? 'text' : 'password'"
                   outlined dense class="q-pa-sm" required
                 >
                   <template v-slot:prepend>
                     <q-icon name="lock" />
                   </template>
                   <template v-slot:append>
-                    <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(showPassword)" />
+                    <q-icon :name="helper.showPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(helper.showPassword)" />
                   </template>
                 </q-input>
               </div>
                 
               <div class="col">
-                <div style="text-align: left; margin-left: 10px;">Confirmare parolă <span style="color:red">*</span></div>
-                <q-input v-model="formData.confirmare_parola" :type="showConfirmPassword ? 'text' : 'password'"
+                <div style="text-align: left; margin-left: 10px;">Confirmare parolă <span style="color:red">
+                  *
+                  <span v-if="!passwordsMatch" style="color:red">Parolele nu se potrivesc</span>
+                </span></div>
+                <q-input v-model="formData.confirmare_parola" :type="helper.showConfirmPassword ? 'text' : 'password'"
                   outlined dense class="q-pa-sm" required
                 >
                   <template v-slot:prepend>
                     <q-icon name="lock" />
                   </template>
                   <template v-slot:append>
-                    <q-icon :name="showConfirmPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(showConfirmPassword, 'confirm')" />
+                    <q-icon :name="helper.showConfirmPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(helper.showConfirmPassword, 'confirm')" />
                   </template>
                 </q-input>
+                
               </div>
             </div>
           </q-form>
@@ -188,17 +192,17 @@
       </q-card>
 
       <div style="text-align: left">
-        <q-checkbox size="sm" v-model="terms" label="Sunt de acord cu termenii și condițiile" color="primary" />
+        <q-checkbox size="sm" v-model="helper.terms" label="Sunt de acord cu termenii și condițiile" color="primary" />
         <span style="color:red; margin-left:3px">*</span>
       </div>
 
       <div class="q-mt-md text-center">
-        <q-btn :disabled="!isFormValid"
+        <q-btn :disabled="!passwordsMatch || !isFormValid"
         label="Creează cont"
         text-color="white"
         style="background: #0CD496; width: 1000px; height: 50px"
         unelevated
-        @click="submitForm; navigateToHome" />
+        @click="submitForm" />
       </div>
 
       <div class="q-mt-lg text-center">
@@ -212,6 +216,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { fetchCountries, fetchStates,
+  watchCountryChanges, watchStateChanges,
+  filterCountries, filterCounties, filterCities,
+  locationData } from './components/countries';
+import register from '@/firebase/firebase-register';
+import { UserForm } from '../../types/UserTypes';
 
 const router = useRouter();
 
@@ -220,24 +230,26 @@ const countryCodes = ref([
   { label: '+40', value: '+40' },
 ]);
 
-const prefix_tara = ref('+40');
-const numar_telefon = ref('');
+const helper = ref({
+  prefix_tara: '+40',
+  numar_telefon: '',
 
-const showPassword = ref(false);
-const showConfirmPassword = ref(false);
+  showPassword: false,
+  showConfirmPassword: false,
 
-const terms = ref(false);
-const tab = ref('persoana_fizica');
+  terms: false,
+  tab: 'persoana_fizica',
+});
 
-const formData = ref({
+const formData = ref<UserForm>({
   nume: '', // persoana fizica
   prenume: '', // persoana fizica
   denumire_companie: '', // persoana juridica
   cui: '', // persoana juridica
   numar_inregistrare: '', // persoana juridica
   tara: { country: 'Romania'}, // required
-  judet: '', // required
-  localitate: '', // required
+  judet: { name: ''}, // required
+  localitate: { name: ''}, // required
   adresa: '', // required
   email: '', // required
   numar_telefon: '', // required
@@ -255,37 +267,46 @@ const clearFormData = () => {
     cui: '',
     numar_inregistrare: '',
     tara: { country: 'Romania'},
-    judet: '',
-    localitate: '',
+    judet: { name: ''},
+    localitate: { name: ''},
     adresa: '',
     email: '',
     numar_telefon: '',
     parola: '',
     confirmare_parola: '',
-    isPersoanaFizica: tab.value === 'persoana_fizica',
+    isPersoanaFizica: helper.value.tab === 'persoana_fizica',
     platitorTVA: false
   };
 
-  prefix_tara.value = '+40';
-  numar_telefon.value = '';
+  helper.value.prefix_tara = '+40';
+  helper.value.numar_telefon = '';
 
-  showPassword.value = false;
-  showConfirmPassword.value = false;
+  helper.value.showPassword = false;
+  helper.value.showConfirmPassword = false;
 
-  terms.value = false;
+  helper.value.terms = false;
 };
 
-watch([prefix_tara, numar_telefon], () => {
-  formData.value.numar_telefon = prefix_tara.value + numar_telefon.value;
-});
+watch(
+  () => [helper.value.prefix_tara, helper.value.numar_telefon], 
+  ([newPrefix, newNumarTelefon]) => {
+    formData.value.numar_telefon = newPrefix + newNumarTelefon;
+  }
+);
+
+console.log(formData.value);
 
 const togglePasswordVisibility = (currentState: boolean, type: 'password' | 'confirm' = 'password') => {
   if (type === 'password') {
-    showPassword.value = !currentState;
+    helper.value.showPassword = !currentState;
   } else if (type === 'confirm') {
-    showConfirmPassword.value = !currentState;
+    helper.value.showConfirmPassword = !currentState;
   }
 };
+
+const passwordsMatch = computed(() => {
+  return formData.value.parola === formData.value.confirmare_parola;
+});
 
 const allFieldsFilled = computed(() => {
   // Always required fields
@@ -297,148 +318,29 @@ const allFieldsFilled = computed(() => {
 });
 
 const isFormValid = computed(() => {
-  return allFieldsFilled.value && terms.value;
+  return allFieldsFilled && helper.value.terms;
 });
 
-const submitForm = () => {
-  if (tab.value === 'persoana_fizica') {
-    console.log(formData.value);
-  } else {
-    console.log(formData.value);
+const submitForm = async () => {
+  if (!isFormValid.value) {
+    console.log('Form is not valid');
+    return;
   }
+  console.log('Form is valid');
+  await register(formData.value);
+  navigateToHome();
 };
 
-watch(tab, (newVal) => {
-  if (newVal === 'persoana_fizica') {
-    clearFormData();
-    console.log(formData.value);
-  } else {
-    clearFormData();
-    console.log(formData.value);
-  }
+onMounted(async () => {
+  locationData.value.optionsCountries = await fetchCountries();
+  locationData.value.allCountries = [...locationData.value.optionsCountries];
+
+  locationData.value.optionsStates = await fetchStates('Romania');
+  locationData.value.allStates = [...locationData.value.optionsStates];
 });
 
-const optionsCountries = ref([]);
-const optionsStates = ref([]);
-const optionsCities = ref([]);
-const allCountries = ref([]);
-const allStates = ref([]);
-const allCities = ref([]);
-
-onMounted(() => {
-  fetch('https://countriesnow.space/api/v0.1/countries',
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      optionsCountries.value = data.data.map((country) => ({
-        country: country.country,
-      }));
-      allCountries.value = [...optionsCountries.value];
-    });
-
-  fetch('https://countriesnow.space/api/v0.1/countries/states', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ "country": "Romania" }),
-  })
-  .then((response) => response.json())
-  .then((data) => {
-    optionsStates.value = data.data.states.map((state) => ({
-      name: state.name,
-    }));
-    allStates.value = [...optionsStates.value];
-  })
-  .catch((error) => console.error('Error fetching states:', error));
-});
-
-watch(() => formData.value.tara, (newVal) => {
-  if (!newVal) return; // Exit if the new value is falsy
-
-  fetch('https://countriesnow.space/api/v0.1/countries/states', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ "country": newVal.country }),
-  })
-  .then((response) => response.json())
-  .then((data) => {
-    optionsStates.value = data.data.states.map((state) => ({
-      name: state.name,
-    }));
-    allStates.value = [...optionsStates.value];
-  })
-  .catch((error) => console.error('Error fetching states:', error));
-}, { immediate: false, deep: true });
-
-watch(() => formData.value.judet, (newVal) => {
-  if (!newVal) return; // Exit if the new value is falsy
-
-  fetch('https://countriesnow.space/api/v0.1/countries/state/cities', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ "country": formData.value.tara.country, "state": newVal.name }),
-  })
-  .then((response) => response.json())
-  .then((data) => {
-    optionsCities.value = data.data.map((city) => ({
-      name: city,
-    }));
-    allCities.value = [...optionsCities.value];
-  })
-  .catch((error) => console.error('Error fetching cities:', error));
-}, { immediate: false, deep: true });
-
-const filterCountries = (val, update, abort) => {
-  update(() => {
-    if (val.trim() === '') {
-      // Reset to all countries if input is empty
-      optionsCountries.value = [...allCountries.value];
-    } else {
-      const needle = val.toLowerCase();
-      optionsCountries.value = allCountries.value.filter((country) =>
-        country.country.toLowerCase().includes(needle)
-      );
-    }
-  });
-}
-
-const filterCounties = (val, update, abort) => {
-  update(() => {
-    if (val.trim() === '') {
-      // Reset to all countries if input is empty
-      optionsStates.value = [...allStates.value];
-    } else {
-      const needle = val.toLowerCase();
-      optionsStates.value = allStates.value.filter((state) =>
-        state.name.toLowerCase().includes(needle)
-      );
-    }
-  });
-}
-
-const filterCities = (val, update, abort) => {
-  update(() => {
-    if (val.trim() === '') {
-      // Reset to all cities if input is empty
-      optionsCities.value = [...allCities.value];
-    } else {
-      const needle = val.toLowerCase();
-      optionsCities.value = allCities.value.filter((city) =>
-        city.name.toLowerCase().includes(needle)
-      );
-    }
-  });
-}
+watchCountryChanges(formData);
+watchStateChanges(formData);
 
 const infoCuiAPI = "https://infocui.ro/system/api/data" 
 const getCompanyData = async () => {
@@ -472,7 +374,7 @@ const getCompanyData = async () => {
     
   } catch (error) {
     console.log("Failed to connect to the API:", error.message);
-    }
+  }
 };
 
 const validateCUI = () => {
