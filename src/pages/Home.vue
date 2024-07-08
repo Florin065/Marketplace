@@ -137,14 +137,43 @@
                     v-model="tab" 
                     animated
                 >
-                    <q-tab-panel name="1">
-                    <div class="text-h6">Mails</div>
-                    Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <q-tab-panel 
+                    name="1"
+                    style=" display: flex; width: 589px; padding: 24px 12px 24px 24px; flex-direction: column; align-items: flex-start; gap: 10px; border-radius: 0px 0px 20px 20px; background: #FFF; box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.10);"
+                >
+                    <div class="text-h6">
+                        <q-card-section
+                            style=" display: flex; width: 267px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 24px; align-self: stretch; "
+                            vertical
+                        >
+                            <q-img
+                                src="https://cdn.quasar.dev/img/mountains.jpg"
+                                style="align-self: stretch; border-radius: 12px; background: url(<path-to-image>) lightgray 0px 0.473px / 141.955% 100.078% no-repeat; box-shadow: 0px 4px 6px -4px rgba(16, 24, 40, 0.10), 0px 10px 15px -3px rgba(0, 0, 0, 0.10);"
+                                fit="cover"
+                            />
+
+                            <q-img
+                                src="https://cdn.quasar.dev/img/mountains.jpg"
+                                style="align-self: stretch; border-radius: 12px; background: url(<path-to-image>) lightgray 0px 0.473px / 141.955% 100.078% no-repeat; box-shadow: 0px 4px 6px -4px rgba(16, 24, 40, 0.10), 0px 10px 15px -3px rgba(0, 0, 0, 0.10);"
+                                fit="cover"
+                            />
+
+                            <q-img
+                                src="https://cdn.quasar.dev/img/mountains.jpg"
+                                style="align-self: stretch; border-radius: 12px; background: url(<path-to-image>) lightgray 0px 0.473px / 141.955% 100.078% no-repeat; box-shadow: 0px 4px 6px -4px rgba(16, 24, 40, 0.10), 0px 10px 15px -3px rgba(0, 0, 0, 0.10);"
+                                fit="cover"
+                            />
+
+                            
+                            
+                        </q-card-section>
+                    </div>
+
                     </q-tab-panel>
         
                     <q-tab-panel name="2">
                     <div class="text-h6">Alarms</div>
-                    2 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     </q-tab-panel>
         
                     <q-tab-panel name="3">
