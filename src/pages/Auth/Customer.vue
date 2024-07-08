@@ -16,277 +16,174 @@
       </div>
 
       <q-tabs dense class="text-bold text-primary">
-        <q-tab style="width:500px" name="persoana_fizica" label="Persoană fizică" @click="tab = 'persoana_fizica'" />
-        <q-tab style="width:500px" name="persoana_juridica" label="Persoană Juridică" @click="tab = 'persoana_juridica'" />
+        <q-tab style="width:500px" name="persoana_fizica" label="Persoană fizică" @click="tab = 'persoana_fizica'; formData.isPersoanaFizica = true" />
+        <q-tab style="width:500px" name="persoana_juridica" label="Persoană Juridică" @click="tab = 'persoana_juridica'; formData.isPersoanaFizica = false" />
       </q-tabs>
 
       <q-card style="width: 1000px; height: fit; border-radius: 16px">
         <q-card-section>
-          <q-tab-panels v-model="tab" animated>
-            <q-tab-panel name="persoana_fizica">
-              <div style="text-align: left; color:#2563EB; margin-top: -20px">Date persoană fizică</div>
-              <q-separator />
-              <q-form @submit="submitForm">
+          <q-form @submit="submitForm">
+            <q-tab-panels v-model="tab">
+              <q-tab-panel name="persoana_fizica">
+                <div style="text-align: left; color:#2563EB; margin-top: -20px">Date persoană fizică</div>
+                <q-separator />
                 <div class="row">
                   <div class="col">
-                    <div style="text-align: left; margin-left: 10px; margin-top:1em">Nume <span style="color:red">*</span></div>
-                    <q-input v-model="formDataFizica.nume"
-                      outlined dense class="q-pa-sm" required
+                    <div style="text-align: left; margin-left: -4px; margin-top:1em">Nume <span style="color:red">*</span></div>
+                    <q-input v-model="formData.nume"
+                      outlined dense class="q-pa-sm" required style="margin-left: -15px;"
                     />
                   </div>
+                  
                   <div class="col">
                     <div style="text-align: left; margin-left: 10px; margin-top:1em">Prenume <span style="color:red">*</span></div>
-                    <q-input v-model="formDataFizica.prenume"
-                      outlined dense class="q-pa-sm" required
+                    <q-input v-model="formData.prenume"
+                      outlined dense class="q-pa-sm" required style="margin-right: -15px;"
                     />
                   </div>
                 </div>
+              </q-tab-panel>
 
-                <div class="row">
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">Țară <span style="color:red">*</span></div>
-                    <q-select v-model="formDataFizica.tara" :options="optionsCountries" option-value="iso2" option-label="country" @filter="filterCountries"
-                      use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
-                    >
-                      <template v-slot:no-option>
-                        <q-item>
-                          <q-item-section class="text-grey">
-                            No results
-                          </q-item-section>
-                        </q-item>
-                      </template>
-                    </q-select>
-                  </div>
-
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">Județ <span style="color:red">*</span></div>
-                    <q-select v-model="formDataFizica.judet" :options="optionsStates" option-value="state" option-label="name"
-                      use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
-                    >
-                      <template v-slot:no-option>
-                        <q-item>
-                          <q-item-section class="text-grey">
-                            No results
-                          </q-item-section>
-                        </q-item>
-                      </template>
-                    </q-select>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">Localitate <span style="color: red;">*</span></div>
-                    <q-select v-model="formDataFizica.localitate" :options="optionsCities" option-value="city" option-label="name"
-                      use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
-                    >
-                      <template v-slot:no-option>
-                        <q-item>
-                          <q-item-section class="text-grey">
-                            No results
-                          </q-item-section>
-                        </q-item>
-                      </template>
-                    </q-select>
-                  </div>
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">Adresă <span style="color:red">*</span></div>
-                    <q-input v-model="formDataFizica.adresa"
-                      outlined dense class="q-pa-sm" required
-                    />
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">Email <span style="color:red">*</span></div>
-                    <q-input v-model="formDataFizica.email"
-                      outlined dense class="q-pa-sm" required
-                    />
-                  </div>
-                  <div class="col">
-                      <div style="text-align: left; margin-left: 10px;">Număr de telefon <span style="color:red">*</span></div>
-                      <q-input v-model="numar_telefon_pers_fizica"
-                      outlined dense class="q-pa-sm" required
-                      >
-                        <template v-slot:prepend>
-                          <q-select v-model="cod_tara_pers_fizica" :options="countryCodes"
-                          dense style="width:55px; margin-left:-12px" />
-                        </template>
-                      </q-input>
-                    </div>
-                </div>
-
-                <div class="row">
-                  <div class="col">
-                      <div style="text-align: left; margin-left: 10px;">Parolă <span style="color:red">*</span></div>
-                      <q-input v-model="formDataFizica.parola" :type="showPassword ? 'text' : 'password'"
-                        outlined dense class="q-pa-sm" required
-                      >
-                        <template v-slot:prepend>
-                          <q-icon name="lock" />
-                        </template>
-                        <template v-slot:append>
-                          <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(showPassword)" />
-                        </template>
-                      </q-input>
-                    </div>
-                    <div class="col">
-                      <div style="text-align: left; margin-left: 10px;">Confirmare parolă <span style="color:red">*</span></div>
-                      <q-input v-model="formDataFizica.confirmare_parola" :type="showConfirmPassword ? 'text' : 'password'"
-                        outlined dense class="q-pa-sm" required
-                      >
-                        <template v-slot:prepend>
-                          <q-icon name="lock" />
-                        </template>
-                        <template v-slot:append>
-                          <q-icon :name="showConfirmPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(showConfirmPassword, 'confirm')" />
-                        </template>
-                      </q-input>
-                    </div>
-                </div>
-              </q-form>
-            </q-tab-panel>
             <q-tab-panel name="persoana_juridica">
               <div style="text-align: left; color:#2563EB; margin-top: -20px">Date persoană juridică</div>
               <q-separator />
-              <q-form @submit="submitForm">
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px; margin-top:1em">Nume Companie <span style="color:red">*</span></div>
-                    <q-input v-model="formDataJuridica.denumire_companie"
-                      outlined dense class="q-pa-sm" required
-                    />
-                  </div>
+              <div class="col">
+                <div style="text-align: left; margin-left: -5px; margin-top:1em">Nume Companie <span style="color:red">*</span></div>
+                <q-input v-model="formData.denumire_companie"
+                  outlined dense class="q-pa-sm" required style="margin-left: -15px; margin-right: -15px;"
+                />
+              </div>
 
-                <div class="row">
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">CIF/CUI  <span style="color:red">* <span v-if="!isCuiValid" style="color:red">CUI invalid</span></span></div>
-                    <q-input v-model="formDataJuridica.cui"
-                      outlined dense class="q-pa-sm" required
-                    />
-                  </div>
-    
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">Număr de înregistrare la registrul comerțului (J/F) <span style="color:red">*</span></div>
-                    <q-input v-model="formDataJuridica.numar_inregistrare"
-                      outlined dense class="q-pa-sm" required
-                    />
-                  </div>
-                </div>
+            <div class="row">
+              <div class="col">
+                <div style="text-align: left; margin-left: -5px;">CIF/CUI  <span style="color:red">* <span v-if="!isCuiValid" style="color:red">CUI invalid</span></span></div>
+                <q-input v-model="formData.cui"
+                  outlined dense class="q-pa-sm" required style="margin-left: -15px;"
+                />
+              </div>
 
-                <div style="text-align: left">
-                  <q-checkbox size="sm" v-model="platitor_tva" label="Companie plătitoare de TVA" color="primary" />
-                  <span style="color:red; margin-left:3px">*</span>
-                </div>
+              <div class="col">
+                <div style="text-align: left; margin-left: 10px;">Număr de înregistrare la registrul comerțului (J/F) <span style="color:red">*</span></div>
+                <q-input v-model="formData.numar_inregistrare"
+                  outlined dense class="q-pa-sm" required style="margin-right: -15px;"
+                />
+              </div>
+            </div>
 
-                <div class="row">
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">Țară <span style="color:red">*</span></div>
-                    <q-select v-model="formDataJuridica.tara" :options="optionsCountries" option-value="iso2" option-label="country"
-                      use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
-                    >
-                      <template v-slot:no-option>
-                        <q-item>
-                          <q-item-section class="text-grey">
-                            No results
-                          </q-item-section>
-                        </q-item>
-                      </template>
-                    </q-select>
-                  </div>
-
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">Județ <span style="color:red">*</span></div>
-                    <q-select v-model="formDataJuridica.judet" :options="optionsStates" option-value="state" option-label="name"
-                      use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
-                    >
-                      <template v-slot:no-option>
-                        <q-item>
-                          <q-item-section class="text-grey">
-                            No results
-                          </q-item-section>
-                        </q-item>
-                      </template>
-                    </q-select>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">Localitate <span style="color: red;">*</span></div>
-                    <q-select v-model="formDataJuridica.localitate" :options="optionsCities" option-value="city" option-label="name"
-                      use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
-                    >
-                      <template v-slot:no-option>
-                        <q-item>
-                          <q-item-section class="text-grey">
-                            No results
-                          </q-item-section>
-                        </q-item>
-                      </template>
-                    </q-select>
-                  </div>
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">Adresă <span style="color:red">*</span></div>
-                    <q-input v-model="formDataJuridica.adresa"
-                      outlined dense class="q-pa-sm" required
-                    />
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">Email <span style="color:red">*</span></div>
-                    <q-input v-model="formDataJuridica.email"
-                      outlined dense class="q-pa-sm" required
-                    />
-                  </div>
-                  <div class="col">
-                      <div style="text-align: left; margin-left: 10px;">Număr de telefon <span style="color:red">*</span></div>
-                      <q-input v-model="numar_telefon_pers_juridica"
-                        outlined dense class="q-pa-sm" required
-                      >
-                        <template v-slot:prepend>
-                          <q-select v-model="cod_tara_pers_juridica" :options="countryCodes"
-                          dense style="width:55px; margin-left:-12px;" />
-                        </template>
-                      </q-input>
-                    </div>
-                </div>
-
-                <div class="row">
-                  <div class="col">
-                      <div style="text-align: left; margin-left: 10px;">Parolă <span style="color:red">*</span></div>
-                      <q-input v-model="formDataJuridica.parola" :type="showPassword ? 'text' : 'password'"
-                        outlined dense class="q-pa-sm" required
-                      >
-                        <template v-slot:prepend>
-                          <q-icon name="lock" />
-                        </template>
-                        <template v-slot:append>
-                          <q-icon :name="showPassword ? 'visibility_off' : 'visibility'"
-                          @click="togglePasswordVisibility(showPassword)" />
-                        </template>
-                      </q-input>
-                    </div>
-                    <div class="col">
-                      <div style="text-align: left; margin-left: 10px;">Confirmare parolă <span style="color:red">*</span></div>
-                      <q-input v-model="formDataJuridica.confirmare_parola" :type="showConfirmPassword ? 'text' : 'password'"
-                        outlined dense class="q-pa-sm" required
-                      >
-                        <template v-slot:prepend>
-                          <q-icon name="lock" />
-                        </template>
-                        <template v-slot:append>
-                          <q-icon :name="showConfirmPassword ? 'visibility_off' : 'visibility'"
-                            @click="togglePasswordVisibility(showConfirmPassword, 'confirm')" />
-                        </template>
-                      </q-input>
-                    </div>
-                </div>
-              </q-form>
+            <div style="text-align: left">
+              <q-checkbox size="sm" v-model="formData.platitorTVA" label="Companie plătitoare de TVA" color="primary" style="margin-left:-15px" />
+              <span style="color:red; margin-left:3px">*</span>
+            </div>
             </q-tab-panel>
           </q-tab-panels>
+
+            <div class="row">
+              <div class="col">
+                <div style="text-align: left; margin-left: 10px;">Țară <span style="color:red">*</span></div>
+                <q-select v-model="formData.tara" :options="optionsCountries" option-value="iso2" option-label="country" @filter="filterCountries"
+                  use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey">
+                        No results
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
+
+              <div class="col">
+                <div style="text-align: left; margin-left: 10px;">Județ <span style="color:red">*</span></div>
+                <q-select v-model="formData.judet" :options="optionsStates" option-value="state" option-label="name" @filter="filterCounties"
+                  use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey">
+                        No results
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div style="text-align: left; margin-left: 10px;">Localitate <span style="color: red;">*</span></div>
+                <q-select v-model="formData.localitate" :options="optionsCities" option-value="city" option-label="name" @filter="filterCities"
+                  use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey">
+                        No results
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
+              
+              <div class="col">
+                <div style="text-align: left; margin-left: 10px;">Adresă <span style="color:red">*</span></div>
+                <q-input v-model="formData.adresa"
+                  outlined dense class="q-pa-sm" required
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div style="text-align: left; margin-left: 10px;">Email <span style="color:red">*</span></div>
+                <q-input v-model="formData.email"
+                  outlined dense class="q-pa-sm" required
+                />
+              </div>
+
+              <div class="col">
+                <div style="text-align: left; margin-left: 10px;">Număr de telefon <span style="color:red">*</span></div>
+                <q-input v-model="numar_telefon"
+                  outlined dense class="q-pa-sm" required
+                >
+                  <template v-slot:prepend>
+                    <q-select v-model="prefix_tara" :options="countryCodes"
+                      dense style="width:55px; margin-left:-12px" />
+                  </template>
+                </q-input>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div style="text-align: left; margin-left: 10px;">Parolă <span style="color:red">*</span></div>
+                <q-input v-model="formData.parola" :type="showPassword ? 'text' : 'password'"
+                  outlined dense class="q-pa-sm" required
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="lock" />
+                  </template>
+                  <template v-slot:append>
+                    <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(showPassword)" />
+                  </template>
+                </q-input>
+              </div>
+                
+              <div class="col">
+                <div style="text-align: left; margin-left: 10px;">Confirmare parolă <span style="color:red">*</span></div>
+                <q-input v-model="formData.confirmare_parola" :type="showConfirmPassword ? 'text' : 'password'"
+                  outlined dense class="q-pa-sm" required
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="lock" />
+                  </template>
+                  <template v-slot:append>
+                    <q-icon :name="showConfirmPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(showConfirmPassword, 'confirm')" />
+                  </template>
+                </q-input>
+              </div>
+            </div>
+          </q-form>
         </q-card-section>
       </q-card>
 
@@ -296,8 +193,12 @@
       </div>
 
       <div class="q-mt-md text-center">
-        <q-btn label="Creează cont" text-color="white" style="background: #0CD496; width: 1000px; height: 50px" @click="submitForm"
-        />
+        <q-btn :disabled="!isFormValid"
+        label="Creează cont"
+        text-color="white"
+        style="background: #0CD496; width: 1000px; height: 50px"
+        unelevated
+        @click="submitForm; navigateToHome" />
       </div>
 
       <div class="q-mt-lg text-center">
@@ -309,7 +210,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -319,50 +220,63 @@ const countryCodes = ref([
   { label: '+40', value: '+40' },
 ]);
 
-const cod_tara_pers_fizica = ref('+40');
-const numar_telefon_pers_fizica = ref('');
-
-const cod_tara_pers_juridica = ref('+40');
-const numar_telefon_pers_juridica = ref('');
+const prefix_tara = ref('+40');
+const numar_telefon = ref('');
 
 const showPassword = ref(false);
 const showConfirmPassword = ref(false);
 
-const formDataFizica = ref({
-  nume: '',
-  prenume: '',
-  tara: { country: 'Romania'},
-  judet: '',
-  localitate: '',
-  adresa: '',
-  email: '',
-  numar_telefon: '',
-  parola: '',
-  confirmare_parola: '',
+const terms = ref(false);
+const tab = ref('persoana_fizica');
+
+const formData = ref({
+  nume: '', // persoana fizica
+  prenume: '', // persoana fizica
+  denumire_companie: '', // persoana juridica
+  cui: '', // persoana juridica
+  numar_inregistrare: '', // persoana juridica
+  tara: { country: 'Romania'}, // required
+  judet: '', // required
+  localitate: '', // required
+  adresa: '', // required
+  email: '', // required
+  numar_telefon: '', // required
+  parola: '', // required
+  confirmare_parola: '', // required
+  isPersoanaFizica: true,
+  platitorTVA: false
 });
 
-const formDataJuridica = ref({
-  denumire_companie: '',
-  cui: '',
-  numar_inregistrare: '',
-  tara: { country: 'Romania'},
-  judet: '',
-  localitate: '',
-  adresa: '',
-  email: '',
-  numar_telefon: '',
-  parola: '',
-  confirmare_parola: '',
-});
+const clearFormData = () => {
+  formData.value = {
+    nume: '',
+    prenume: '',
+    denumire_companie: '',
+    cui: '',
+    numar_inregistrare: '',
+    tara: { country: 'Romania'},
+    judet: '',
+    localitate: '',
+    adresa: '',
+    email: '',
+    numar_telefon: '',
+    parola: '',
+    confirmare_parola: '',
+    isPersoanaFizica: tab.value === 'persoana_fizica',
+    platitorTVA: false
+  };
 
-const platitor_tva = ref(false);
+  prefix_tara.value = '+40';
+  numar_telefon.value = '';
 
-watch([cod_tara_pers_fizica, numar_telefon_pers_fizica], () => {
-  formDataFizica.value.numar_telefon = cod_tara_pers_fizica.value + numar_telefon_pers_fizica.value;
-});
+  showPassword.value = false;
+  showConfirmPassword.value = false;
 
-watch([cod_tara_pers_juridica, numar_telefon_pers_juridica], () => {
-  formDataJuridica.value.numar_telefon = cod_tara_pers_juridica.value + numar_telefon_pers_juridica.value;
+  terms.value = false;
+};
+
+watch([prefix_tara, numar_telefon], () => {
+  formData.value.numar_telefon = prefix_tara.value + numar_telefon.value;
 });
 
 const togglePasswordVisibility = (currentState: boolean, type: 'password' | 'confirm' = 'password') => {
@@ -373,25 +287,43 @@ const togglePasswordVisibility = (currentState: boolean, type: 'password' | 'con
   }
 };
 
-const terms = ref(false);
-const tab = ref('persoana_fizica');
+const allFieldsFilled = computed(() => {
+  // Always required fields
+  const requiredFields = formData.value.isPersoanaFizica
+    ? ['nume', 'prenume', 'tara', 'judet', 'localitate', 'adresa', 'email', 'numar_telefon', 'parola', 'confirmare_parola']
+    : ['denumire_companie', 'cui', 'numar_inregistrare', 'tara', 'judet', 'localitate', 'adresa', 'email', 'numar_telefon', 'parola', 'confirmare_parola'];
+
+  return requiredFields.every((field) => !!formData.value[field]);
+});
+
+const isFormValid = computed(() => {
+  return allFieldsFilled.value && terms.value;
+});
 
 const submitForm = () => {
   if (tab.value === 'persoana_fizica') {
-    console.log(formDataFizica.value);
+    console.log(formData.value);
   } else {
-    console.log(formDataJuridica.value);
+    console.log(formData.value);
   }
 };
 
-const navigateToLogin = () => {
-  router.push('/login');
-};
+watch(tab, (newVal) => {
+  if (newVal === 'persoana_fizica') {
+    clearFormData();
+    console.log(formData.value);
+  } else {
+    clearFormData();
+    console.log(formData.value);
+  }
+});
 
 const optionsCountries = ref([]);
 const optionsStates = ref([]);
 const optionsCities = ref([]);
 const allCountries = ref([]);
+const allStates = ref([]);
+const allCities = ref([]);
 
 onMounted(() => {
   fetch('https://countriesnow.space/api/v0.1/countries',
@@ -421,11 +353,12 @@ onMounted(() => {
     optionsStates.value = data.data.states.map((state) => ({
       name: state.name,
     }));
+    allStates.value = [...optionsStates.value];
   })
   .catch((error) => console.error('Error fetching states:', error));
 });
 
-  watch(() => formDataFizica.value.tara, (newVal) => {
+watch(() => formData.value.tara, (newVal) => {
   if (!newVal) return; // Exit if the new value is falsy
 
   fetch('https://countriesnow.space/api/v0.1/countries/states', {
@@ -440,12 +373,12 @@ onMounted(() => {
     optionsStates.value = data.data.states.map((state) => ({
       name: state.name,
     }));
-    console.log(optionsStates);
+    allStates.value = [...optionsStates.value];
   })
   .catch((error) => console.error('Error fetching states:', error));
 }, { immediate: false, deep: true });
 
-  watch(() => formDataFizica.value.judet, (newVal) => {
+watch(() => formData.value.judet, (newVal) => {
   if (!newVal) return; // Exit if the new value is falsy
 
   fetch('https://countriesnow.space/api/v0.1/countries/state/cities', {
@@ -453,17 +386,17 @@ onMounted(() => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ "country": formDataFizica.value.tara.country, "state": newVal.name }),
+    body: JSON.stringify({ "country": formData.value.tara.country, "state": newVal.name }),
   })
   .then((response) => response.json())
   .then((data) => {
     optionsCities.value = data.data.map((city) => ({
       name: city,
     }));
+    allCities.value = [...optionsCities.value];
   })
   .catch((error) => console.error('Error fetching cities:', error));
 }, { immediate: false, deep: true });
-
 
 const filterCountries = (val, update, abort) => {
   update(() => {
@@ -479,13 +412,42 @@ const filterCountries = (val, update, abort) => {
   });
 }
 
+const filterCounties = (val, update, abort) => {
+  update(() => {
+    if (val.trim() === '') {
+      // Reset to all countries if input is empty
+      optionsStates.value = [...allStates.value];
+    } else {
+      const needle = val.toLowerCase();
+      optionsStates.value = allStates.value.filter((state) =>
+        state.name.toLowerCase().includes(needle)
+      );
+    }
+  });
+}
+
+const filterCities = (val, update, abort) => {
+  update(() => {
+    if (val.trim() === '') {
+      // Reset to all cities if input is empty
+      optionsCities.value = [...allCities.value];
+    } else {
+      const needle = val.toLowerCase();
+      optionsCities.value = allCities.value.filter((city) =>
+        city.name.toLowerCase().includes(needle)
+      );
+    }
+  });
+}
+
 const infoCuiAPI = "https://infocui.ro/system/api/data" 
 const getCompanyData = async () => {
   try {
     var json = {
       "key": "3af785b54590b6979a2dbe7ca17882cbfd8b0364",
-      "cui": formDataJuridica.value.cui,
+      "cui": formData.value.cui,
     }
+
     let queryParams = new URLSearchParams(json).toString();
     let urlWithParams = `${infoCuiAPI}?${queryParams}`;
 
@@ -498,57 +460,65 @@ const getCompanyData = async () => {
       console.log("AAAAAAAAAAAAAAAAAAA DATA")
       console.log(data)
 
-      formDataJuridica.value.adresa = data.data.adresa;
-      formDataJuridica.value.denumire_companie = data.data.nume;
-      formDataJuridica.value.numar_inregistrare = data.data.cod_inmatriculare;
-      formDataJuridica.value.localitate = data.data.adresa_localitate;
-      formDataJuridica.value.judet = data.data.adresa_judet;
-      console.log(formDataJuridica.value)
+      formData.value.adresa = data.data.adresa_strada + ", NR." + data.data.adresa_nr_strada;
+      formData.value.denumire_companie = data.data.nume;
+      formData.value.numar_inregistrare = data.data.cod_inmatriculare;
+      formData.value.localitate = { 'name': data.data.adresa_localitate};
+      formData.value.judet = { 'name': data.data.adresa_judet };
+      console.log(formData.value)
     } else {
       console.log(`API returned an error status: ${(await response).status}`);
     }
     
-    } catch (error) {
-      console.log("Failed to connect to the API:", error.message);
+  } catch (error) {
+    console.log("Failed to connect to the API:", error.message);
     }
-  };
+};
 
-  const validateCUI = () => {
-    // remove spaces
-    // formDataJuridica.value.cui = formDataJuridica.value.cui.replace(/\s/g, '');
+const validateCUI = () => {
+  // remove spaces
+  // formDataJuridica.value.cui = formDataJuridica.value.cui.replace(/\s/g, '');
 
-    var cui: number = +formDataJuridica.value.cui;
+  var cui: number = +formData.value.cui;
 
-    if(cui.toString().length < 2 && cui.toString().length > 10) {
-      return false;
-    }
-    
-    var testKey = 753217532;
-    var controlNumber = cui % 10;
+  if(cui.toString().length < 2 && cui.toString().length > 10) {
+    return false;
+  }
+  
+  var testKey = 753217532;
+  var controlNumber = cui % 10;
+  cui = Math.floor(cui / 10);
+
+  var sum = 0;
+  while(cui > 0) {
+    sum += (cui % 10) * (testKey % 10);
     cui = Math.floor(cui / 10);
-
-    var sum = 0;
-    while(cui > 0) {
-      sum += (cui % 10) * (testKey % 10);
-      cui = Math.floor(cui / 10);
-      testKey = Math.floor(testKey / 10);
-    }
-
-    var rest = sum * 10 % 11;
-    if(rest == 10) {
-      rest = 0;
-    } 
-    return rest == controlNumber;
-
+    testKey = Math.floor(testKey / 10);
   }
 
-  const isCuiValid = ref(false);
-  watch(() => formDataJuridica.value.cui, () => {
-    isCuiValid.value = validateCUI();
-    if(isCuiValid.value) {
-      getCompanyData();
-    }
-  });
+  var rest = sum * 10 % 11;
+  if(rest == 10) {
+    rest = 0;
+  } 
+  return rest == controlNumber;
+
+}
+
+const isCuiValid = ref(false);
+watch(() => formData.value.cui, () => {
+  isCuiValid.value = validateCUI();
+  if(isCuiValid.value) {
+    getCompanyData();
+  }
+});
+
+const navigateToLogin = () => {
+  router.push('/login');
+};
+
+const navigateToHome = () => {
+  router.push('/');
+};
 
 </script>
 
