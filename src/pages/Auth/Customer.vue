@@ -7,7 +7,7 @@
       src="~/src/assets/banner.jpeg"
     >
       <q-toolbar>
-        <q-img src="~/src/assets/logo.png" style="height: 120px; width: 120px; margin-left: 100px;" fit="contain"/>
+        <q-img src="~/src/assets/logo.png" style="height: 120px; width: 120px; margin-left: 100px;" fit="contain" @click="() => router.push('/')"/>
       </q-toolbar>
     </q-header>
     <q-page class="flex-center">
@@ -160,7 +160,7 @@
 
                 <div class="row">
                   <div class="col">
-                    <div style="text-align: left; margin-left: 10px;">CIF/CUI <span style="color:red">*</span></div>
+                    <div style="text-align: left; margin-left: 10px;">CIF/CUI  <span style="color:red">* <span v-if="!isCuiValid" style="color:red">CUI invalid</span></span></div>
                     <q-input v-model="formDataJuridica.cui"
                       outlined dense class="q-pa-sm" required
                     />
@@ -478,6 +478,78 @@ const filterCountries = (val, update, abort) => {
     }
   });
 }
+
+const infoCuiAPI = "https://infocui.ro/system/api/data" 
+const getCompanyData = async () => {
+  try {
+    var json = {
+      "key": "3af785b54590b6979a2dbe7ca17882cbfd8b0364",
+      "cui": formDataJuridica.value.cui,
+    }
+    let queryParams = new URLSearchParams(json).toString();
+    let urlWithParams = `${infoCuiAPI}?${queryParams}`;
+
+    const response = fetch(urlWithParams, {
+    method: 'GET'});
+    
+    if ((await response).ok) {
+      var data= await (await response).json();
+
+      console.log("AAAAAAAAAAAAAAAAAAA DATA")
+      console.log(data)
+
+      formDataJuridica.value.adresa = data.data.adresa;
+      formDataJuridica.value.denumire_companie = data.data.nume;
+      formDataJuridica.value.numar_inregistrare = data.data.cod_inmatriculare;
+      formDataJuridica.value.localitate = data.data.adresa_localitate;
+      formDataJuridica.value.judet = data.data.adresa_judet;
+      console.log(formDataJuridica.value)
+    } else {
+      console.log(`API returned an error status: ${(await response).status}`);
+    }
+    
+    } catch (error) {
+      console.log("Failed to connect to the API:", error.message);
+    }
+  };
+
+  const validateCUI = () => {
+    // remove spaces
+    // formDataJuridica.value.cui = formDataJuridica.value.cui.replace(/\s/g, '');
+
+    var cui: number = +formDataJuridica.value.cui;
+
+    if(cui.toString().length < 2 && cui.toString().length > 10) {
+      return false;
+    }
+    
+    var testKey = 753217532;
+    var controlNumber = cui % 10;
+    cui = Math.floor(cui / 10);
+
+    var sum = 0;
+    while(cui > 0) {
+      sum += (cui % 10) * (testKey % 10);
+      cui = Math.floor(cui / 10);
+      testKey = Math.floor(testKey / 10);
+    }
+
+    var rest = sum * 10 % 11;
+    if(rest == 10) {
+      rest = 0;
+    } 
+    return rest == controlNumber;
+
+  }
+
+  const isCuiValid = ref(false);
+  watch(() => formDataJuridica.value.cui, () => {
+    isCuiValid.value = validateCUI();
+    if(isCuiValid.value) {
+      getCompanyData();
+    }
+  });
+
 </script>
 
 <style scoped>
