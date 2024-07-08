@@ -40,6 +40,7 @@
             <q-card-section
                 horizontal
                 style="display: flex; align-items: center; gap: 12px;"
+                v-if="isLogged"
             >
             <!-- Cart -->
                 <q-btn
@@ -60,6 +61,7 @@
                 <!-- Profile -->
                 <q-btn
                     style="display: flex; justify-content: center; align-items: center; gap: var(--Spacing-spacing-xs, 8px); max-height: 40px;"
+                    @click="() => router.push('/profile')"
                 >
 
                     <q-icon 
@@ -88,16 +90,16 @@
             
             </q-card-section>
             
-            <!-- Log In Button-->
-             <!-- TODO: Modify v-if so it only appears when user not logged in. -->
             <q-btn
                 label="Log In"
-                @click="() => router.push('/auth/login')"
+                @click="() => router.push('/login')"
                 class="button-style"
-                style="height: 40px; width: 150px"
-                v-if="false"
+                style="height: 40px; width: 150px;"
+                v-if="!isLogged"
             />
-        </q-card-section>
+            <!-- Log In Button-->
+             <!-- TODO: Modify v-if so it only appears when user not logged in. -->
+            </q-card-section>
     
         <!-- Banner: Departments, Construction Mats, Offers --> 
         <q-banner 
@@ -180,6 +182,7 @@
 import { ref } from 'vue';
 import logout from '@/firebase/firebase-logout'
 import { useRouter } from 'vue-router';
+import {auth} from '@/firebase/firebase';
 
 const router = useRouter();
 
@@ -188,6 +191,9 @@ const search = ref<string>('');
 const slide = ref<number>(1);
 
 const tab = ref<string>('1');
+
+const isLogged = ref<boolean>(false);
+isLogged.value = auth.currentUser !== null;
 
 </script>
 

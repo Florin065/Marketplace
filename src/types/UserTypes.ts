@@ -38,4 +38,8 @@ export type UserData = {
     cui: string,
     registrationNumber: string,
     platitorTVA: boolean,
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9f106a3b4ed94c97831c4dc307341adaad0baee3
