@@ -7,15 +7,21 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => DefaultLayout,
     children: [
-      { path: '', component: Home },
-      { path: '/login', component: () => import('../pages/Auth/Login.vue') },
+      { path: '', 
+        component: () => Home,
+      },
+      { path: '/login', component: () => import('@/pages/Auth/Login.vue') },
       {
         path: '/merchant-register',
-        component: () => import('../pages/Auth/Merchant.vue'),
+        component: () => import('@/pages/Auth/Merchant.vue'),
       },
       {
         path: '/register',
-        component: () => import('../pages/Auth/Customer.vue'),
+        component: () => import('@/pages/Auth/Customer.vue'),
+      },
+      {
+        path: '/product',
+        component: () => import('@/pages/Products/Product.vue'),
       },
     ],
   },
