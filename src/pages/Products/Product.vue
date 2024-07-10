@@ -414,6 +414,7 @@
                         
                             <div
                                 style="color: var(--color-text-onColor, #FFF); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 600; line-height: 24px;"
+                                @click = "() => addedToCart()"
                             >
                                 Adaugă în coș
                             </div>
@@ -567,6 +568,8 @@
         </q-card-section>
     </q-card-section>
 
+    <!-- Bought together -->
+     <!-- TODO: Make it extendable so it only displays "Cumparate des impreuna" and the "Ascunde" button. -->
     <q-card-section
         vertical
         style="display: flex; flex-direction: column; align-items: flex-start; gap: 25px; align-self: stretch;"
@@ -594,7 +597,7 @@
                 </q-btn>
                 
             </q-card-section>
-
+        
             <q-card-section
                 horizontal
                 style="display: flex; height: 42px; align-items: flex-start; gap: 12px;"
