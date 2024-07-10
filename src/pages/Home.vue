@@ -682,6 +682,8 @@
                 <q-btn icon="chevron_right" @click="scrollRight" flat />
             </q-card-section>
 
+            
+
         <q-btn
             label="LogOut"
             @click="logout"
