@@ -102,6 +102,7 @@
             </q-card-section>
     
         <!-- Banner: Departments, Construction Mats, Offers --> 
+         <!-- TODO: move above to layout -->
         <q-banner 
             class="navigationBanner"
         >
@@ -682,7 +683,7 @@
                 <q-btn icon="chevron_right" @click="scrollRight" flat />
             </q-card-section>
 
-            
+
 
         <q-btn
             label="LogOut"
@@ -724,14 +725,14 @@ const position = ref<number>(0);
 const scrollAreaRef = ref<any>(null);
 
 const scrollLeft = () => {
-    // scrollAreaRef.value.setScrollPosition('horizontal', -position.value, 300)
-    // position.value = Math.floor(Math.random() * 1001) * 20
     const scrollDistance = 200; // Smaller scroll distance
     const scrollDuration = 500; // Slower scroll speed (500ms)
         
     // Calculate the new position by subtracting the scroll distance
-    position.value -= scrollDistance;
-    scrollAreaRef.value.setScrollPosition('horizontal', position.value, scrollDuration);
+    if(position.value > 0) {
+        position.value -= scrollDistance;
+        scrollAreaRef.value.setScrollPosition('horizontal', position.value, scrollDuration);
+    }
 
 }
 
