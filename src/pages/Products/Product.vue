@@ -471,7 +471,7 @@
                             </div>
 
                             <!-- Descrierea produsului, luata din DB -->
-                            <q-scroll-area style="height: 178px; align-self: stretch; overflow-y: auto; width: 55vw">
+                            <q-scroll-area style="height: 178px; align-self: stretch; overflow-y: auto; width: 55vw;">
                                 <div
                                     style="align-self: stretch; color: var(--color-text, #09090B); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 600; line-height: 24px; text-align: left;"
                                 >
@@ -569,7 +569,6 @@
     </q-card-section>
 
     <!-- Bought together -->
-     <!-- TODO: Make it extendable so it only displays "Cumparate des impreuna" and the "Ascunde" button. -->
     <q-card-section
         vertical
         style="display: flex; flex-direction: column; align-items: flex-start; gap: 25px; align-self: stretch;"
@@ -589,15 +588,17 @@
                 <q-btn
                     style="display: flex; align-items: center; gap: 6px; align-self: stretch;"
                     flat
+                    @click="() => hiddenBoughtTogether = !hiddenBoughtTogether"
                 >
 
-                    <q-icon class="bi bi-eye-slash" size="12px"/>
-                    <div style="margin-left: 6px;color: var(--color-text-disabled, #A1A1AA); font-family: Inter; font-size: 12px; font-style: normal; font-weight: 400; line-height: 16px;"> Ascunde</div>
+                    <q-icon :class="hiddenBoughtTogether ? 'bi bi-eye' : 'bi bi-eye-slash'" size="12px"/>
+                    <div v-if="hiddenBoughtTogether" style="margin-left: 6px;color: var(--color-text-disabled, #A1A1AA); font-family: Inter; font-size: 12px; font-style: normal; font-weight: 400; line-height: 16px;"> Afiseaza</div>
+                    <div v-else style="margin-left: 6px;color: var(--color-text-disabled, #A1A1AA); font-family: Inter; font-size: 12px; font-style: normal; font-weight: 400; line-height: 16px;"> Ascunde</div>
 
                 </q-btn>
                 
             </q-card-section>
-        
+
             <q-card-section
                 horizontal
                 style="display: flex; height: 42px; align-items: flex-start; gap: 12px;"
@@ -620,11 +621,11 @@
         
             </q-card-section>
         </q-card-section>
-
         <q-card-section
-                horizontal
-                style="display: flex; align-items: center; gap: 10px; align-self: stretch;"
-            >
+            horizontal
+            style="display: flex; align-items: center; gap: 10px; align-self: stretch;"
+            v-if="!hiddenBoughtTogether"
+        >
                 <q-btn icon="chevron_left" @click="scrollLeft" flat />
     
                 <q-scroll-area style="height: 403px; max-width: 100vw; display: flex; align-items: flex-start; gap: 16px; flex: 1 0 0; box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);" ref="scrollAreaRef">
@@ -943,7 +944,7 @@
                     </div>
                 </q-scroll-area>
                 <q-btn icon="chevron_right" @click="scrollRight" flat />
-            </q-card-section>
+        </q-card-section>
 
     </q-card-section>
 
@@ -1040,6 +1041,8 @@ const quantity = ref<number>(1);
 
 const tab = ref<string>('1');
 const productTabs = ref<string>('2');
+
+const hiddenBoughtTogether = ref<boolean>(false);
 
 </script>
 
