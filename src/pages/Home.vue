@@ -503,7 +503,8 @@
                 </q-scroll-area>
                 <q-btn icon="chevron_right" @click="scrollRight" flat />
             </q-card-section>
-
+            
+            <!-- Newest Offers -->
             <q-card-section
                 vertical
                 style="display: flex; flex-direction: column; align-items: flex-start; gap: 25px; align-self: stretch; margin-top: 20px"
@@ -537,7 +538,175 @@
 
             </q-card-section>
 
+            <!-- Categories -->
+             <q-card-section
+                vertical
+                style="display: flex; flex-direction: column; align-items: flex-start; gap: 20px; align-self: stretch; margin-top: 34px"
+            >
+            
+                <div
+                    style="align-self: stretch; color: var(--color-icon, #18181B); font-family: Inter; font-size: 48px; font-style: normal; font-weight: 600; line-height: 58px; text-align: left;"
+                >
+                    Categorii
+                </div>
 
+                <q-card-section
+                    horizontal
+                    style="display: flex; align-items: flex-start; gap: 34px; align-self: stretch;"
+                >
+                    <q-card-section
+                        class="clickable-card-section"
+                        horizontal
+                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
+                        @click="() => router.push('/category/unelte-de-mana')"
+                    >
+
+                        <q-icon style="width: 127px; height: 130px;">
+                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/borm.jpg?alt=media&token=e43f8c90-4c54-4188-8199-e38e9819d7bd" />
+                        </q-icon>
+                        <div
+                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
+                        >
+                            Unelte de mana
+                        </div>
+
+                    </q-card-section>
+
+                    <q-card-section
+                        class="clickable-card-section"
+                        horizontal
+                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
+                        @click="() => router.push('/category/ciment')"
+                    >
+
+                        <q-icon style="width: 127px; height: 130px;">
+                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/ciment2.png?alt=media&token=5394417a-2fc2-4eb6-ab64-5fe63cb4a48e" />
+                        </q-icon>
+                        <div
+                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
+                        >
+                            Ciment
+                        </div>
+
+                    </q-card-section>
+
+                    <q-card-section
+                        class="clickable-card-section"
+                        horizontal
+                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
+                        @click="() => router.push('/category/ferestre')"
+                    >
+
+                        <q-icon style="width: 127px; height: 130px;">
+                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/geam.png?alt=media&token=c03a1ddb-ee56-431f-9b83-72732ca5b0b9" />
+                        </q-icon>
+                        <div
+                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
+                        >
+                            Ferestre
+                        </div>
+
+                    </q-card-section>
+
+                    <q-card-section
+                        class="clickable-card-section"
+                        horizontal
+                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
+                        @click="() => router.push('/category/lemn')"
+                    >
+
+                        <q-icon style="width: 127px; height: 130px;">
+                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1" />
+                        </q-icon>
+                        <div
+                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
+                        >
+                            Lemn si Placaje
+                        </div>
+
+                    </q-card-section>
+
+
+                </q-card-section>
+
+                <q-card-section
+                    horizontal
+                    style="display: flex; align-items: flex-start; gap: 34px; align-self: stretch;"
+                >
+                    <q-card-section
+                        class="clickable-card-section"
+                        horizontal
+                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
+                        @click="() => router.push('/category/ferestre')"
+                    >
+
+                    <q-icon style="width: 127px; height: 130px;">
+                        <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/geam.png?alt=media&token=c03a1ddb-ee56-431f-9b83-72732ca5b0b9" />
+                    </q-icon>
+                    <div
+                        style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
+                    >
+                        Ferestre
+                    </div>
+
+                    </q-card-section>
+
+                    <q-card-section
+                        class="clickable-card-section"
+                        horizontal
+                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
+                        @click="() => router.push('/category/lemn')"
+                    >
+
+                        <q-icon style="width: 127px; height: 130px;">
+                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1" />
+                        </q-icon>
+                        <div
+                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
+                        >
+                            Lemn si Placaje
+                        </div>
+
+                    </q-card-section>
+
+                    <q-card-section
+                        class="clickable-card-section"
+                        horizontal
+                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
+                        @click="() => router.push('/category/unelte-de-mana')"
+                    >
+
+                        <q-icon style="width: 127px; height: 130px;">
+                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/borm.jpg?alt=media&token=e43f8c90-4c54-4188-8199-e38e9819d7bd" />
+                        </q-icon>
+                        <div
+                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
+                        >
+                            Unelte de mana
+                        </div>
+
+                    </q-card-section>
+
+                    <q-card-section
+                        class="clickable-card-section"
+                        horizontal
+                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
+                        @click="() => router.push('/category/ciment')"
+                    >
+
+                        <q-icon style="width: 127px; height: 130px;">
+                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/ciment2.png?alt=media&token=5394417a-2fc2-4eb6-ab64-5fe63cb4a48e" />
+                        </q-icon>
+                        <div
+                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
+                        >
+                            Ciment
+                        </div>
+
+                    </q-card-section>
+                </q-card-section>
+
+            </q-card-section>
 
         <q-btn
             label="LogOut"
@@ -603,7 +772,6 @@ const scrollRight = () => {
 </script>
 
 <style scoped>
-
 .page-layout {
     display: flex;
     width: 100vw;
@@ -615,29 +783,10 @@ const scrollRight = () => {
     background: #FFF;
 }
 
-.discountBanner {
-    display: flex;
-    min-height: 36px;
-    height: 36px;
-    padding: 8px 16px;
-    flex-direction: center;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    align-self: stretch;
-    
-    background: var(--color-bg-success-strong, #059669);
-}
-
-.navigationBanner {
-    display: flex;
-    height: 48px;
-    padding: 4px 20px 0px 20px;
-    align-items: center;
-    gap: 12px;
-    align-self: stretch;
-
-    background: var(--gradient, linear-gradient(90deg, #2563EB 2%, #0CD496 100%));
-}
-
+.clickable-card-section:hover {
+    cursor: pointer; /* Changes the cursor to indicate it's clickable */
+    background-color: rgba(37, 99, 235, 0.15); /* Slightly darker on hover */
+    /* Optional: add a shadow or other effects */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
 </style>

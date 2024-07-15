@@ -63,6 +63,7 @@ button:focus-visible {
   margin:auto;
   height: auto;
   text-align: center;
+  
 }
 
 
@@ -77,4 +78,10 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+html { font-family: "Inter", "system-ui"; }
+
+@supports (font-variation-settings: normal) {
+  html { font-family: "InterVariable", "system-ui"; } /* If using the variable font */
 }

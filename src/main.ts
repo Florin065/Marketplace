@@ -21,6 +21,8 @@ import '@quasar/extras/themify/themify.css'
 import '@quasar/extras/line-awesome/line-awesome.css'
 import '@quasar/extras/bootstrap-icons/bootstrap-icons.css'
 
+import "inter-ui/inter.css";
+
 import routes from './router/routes'
 
 // A few examples for animations from Animate.css:
