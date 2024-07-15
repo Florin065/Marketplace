@@ -1,6 +1,7 @@
 <template>
     <q-page class="page-layout">
         <!-- Seasonal discount; this will only show when there is an active discount! TODO: Function to get active discount. -->
+         <!-- TODO: Modify pixels to vh or vw. -->
         <q-banner
             class="discountBanner"
         >
@@ -102,6 +103,7 @@
             </q-card-section>
     
         <!-- Banner: Departments, Construction Mats, Offers --> 
+         <!-- TODO: move above to layout -->
         <q-banner 
             class="navigationBanner"
         >
@@ -274,64 +276,64 @@
         
         </q-card-section>
         
-                <!-- Filters -->
-                <q-card-section
-                horizontal
-                style="display: flex; align-items: center; gap: 24px; align-self: stretch; margin-left:30px; margin-top: 20px"
-            >
-                <q-card style="display: flex; align-items: center; gap: 10px;">
-                    <q-icon size="sm">
-                        <q-img style="display: flex; align-items: center;gap: 10px;" src="@/assets/tag.svg" />
-                    </q-icon>
-                    <div
-                        style="color: var(--blue1, #2563EB); text-align: center;  font-family: Inter;font-size: 12px; font-style: normal; font-weight: 500; line-height: 16px; /* 133.333% */"
-                    >
-                        Cautari populare
-                    </div>
-                </q-card>
-    
-                <q-btn
-                    style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                    label="Lac pentru gard"
-                    unelevated
-                />
-    
-                <q-btn
-                    style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                    label="Gratar"
-                    unelevated
-                />
-    
-                <q-btn
-                    style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                    label="Carbuni"
-                    unelevated
-                />
-    
-                <q-btn
-                    style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                    label="Panou lemn"
-                    unelevated
-                />
-    
-                <q-btn
-                    style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                    label="Parchet"
-                    unelevated
-                />
-    
-                <q-btn
-                    style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                    label="Vopsea Interior"
-                    unelevated
-                />
-    
-            </q-card-section>
+        <!-- Filters -->
+        <q-card-section
+            horizontal
+            style="display: flex; align-items: center; gap: 24px; align-self: stretch; margin-left:30px; margin-top: 20px"
+        >
+            <q-card style="display: flex; align-items: center; gap: 10px;margin-top: 20px;">
+                <q-icon size="sm">
+                    <q-img style="display: flex; align-items: center;gap: 10px;" src="@/assets/tag.svg" />
+                </q-icon>
+                <div
+                    style="color: var(--blue1, #2563EB); text-align: center;  font-family: Inter;font-size: 12px; font-style: normal; font-weight: 500; line-height: 16px; /* 133.333% */"
+                >
+                    Cautari populare
+                </div>
+            </q-card>
+
+            <q-btn
+                style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
+                label="Lac pentru gard"
+                unelevated
+            />
+
+            <q-btn
+                style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
+                label="Gratar"
+                unelevated
+            />
+
+            <q-btn
+                style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
+                label="Carbuni"
+                unelevated
+            />
+
+            <q-btn
+                style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
+                label="Panou lemn"
+                unelevated
+            />
+
+            <q-btn
+                style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
+                label="Parchet"
+                unelevated
+            />
+
+            <q-btn
+                style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
+                label="Vopsea Interior"
+                unelevated
+            />
+
+        </q-card-section>
     
             <!-- Biggest Discounts -->
             <q-card-section
                 horizontal
-                style="display: flex; align-items: center; gap: 25px;"
+                style="display: flex; align-items: center; gap: 25px; margin-top: 20px;"
             >
                 <div style="margin-left: 30px;color: var(--color-icon, #18181B); font-family: Inter; font-size: 48px;
                     font-style: normal; font-weight: 600; line-height: 58px; /* 120.833% */"
@@ -364,39 +366,136 @@
             >
                 <q-btn icon="chevron_left" @click="scrollLeft" flat />
     
-                <q-scroll-area style="height: 403px; max-width: 100vw; display: flex; align-items: flex-start; gap: 16px; flex: 1 0 0; box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);" ref="scrollAreaRef">
-                    <div class="row no-wrap" style="display: flex; gap: 20px;">
-                        <q-card
-                            bordered
-                            style="display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF;"
+                <q-scroll-area 
+                    :visible="false"
+                    style="height: 403px; max-width: 100vw; display: flex; align-items: flex-start; gap: 16px; flex: 1 0 0; box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);" ref="scrollAreaRef"
+                >
+                    <div class="row no-wrap" style="display: flex; gap: 25px;">
+                        <!-- <div v-for="index in 15" :key="index" class="product-item"> -->
+                            <!-- Caramida -->
+                            <q-card
+                                bordered
+                                style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
+                                >
+                                    
+                                <div class="text-h6" @click="() => router.push('/product')">Caramida interior / exterior, rosii, 10 tone. </div>
+                                <q-card-section
+                                    horizontal
+                                    syle="display: flex; width: 334px;padding: 12px; align-items: center; justify-content: space-between; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
+                                >
+                                    <q-img
+                                        src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/caramida_Bg.png?alt=media&token=23f0f3f0-1169-4c8c-bcfb-8007a5774945"
+                                        style="width: 17vh; height: 20vh;"
+                                        fit="contain"
+                                        @click="() => router.push('/product')"
+                                    />
+                                    <q-card-section
+                                        vertical
+                                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; flex: 1 0 0; height:auto;"
+                                    >
+                                        <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 2vh; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through; text-align: center;"
+                                        >
+                                            32.99 Lei
+                                        </div>
+        
+                                        <div
+                                            style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
+                                        >
+                                            28.99 LEI
+                                        </div>
+                                        <div
+                                            style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; text-align: center;"
+                                        >
+        
+                                        </div>
+                                    </q-card-section>
+                                </q-card-section>
+                                
+                                <q-btn
+                                    label="Adauga in cos"
+                                    @click="() => addedToCart()"
+                                    style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
+                                />
+                            </q-card>
+                            <!-- Copper cable -->
+                            <q-card
+                                bordered
+                                style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
                             >
                                 
-                            <div class="text-h6" @click="() => router.push('/product')">Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg</div>
+                            <div class="text-h6" @click="() => router.push('/product')"> Cablu electric litat MYF (1.5MM-100M./rola)  </div>
                             <q-card-section
                                 horizontal
                                 syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
                             >
                                 <q-img
-                                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465"
-                                    style="width: 150px; height: 187.238px; background: url(<path-to-image>) lightgray 50% / cover no-repeat;"
+                                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/cablu_cupru-removebg-preview.png?alt=media&token=5c30e3f7-5330-4236-9171-06b478367824"
+                                    style="width: 150px; height: 200px;"
+                                    fit="contain"
                                     @click="() => router.push('/product')"
                                 />
                                 <q-card-section
                                     vertical
-                                    style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex: 1 0 0;"
+                                    style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; flex: 1 0 0; height:auto;"
                                 >
-                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through"
+                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through;
+                                    text-align: center;"
                                     >
                                         32.99 Lei
                                     </div>
     
                                     <div
-                                        style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; /* 133.333% */"
+                                        style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
                                     >
                                         28.99 LEI
                                     </div>
                                     <div
-                                        style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; /* 142.857% */"
+                                        style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; text-align: center;"
+                                    >
+    
+                                    </div>
+                                </q-card-section>
+                            </q-card-section>
+                            
+                            <q-btn
+                                label="Adauga in cos"
+                                @click="() => addedToCart()"
+                                style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
+                            />
+                            </q-card>
+                            <!-- Wood -->
+                            <q-card
+                            bordered
+                            style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
+                            >
+                                
+                            <div class="text-h6" @click="() => router.push('/product')"> Lemne de foc paletizate, 0.8 mc, fag, 1.2 m x 1.45 m  </div>
+                            <q-card-section
+                                horizontal
+                                syle="display: flex; width: 334px; padding: 12px; align-items: center; justify-content: space-between; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
+                            >
+                                <q-img
+                                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1"
+                                    style="width: 150px; height: 200px;"
+                                    fit="contain"
+                                    @click="() => router.push('/product')"
+                                />
+                                <q-card-section
+                                    vertical
+                                    style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; flex: 1 0 0; height:auto;"
+                                >
+                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through; text-align: center;"
+                                    >
+                                        32.99 Lei
+                                    </div>
+    
+                                    <div
+                                        style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
+                                    >
+                                        28.99 LEI
+                                    </div>
+                                    <div
+                                        style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; text-align: center;"
                                     >
     
                                     </div>
@@ -409,278 +508,137 @@
                                 style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
                             />
                         </q-card>
-    
-                        <q-card
-                            bordered
-                            style="display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF;"
-                            >
-                                
-                            <div class="text-h6" @click="() => router.push('/product')">Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg</div>
-                            <q-card-section
-                                horizontal
-                                syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
-                            >
-                                <q-img
-                                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465"
-                                    style="width: 150px; height: 187.238px; background: url(<path-to-image>) lightgray 50% / cover no-repeat;"
-                                    @click="() => router.push('/product')"
-                                />
-                                <q-card-section
-                                    vertical
-                                    style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex: 1 0 0;"
+                            <!-- BCA -->
+                            <q-card
+                                bordered
+                                style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
                                 >
-                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through"
-                                    >
-                                        32.99 Lei
-                                    </div>
-    
-                                    <div
-                                        style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; /* 133.333% */"
-                                    >
-                                        28.99 LEI
-                                    </div>
-                                    <div
-                                        style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; /* 142.857% */"
-                                    >
-    
-                                    </div>
-                                </q-card-section>
-                            </q-card-section>
-                            
-                            <q-btn
-                                label="Adauga in cos"
-                                @click="() => addedToCart()"
-                                style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
-                            />
-                        </q-card>
-    
-                        <q-card
-                            bordered
-                            style="display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF;"
-                            >
-                                
-                            <div class="text-h6" @click="() => router.push('/product')">Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg</div>
-                            <q-card-section
-                                horizontal
-                                syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
-                            >
-                                <q-img
-                                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465"
-                                    style="width: 150px; height: 187.238px; background: url(<path-to-image>) lightgray 50% / cover no-repeat;"
-                                    @click="() => router.push('/product')"
-                                />
+                                    
+                                <div class="text-h6" @click="() => router.push('/product')">BCA Ytong Design, 599 x 75 x 199 mm (LxGxH)</div> 
                                 <q-card-section
-                                    vertical
-                                    style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex: 1 0 0;"
+                                    horizontal
+                                    syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
                                 >
-                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through"
+                                    <q-img
+                                        src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/BCA-removebg-preview.png?alt=media&token=5ec49478-ce72-4177-87e5-6be5e5ce2b4f"
+                                        style="width: 150px; height: 200px;"
+                                        fit="contain"
+                                        @click="() => router.push('/product')"
+                                    />
+                                    <q-card-section
+                                        vertical
+                                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; flex: 1 0 0; height:auto;"
                                     >
-                                        32.99 Lei
-                                    </div>
-    
-                                    <div
-                                        style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; /* 133.333% */"
-                                    >
-                                        28.99 LEI
-                                    </div>
-                                    <div
-                                        style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; /* 142.857% */"
-                                    >
-    
-                                    </div>
+                                        <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through; text-align: center;"
+                                        >
+                                            32.99 Lei
+                                        </div>
+        
+                                        <div
+                                            style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
+                                        >
+                                            28.99 LEI
+                                        </div>
+                                        <div
+                                            style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; text-align: center;"
+                                        >
+        
+                                        </div>
+                                    </q-card-section>
                                 </q-card-section>
-                            </q-card-section>
-                            
-                            <q-btn
-                                label="Adauga in cos"
-                                @click="() => addedToCart()"
-                                style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
-                            />
-                        </q-card>
-    
-    
-                        <q-card
-                            bordered
-                            style="display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF;"
-                            >
                                 
-                            <div class="text-h6" @click="() => router.push('/product')">Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg</div>
-                            <q-card-section
-                                horizontal
-                                syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
-                            >
-                                <q-img
-                                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465"
-                                    style="width: 150px; height: 187.238px; background: url(<path-to-image>) lightgray 50% / cover no-repeat;"
-                                    @click="() => router.push('/product')"
+                                <q-btn
+                                    label="Adauga in cos"
+                                    @click="() => addedToCart()"
+                                    style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
                                 />
-                                <q-card-section
-                                    vertical
-                                    style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex: 1 0 0;"
+                            </q-card>
+                            <!-- Ciment -->
+                            <q-card
+                                bordered
+                                style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
                                 >
-                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through"
+                                    
+                                <div class="text-h6" @click="() => router.push('/product')">Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg</div>
+                                <q-card-section
+                                    horizontal
+                                    syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
+                                >
+                                    <q-img
+                                        src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465"
+                                        style="width: 150px; height: 200px;"
+                                        fit="contain"
+                                        @click="() => router.push('/product')"
+                                    />
+                                    <q-card-section
+                                        vertical
+                                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; flex: 1 0 0; height:auto;"
                                     >
-                                        32.99 Lei
-                                    </div>
-    
-                                    <div
-                                        style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; /* 133.333% */"
-                                    >
-                                        28.99 LEI
-                                    </div>
-                                    <div
-                                        style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; /* 142.857% */"
-                                    >
-    
-                                    </div>
+                                        <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through; text-align: center;"
+                                        >
+                                            32.99 Lei
+                                        </div>
+        
+                                        <div
+                                            style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
+                                        >
+                                            28.99 LEI
+                                        </div>
+                                        <div
+                                            style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; text-align: center;"
+                                        >
+        
+                                        </div>
+                                    </q-card-section>
                                 </q-card-section>
-                            </q-card-section>
-                            
-                            <q-btn
-                                label="Adauga in cos"
-                                @click="() => addedToCart()"
-                                style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
-                            />
-                        </q-card>
-    
-    
-                        <q-card
-                            bordered
-                            style="display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF;"
-                            >
                                 
-                            <div class="text-h6" @click="() => router.push('/product')">Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg</div>
-                            <q-card-section
-                                horizontal
-                                syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
-                            >
-                                <q-img
-                                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465"
-                                    style="width: 150px; height: 187.238px; background: url(<path-to-image>) lightgray 50% / cover no-repeat;"
-                                    @click="() => router.push('/product')"
+                                <q-btn
+                                    label="Adauga in cos"
+                                    @click="() => addedToCart()"
+                                    style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
                                 />
-                                <q-card-section
-                                    vertical
-                                    style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex: 1 0 0;"
-                                >
-                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through"
-                                    >
-                                        32.99 Lei
-                                    </div>
-    
-                                    <div
-                                        style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; /* 133.333% */"
-                                    >
-                                        28.99 LEI
-                                    </div>
-                                    <div
-                                        style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; /* 142.857% */"
-                                    >
-    
-                                    </div>
-                                </q-card-section>
-                            </q-card-section>
-                            
-                            <q-btn
-                                label="Adauga in cos"
-                                @click="() => addedToCart()"
-                                style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
-                            />
-                        </q-card>
-    
-    
-                        <q-card
-                            bordered
-                            style="display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF;"
-                            >
-                                
-                            <div class="text-h6" @click="() => router.push('/product')">Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg</div>
-                            <q-card-section
-                                horizontal
-                                syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
-                            >
-                                <q-img
-                                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465"
-                                    style="width: 150px; height: 187.238px; background: url(<path-to-image>) lightgray 50% / cover no-repeat;"
-                                    @click="() => router.push('/product')"
-                                />
-                                <q-card-section
-                                    vertical
-                                    style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex: 1 0 0;"
-                                >
-                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through"
-                                    >
-                                        32.99 Lei
-                                    </div>
-    
-                                    <div
-                                        style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; /* 133.333% */"
-                                    >
-                                        28.99 LEI
-                                    </div>
-                                    <div
-                                        style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; /* 142.857% */"
-                                    >
-    
-                                    </div>
-                                </q-card-section>
-                            </q-card-section>
-                            
-                            <q-btn
-                                label="Adauga in cos"
-                                @click="() => addedToCart()"
-                                style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
-                            />
-                        </q-card>
-    
-                        <q-card
-                            bordered
-                            style="display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF;"
-                            >
-                                
-                            <div class="text-h6" @click="() => router.push('/product')">Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg</div>
-                            <q-card-section
-                                horizontal
-                                syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
-                            >
-                                <q-img
-                                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465"
-                                    style="width: 150px; height: 187.238px; background: url(<path-to-image>) lightgray 50% / cover no-repeat;"
-                                    @click="() => router.push('/product')"
-                                />
-                                <q-card-section
-                                    vertical
-                                    style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex: 1 0 0;"
-                                >
-                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through"
-                                    >
-                                        32.99 Lei
-                                    </div>
-    
-                                    <div
-                                        style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; /* 133.333% */"
-                                    >
-                                        28.99 LEI
-                                    </div>
-                                    <div
-                                        style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; /* 142.857% */"
-                                    >
-    
-                                    </div>
-                                </q-card-section>
-                            </q-card-section>
-                            
-                            <q-btn
-                                label="Adauga in cos"
-                                @click="() => addedToCart()"
-                                style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
-                            />
-                        </q-card>
+                            </q-card>
+                        </div>
                         
-                    </div>
+                    <!-- </div> -->
                 </q-scroll-area>
                 <q-btn icon="chevron_right" @click="scrollRight" flat />
             </q-card-section>
+
+            <q-card-section
+                vertical
+                style="display: flex; flex-direction: column; align-items: flex-start; gap: 25px; align-self: stretch; margin-top: 20px"
+            >
+                <div
+                    style="color: var(--color-icon, #18181B); font-family: Inter; font-size: 48px; font-style: normal; font-weight: 600; line-height: 58px;"
+                >
+                    Cele mai noi oferte!
+                </div>
+
+                <q-card-section
+                    horizontal
+                    style="display: flex; height: 179px; align-items: flex-start; gap: 18px; align-self: stretch;"
+                >
+                    <q-img 
+                        style="border-radius: 12px; background: url(https://s3-alpha-sig.figma.com/img/fe12/e799/6abe41e3c7ba5875257da4409c2d86e9?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Qnihks~Q4puxrvoZt8K2RXluw1StvuqZ6l5jwbuslhjIDHIgdWxdL5Af5~NhkhpD1ypI-MJAarddfxB0ZrRgqM2WMRbjgqOGvE6vHUI5XLr5DbdhU2Z6QQwWIhvR9vzuW-Ak8FzC34ZX86EpWmwGoyImVxs6RFpMLprj9aj-~-hE5LLBbCWAgF7dlKX89s-wZK47DsmSuVJ9vMX29LFIORlL5aDFIShl9alLax03~iUbpcDCzAryPq9HRNiOHpsuJmGYzjXW4o9tiwd35~L6GJO0m9F-h7ser7PCE6vONryl0ncJWggAHGOq~hVOi1MqpvrbsOnN-3P23qlS5tyKqA__) lightgray 0px 0.504px / 141.955% 100.078% no-repeat; box-shadow: 0px 4px 6px -4px rgba(16, 24, 40, 0.10), 0px 10px 15px -3px rgba(0, 0, 0, 0.10); flex: 1 0 0; align-self: stretch; height: 130%;"
+                        fit="contain"
+                    />
+
+                    <q-img
+                        style="border-radius: 12px; background: url(https://s3-alpha-sig.figma.com/img/94ba/210c/303a0fd9aab220e6b269a967c1ad8295?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HG~i7bXImAyAxpSsrG1NnXky8H0qfX4JFTeqRCj29fIy19DALFJLv5SrBjF9a~rRSPvZBvPcBzEkjLbrjYF~1DHWlpbjURVgzKLifQi~H0sgfkhLYnV1J0YCXjTaVp17gS4lNE-ONaCYBcj2p0GIpURNBqIP7ZZCwLUfihMnx16jMuzaMGRWs29OS7zykyW5yOPSUXF4j26M1B-slEtZkDQhL~bh74Y0f~NB~va08H3u2xzYSqYO01-aNsFX2Ue~2PqAkeLo1AQfJbU0JkgXtyFAHhNQO6pX00~rTFQmnGVZlyKw2JfK9S33m7eX7TJiey-LUe4AZZjjRIdqrsYDjQ__) lightgray 0px -0.688px / 171.875% 102.412% no-repeat; box-shadow: 0px 4px 6px -4px rgba(16, 24, 40, 0.10), 0px 10px 15px -3px rgba(0, 0, 0, 0.10); flex: 1 0 0; align-self: stretch; height: 130%;"
+                        fit="contain"/>
+                    
+                    <q-img
+                        style="border-radius: 12px; background: url(https://s3-alpha-sig.figma.com/img/4c25/2a18/5c0a41b2e711af6b442077dd4171386c?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=aQBsYsyVnDdpwchxzzuu8TJcUXR1P~ixdiNhmitxAsAloMhdHMQSe9lxLqxl69IKGMasfmnmJdJPhZvAkGF7f2~NRESy4cPy0BvbP5s3z6NRfWKBlB28JoYCD2uuWFlKXBNkcqMi4bvTNxGis2vn0aQp84IGJQTD0DJpGcSF2dkX3DGl4Ri2QGo6j1N1RTSEMFYTWyXc1epTG8~hufqSDzOWC4Lu29NYKcOpZC0TWNI6jqhLrt5XKt4d6J4Xa0UIscLbAe4C14cybSqnHuTCGg0VA5tdugwawcyBeLYZxRDdOsM5zKOliiW3ObEIKjmkpx9Hl3JXrAZRaGto4IZCcQ__) lightgray -11.296px -6.63px / 205.268% 111.613% no-repeat; box-shadow: 0px 4px 6px -4px rgba(16, 24, 40, 0.10), 0px 10px 15px -3px rgba(0, 0, 0, 0.10); flex: 1 0 0; align-self: stretch; height: 130%;"
+                        fit="contain"
+                    />
+
+
+                </q-card-section>
+
+            </q-card-section>
+
+
 
         <q-btn
             label="LogOut"
@@ -722,14 +680,14 @@ const position = ref<number>(0);
 const scrollAreaRef = ref<any>(null);
 
 const scrollLeft = () => {
-    // scrollAreaRef.value.setScrollPosition('horizontal', -position.value, 300)
-    // position.value = Math.floor(Math.random() * 1001) * 20
     const scrollDistance = 200; // Smaller scroll distance
     const scrollDuration = 500; // Slower scroll speed (500ms)
         
     // Calculate the new position by subtracting the scroll distance
-    position.value -= scrollDistance;
-    scrollAreaRef.value.setScrollPosition('horizontal', position.value, scrollDuration);
+    if(position.value > 0) {
+        position.value -= scrollDistance;
+        scrollAreaRef.value.setScrollPosition('horizontal', position.value, scrollDuration);
+    }
 
 }
 
