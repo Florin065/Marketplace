@@ -558,7 +558,8 @@
                         class="clickable-card-section"
                         horizontal
                         style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => router.push('/category/unelte-de-mana')"
+                        @click="() => Notify.create({message: 'Unelte filter applied', color: 'positive', position: 'top', timeout: 2000})"
+
                     >
 
                         <q-icon style="width: 127px; height: 130px;">
@@ -576,7 +577,7 @@
                         class="clickable-card-section"
                         horizontal
                         style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => router.push('/category/ciment')"
+                        @click="() => Notify.create({message: 'Ciment filter applied', color: 'positive', position: 'top', timeout: 2000})"
                     >
 
                         <q-icon style="width: 127px; height: 130px;">
@@ -594,7 +595,8 @@
                         class="clickable-card-section"
                         horizontal
                         style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => router.push('/category/ferestre')"
+                        @click="() => Notify.create({message: 'Ferestre filter applied', color: 'positive', position: 'top', timeout: 2000})"
+
                     >
 
                         <q-icon style="width: 127px; height: 130px;">
@@ -612,7 +614,7 @@
                         class="clickable-card-section"
                         horizontal
                         style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => router.push('/category/lemn')"
+                        @click="() => Notify.create({message: 'Lemne filter applied', color: 'positive', position: 'top', timeout: 2000})"
                     >
 
                         <q-icon style="width: 127px; height: 130px;">
@@ -637,7 +639,8 @@
                         class="clickable-card-section"
                         horizontal
                         style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => router.push('/category/ferestre')"
+                        @click="() => Notify.create({message: 'Ferestre filter applied', color: 'positive', position: 'top', timeout: 2000})"
+
                     >
 
                     <q-icon style="width: 127px; height: 130px;">
@@ -655,7 +658,8 @@
                         class="clickable-card-section"
                         horizontal
                         style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => router.push('/category/lemn')"
+                        @click="() => Notify.create({message: 'Lemne filter applied', color: 'positive', position: 'top', timeout: 2000})"
+
                     >
 
                         <q-icon style="width: 127px; height: 130px;">
@@ -673,7 +677,7 @@
                         class="clickable-card-section"
                         horizontal
                         style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => router.push('/category/unelte-de-mana')"
+                        @click="() => Notify.create({message: 'Unelte filter applied', color: 'positive', position: 'top', timeout: 2000})"
                     >
 
                         <q-icon style="width: 127px; height: 130px;">
@@ -691,7 +695,7 @@
                         class="clickable-card-section"
                         horizontal
                         style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => router.push('/category/ciment')"
+                        @click="() => Notify.create({message: 'Ciment filter applied', color: 'positive', position: 'top', timeout: 2000})"
                     >
 
                         <q-icon style="width: 127px; height: 130px;">

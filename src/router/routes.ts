@@ -6,13 +6,9 @@ import HomeLayout from "../layouts/HomeLayout.vue";
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
-    component: () => HomeLayout,
+    path: '/auth',
+    component: () => DefaultLayout,
     children: [
-      {
-        path: '', 
-        component: () => Home,
-      },
       {
         path: '/login',
         component: () => import('@/pages/Auth/Login.vue')
@@ -24,6 +20,17 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/register',
         component: () => import('@/pages/Auth/Customer.vue'),
+      },
+    ],
+  },
+
+  {
+    path: '/',
+    component: () => HomeLayout,
+    children: [
+      {
+        path: '', 
+        component: () => Home,
       },
       {
         path: '/product',

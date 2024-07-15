@@ -24,7 +24,7 @@
          <!-- LOGO -->
           <q-img
              src="@/assets/logo.png"
-             style="width: 3.42vw; height: 3.95vh"
+             style="width: 3.72vw; height: 4.07vh"
              fit="contain"
              @click="() => router.push('/')"
          />
@@ -32,11 +32,15 @@
          <!-- SEARCH BAR -->
          <q-input
              v-model="search"
-             placeholder="Caută produse..."
+             placeholder="Caută produsele de care ai nevoie"
              style="width: 29.62vw;"
-             outlined
              dense
-         />
+         >
+             <template v-slot:prepend>
+                 <q-icon name="search" />
+             </template>
+
+         </q-input>
 
          <!-- TODO: Only when user logged in. Otherwise Log In button -->
          <!-- ROW WITH: Cart | Currency | Profile -->
@@ -51,7 +55,7 @@
                  @click="() => router.push('/cart')"
              >
                  <q-icon name="shopping_cart" />
-                 <div style="text-transform: none; font-size: 1.45vh; font-family: Inter; font-style: normal; font-weight: 400; line-height: 2.08vh; text-align:right">Vezi cosul</div>
+                 <div style="text-transform: none; font-size: 14px; font-family: Inter; font-style: normal; font-weight: 400; line-height: 20px; text-align:right">Vezi cosul</div>
              </q-btn>
 
              <q-separator vertical inset />
@@ -77,12 +81,12 @@
                      style="display: flex; flex-direction: column; align-items: flex-start;" 
                  >
                      <div 
-                         style="text-transform: none; font-family: Inter; font-size: 1.49vw; font-style: normal; font-weight: 700; line-height: 2.14vh;"
+                         style="text-transform: none; font-family: Inter; font-size: 14px; font-style: normal; font-weight: 700; line-height: 20px;"
                      >
                          Florian Subtirelul
                      </div>
                      <div 
-                         style="color: var(--color-text-muted, #71717A); text-align: right; font-family: Inter; font-size: 1.49vh; font-style: normal; font-weight: 400; line-height: 2.14vh; text-transform: none;"
+                         style="color: var(--color-text-muted, #71717A); text-align: right; font-family: Inter; font-size: 14px; font-style: normal; font-weight: 400; line-height: 20px; text-transform: none;"
                      >
                          Contul tau
                      </div>
