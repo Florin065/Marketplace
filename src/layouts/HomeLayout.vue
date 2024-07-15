@@ -53,6 +53,7 @@
              <q-btn
                  style="display: flex; align-items: center; padding-right: 2.28vw; gap: 2.28vw;"
                  @click="() => router.push('/cart')"
+                 flat
              >
                  <q-icon name="shopping_cart" />
                  <div style="text-transform: none; font-size: 14px; font-family: Inter; font-style: normal; font-weight: 400; line-height: 20px; text-align:right">Vezi cosul</div>
@@ -69,6 +70,7 @@
              <q-btn
                  style="display: flex; justify-content: center; align-items: center; gap: var(--Spacing-spacing-xs, 1.82vw); max-height: 4.28vh;"
                  @click="() => router.push('/profile')"
+                 flat
              >
 
                  <q-icon 
@@ -156,17 +158,6 @@ defineOptions({
     align-self: stretch;
     
     background: var(--color-bg-success-strong, #059669);
-}
-
-.navigationBanner {
-    display: flex;
-    height: 48px;
-    padding: 4px 20px 0px 20px;
-    align-items: center;
-    gap: 12px;
-    align-self: stretch;
-
-    background: var(--gradient, linear-gradient(90deg, #2563EB 2%, #0CD496 100%));
 }
 
 </style>

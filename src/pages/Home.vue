@@ -763,7 +763,6 @@ const scrollLeft = () => {
 
 }
 
-
 const scrollRight = () => {
     const scrollDistance = 200; // Smaller scroll distance
     const scrollDuration = 500; // Slower scroll speed (500ms)
@@ -772,7 +771,6 @@ const scrollRight = () => {
     position.value += scrollDistance;
     scrollAreaRef.value.setScrollPosition('horizontal', position.value, scrollDuration);
 }
-
 </script>
 
 <style scoped>
@@ -785,6 +783,17 @@ const scrollRight = () => {
     gap: 16px;
 
     background: #FFF;
+}
+
+.navigationBanner {
+    display: flex;
+    height: 48px;
+    padding: 4px 20px 0px 20px;
+    align-items: center;
+    gap: 12px;
+    align-self: stretch;
+
+    background: var(--gradient, linear-gradient(90deg, #2563EB 2%, #0CD496 100%));
 }
 
 .clickable-card-section:hover {
