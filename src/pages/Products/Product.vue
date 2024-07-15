@@ -1,105 +1,5 @@
 <template>
     <q-page class="page-layout">
-        <!-- Seasonal discount; this will only show when there is an active discount! TODO: Function to get active discount. -->
-        <q-banner
-            class="discountBanner"
-        >
-            <div
-                class="text-white"
-                style="font-size: 14px; font-weight: 500; line-height: 1.2; text-align: center;"
-            >
-            Nu rata oferta verii! 20% reducere la orice din categoria Casă și grădină până pe 28 iulie!
-            <q-icon size="14px" style="font-size: 14px; font-weight: 500; line-height: 1.2; text-align: center;">%</q-icon>
-        </div>
-        </q-banner>
-
-        <!-- LOGO - Search-bar - Row with: Cart | Currency | Profile -->
-        <q-card-section
-            horizontal
-            style="display: flex; height: 40px; padding: 0px 20px; justify-content: space-between; align-items: center; align-self: stretch;"
-        >
-            <!-- LOGO -->
-             <q-img
-                src="@/assets/logo.png"
-                style="width: 58px; height: 38px"
-                fit="contain"
-                @click="() => router.push('/')"
-            />
-
-            <!-- SEARCH BAR -->
-            <q-input
-                v-model="search"
-                placeholder="Caută produse..."
-                style="width: 500px;"
-                outlined
-                dense
-            />
-
-            <!-- TODO: Only when user logged in. Otherwise Log In button -->
-            <!-- ROW WITH: Cart | Currency | Profile -->
-            <q-card-section
-                horizontal
-                style="display: flex; align-items: center; gap: 12px;"
-                v-if="isLogged"
-            >
-            <!-- Cart -->
-                <q-btn
-                    style="display: flex; align-items: center; padding-right: 10px; gap:10px;"
-                    @click="() => router.push('/cart')"
-                >
-                    <q-icon name="shopping_cart" />
-                    <div style="text-transform: none; font-size: 14px; font-family: Inter; font-style: normal; font-weight: 400; line-height: 20px; text-align:right">Vezi cosul</div>
-                </q-btn>
-
-                <q-separator vertical inset />
-
-                <!-- Currency -->
-                RON
-
-                <q-separator vertical inset />
-
-                <!-- Profile -->
-                <q-btn
-                    style="display: flex; justify-content: center; align-items: center; gap: var(--Spacing-spacing-xs, 8px); max-height: 40px;"
-                    @click="() => router.push('/profile')"
-                >
-
-                    <q-icon 
-                    name="account_circle" 
-                    style="display: flex; justify-content: flex-end; align-items: center; gap: var(--Spacing-spacing-xs, 8px);" 
-                    />
-                    <!-- TODO: Add User's name instead of Florian Subtirica and the photo from database -->
-                    <q-card-section
-                        vertical
-                        style="display: flex; flex-direction: column; align-items: flex-start;" 
-                    >
-                        <div 
-                            style="text-transform: none; font-family: Inter; font-size: 14px; font-style: normal; font-weight: 700; line-height: 20px;"
-                        >
-                            Florian Subtirelul
-                        </div>
-                        <div 
-                            style="color: var(--color-text-muted, #71717A); text-align: right; font-family: Inter; font-size: 14px; font-style: normal; font-weight: 400; line-height: 20px; text-transform: none;"
-                        >
-                            Contul tau
-                        </div>
-                    </q-card-section>
-                
-                </q-btn>
-
-            
-            </q-card-section>
-            
-            
-            <q-btn
-                label="Log In"
-                @click="() => router.push('/login')"
-                class="button-style"
-                style="height: 40px; width: 150px;"
-                v-if="!isLogged"
-            />
-            </q-card-section>
-    
         <!-- Banner: Departments, Construction Mats, Offers --> 
         <q-banner 
             class="navigationBanner"
@@ -133,29 +33,21 @@
                 style="display: flex; width: 700px; flex-direction: column; align-items: flex-start; gap: 10px; align-self: stretch; border-radius: 28px 0px 0px 28px;"
             >
                 <q-img
-                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/ciment2.png?alt=media&token=5394417a-2fc2-4eb6-ab64-5fe63cb4a48e"
-                    style="flex: 1 0 0; align-self: stretch; border-radius: 28px; background: url(<path-to-image>) lightgray 50% / cover no-repeat; box-shadow: 0px 0px 6px -4px rgba(16, 24, 40, 0.10), 0px 6px 15px -3px rgba(0, 0, 0, 0.10);"/>
+                    :src="images[imgTab]"
+                    style="width: 700px; height: 700px; border-radius: 28px 0px 0px 28px;"
+                    fit="contain"
+                />
 
                 <q-card-section
                     horizontal
                     style="display: flex; height: 200px; justify-content: center; align-items: center; gap: 30px; align-self: stretch;"
                 >
 
-                    <q-img
-                        src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/ciment2.png?alt=media&token=5394417a-2fc2-4eb6-ab64-5fe63cb4a48e"
-                        style="display: flex; padding: 10px; align-items: center; gap: 10px; flex: 1 0 0; align-self: stretch; border-radius: 6px; background: url(<path-to-image>) lightgray 50% / cover no-repeat, url(<path-to-image>) lightgray 50% / cover no-repeat; box-shadow: 0px 4px 6px -4px rgba(16, 24, 40, 0.10), 0px 10px 15px -3px rgba(0, 0, 0, 0.10);"
-                        fit="contain"
-                    />
-                    <q-img
-                        src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/ciment2.png?alt=media&token=5394417a-2fc2-4eb6-ab64-5fe63cb4a48e"
-                        style="display: flex; padding: 10px; align-items: center; gap: 10px; flex: 1 0 0; align-self: stretch; border-radius: 6px; background: url(<path-to-image>) lightgray 50% / cover no-repeat, url(<path-to-image>) lightgray 50% / cover no-repeat; box-shadow: 0px 4px 6px -4px rgba(16, 24, 40, 0.10), 0px 10px 15px -3px rgba(0, 0, 0, 0.10);"
-                        fit="contain"
-                    />
-                    <q-img
-                        src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/ciment2.png?alt=media&token=5394417a-2fc2-4eb6-ab64-5fe63cb4a48e"
-                        style="display: flex; padding: 10px; align-items: center; gap: 10px; flex: 1 0 0; align-self: stretch; border-radius: 6px; background: url(<path-to-image>) lightgray 50% / cover no-repeat, url(<path-to-image>) lightgray 50% / cover no-repeat; box-shadow: 0px 4px 6px -4px rgba(16, 24, 40, 0.10), 0px 10px 15px -3px rgba(0, 0, 0, 0.10);"
-                        fit="contain"
-                    />
+                    <q-tabs v-model="imgTab">
+                        <q-tab v-for="(img, index) in images" :key="index" :name="index">
+                            <q-img :src="img" style="width: 100px; height: 100px; border-radius: 6px; background: url(<path-to-image>) lightgray 50% / cover no-repeat;"/>
+                        </q-tab>
+                    </q-tabs>
                     
                 </q-card-section>
 
@@ -1061,6 +953,10 @@ const tab = ref<string>('1');
 const productTabs = ref<string>('2');
 
 const hiddenBoughtTogether = ref<boolean>(false);
+
+const images = ["https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/ciment2.png?alt=media&token=5394417a-2fc2-4eb6-ab64-5fe63cb4a48e", "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/cablu_cupru-removebg-preview.png?alt=media&token=5c30e3f7-5330-4236-9171-06b478367824", "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465", "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1"]
+
+const imgTab = ref<string>('1');
 
 </script>
 

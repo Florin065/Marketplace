@@ -2,11 +2,12 @@ import { RouteRecordRaw } from 'vue-router';
 import DefaultLayout from "@/layouts/MainLayout.vue";
 import DashboardLayout from "@/layouts/DashboardLayout.vue";
 import Home from "@/pages/Home.vue";
+import HomeLayout from "../layouts/HomeLayout.vue";
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => DefaultLayout,
+    component: () => HomeLayout,
     children: [
       {
         path: '', 

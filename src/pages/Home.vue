@@ -1,107 +1,5 @@
 <template>
     <q-page class="page-layout">
-        <!-- Seasonal discount; this will only show when there is an active discount! TODO: Function to get active discount. -->
-         <!-- TODO: Modify pixels to vh or vw. -->
-        <q-banner
-            class="discountBanner"
-        >
-            <div
-                class="text-white"
-                style="font-size: 14px; font-weight: 500; line-height: 1.2; text-align: center;"
-            >
-            Nu rata oferta verii! 20% reducere la orice din categoria Casă și grădină până pe 28 iulie!
-            <q-icon size="14px" style="font-size: 14px; font-weight: 500; line-height: 1.2; text-align: center;">%</q-icon>
-        </div>
-        </q-banner>
-
-        <!-- LOGO - Search-bar - Row with: Cart | Currency | Profile -->
-        <q-card-section
-            horizontal
-            style="display: flex; height: 40px; padding: 0px 20px; justify-content: space-between; align-items: center; align-self: stretch;"
-        >
-            <!-- LOGO -->
-             <q-img
-                src="@/assets/logo.png"
-                style="width: 58px; height: 38px"
-                fit="contain"
-                @click="() => router.push('/')"
-            />
-
-            <!-- SEARCH BAR -->
-            <q-input
-                v-model="search"
-                placeholder="Caută produse..."
-                style="width: 500px;"
-                outlined
-                dense
-            />
-
-            <!-- TODO: Only when user logged in. Otherwise Log In button -->
-            <!-- ROW WITH: Cart | Currency | Profile -->
-            <q-card-section
-                horizontal
-                style="display: flex; align-items: center; gap: 12px;"
-                v-if="isLogged"
-            >
-            <!-- Cart -->
-                <q-btn
-                    style="display: flex; align-items: center; padding-right: 10px; gap:10px;"
-                    @click="() => router.push('/cart')"
-                >
-                    <q-icon name="shopping_cart" />
-                    <div style="text-transform: none; font-size: 14px; font-family: Inter; font-style: normal; font-weight: 400; line-height: 20px; text-align:right">Vezi cosul</div>
-                </q-btn>
-
-                <q-separator vertical inset />
-
-                <!-- Currency -->
-                RON
-
-                <q-separator vertical inset />
-
-                <!-- Profile -->
-                <q-btn
-                    style="display: flex; justify-content: center; align-items: center; gap: var(--Spacing-spacing-xs, 8px); max-height: 40px;"
-                    @click="() => router.push('/profile')"
-                >
-
-                    <q-icon 
-                    name="account_circle" 
-                    style="display: flex; justify-content: flex-end; align-items: center; gap: var(--Spacing-spacing-xs, 8px);" 
-                    />
-                    <!-- TODO: Add User's name instead of Florian Subtirica and the photo from database -->
-                    <q-card-section
-                        vertical
-                        style="display: flex; flex-direction: column; align-items: flex-start;" 
-                    >
-                        <div 
-                            style="text-transform: none; font-family: Inter; font-size: 14px; font-style: normal; font-weight: 700; line-height: 20px;"
-                        >
-                            Florian Subtirelul
-                        </div>
-                        <div 
-                            style="color: var(--color-text-muted, #71717A); text-align: right; font-family: Inter; font-size: 14px; font-style: normal; font-weight: 400; line-height: 20px; text-transform: none;"
-                        >
-                            Contul tau
-                        </div>
-                    </q-card-section>
-                
-                </q-btn>
-
-            
-            </q-card-section>
-            
-            <q-btn
-                label="Log In"
-                @click="() => router.push('/login')"
-                class="button-style"
-                style="height: 40px; width: 150px;"
-                v-if="!isLogged"
-            />
-            <!-- Log In Button-->
-             <!-- TODO: Modify v-if so it only appears when user not logged in. -->
-            </q-card-section>
-    
         <!-- Banner: Departments, Construction Mats, Offers --> 
          <!-- TODO: move above to layout -->
         <q-banner 
@@ -134,13 +32,13 @@
         
         <q-card-section
             horizontal
-            style="display: flex; justify-content: flex-start; align-items: flex-start; gap: 20px; align-self: stretch; padding: 0px 32px; margin-top: -15px"
+            style="display: flex; justify-content: flex-start; align-items: flex-start; gap: 20px; align-self: stretch; padding: 0px 3.42vh; margin-top: -15px"
         >
             <q-card
                 bordered
                 style="display: flex; width: auto; max-width: 40vw;
                 padding: 24px 12px 24px 24px; flex-direction: column;
-                align-items: flex-start; gap: 10px; border-radius: 0px 0px 20px 20px;
+                align-items: flex-start; gap: 2.87vw; border-radius: 0px 0px 20px 20px;
                 background-color: #FFF;
                 background: #FFF;  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.10);"
             >
@@ -148,39 +46,40 @@
                     v-model="tab" 
                     animated
                 >
+                <!-- TODO: change here measurement unit -->
                 <q-tab-panel 
                     name="1"
-                    style=" display: flex; width: 589px; padding: 24px 12px 24px 24px;
-                    flex-direction: column; align-items: flex-start; gap: 10px;
+                    style=" display: flex; width: 589px; padding: 24px 12px 24px 24px; 
+                    flex-direction: column; align-items: flex-start; gap: 2.87vw;
                     border-radius: 0px 0px 20px 20px;
                     box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.10), 0px 2px 4px -2px rgba(16, 24, 40, 0.10);"
                 >
 
                 <q-card-section
-                    style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 24px; align-self: stretch; height: 505px"
+                    style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 24px; align-self: stretch; height: 54.06vh"
                     horizontal
                     class="text-left"
                 >
                     <q-card-section
                         style="display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
-                        gap: 24px; align-self: stretch; margin-left:-50px; margin-top: -30px; margin-bottom: -20px"
+                        gap: 24px; align-self: stretch; margin-left: -50px; margin-top: -3.21vh; margin-bottom: -2.14vh"
                         vertical
                     >
                         <q-img
                             src="/src/assets/savings.png"
-                            style="width: 267px; height: 168px; border-radius: 12px;"
+                            style="width: 14.8vw; height: 17.4vh; border-radius: 12px;"
                             fit="fill"
                         />
 
                         <q-img
                             src="/src/assets/fifty.png"
-                            style="width: 267px; height: 168px; border-radius: 12px;"
+                            style="width: 14.8vw; height: 17.4vh; border-radius: 12px;"
                             fit="fill"
                         />
 
                         <q-img
                             src="/src/assets/garantid.png"
-                            style="width: 267px; height: 168px; border-radius: 12px;"
+                            style="width: 14.8vw; height: 17.4vh; border-radius: 12px;"
                             fit="fill"
                         />
                     </q-card-section>
@@ -192,53 +91,53 @@
                         class="q-pl-xl"
                     >
                     
-
+                        <!-- Old values: 14px / 12px -->
                         <div>
-                            <div class="text-bold q-pt-lg" style="font-size: 14px">
+                            <div class="text-bold q-pt-lg" style="font-size: 1.45vh">
                                 <i class="bi bi-bricks" /> Materiale de construcție
                             </div>
-                            <div style="font-size: 14px">Materiale durabile pentru zeci de ani</div>
-                            <div style="font-size: 12px">Lemn, feronerie, construcții, unelte ...</div>
+                            <div style="font-size: 1.45vh">Materiale durabile pentru zeci de ani</div>
+                            <div style="font-size: 1.22vh">Lemn, feronerie, construcții, unelte ...</div>
                         </div>
 
                         <div>
-                            <div class="text-bold q-pt-lg" style="font-size: 14px">
+                            <div class="text-bold q-pt-lg" style="font-size: 1.45vh">
                                 <i class="bi bi-house" /> Casă
                             </div>
-                            <div style="font-size: 14px">Soluții complete pentru casa ta</div>
-                            <div style="font-size: 12px">Electrocasnice, baie, decorațiuni ...</div>
+                            <div style="font-size: 1.45vh">Soluții complete pentru casa ta</div>
+                            <div style="font-size: 1.22vh">Electrocasnice, baie, decorațiuni ...</div>
                         </div>
 
                         <div>
-                            <div class="text-bold q-pt-lg" style="font-size: 14px">
+                            <div class="text-bold q-pt-lg" style="font-size: 1.45vh">
                                 <i class="bi bi-tree" /> Grădină și exterior
                             </div>
-                            <div style="font-size: 14px">Tot ce ai nevoie pentru exterior</div>
-                            <div style="font-size: 12px">Grătare, terase, echipamente, mobilier ...</div>
+                            <div style="font-size: 1.45vh">Tot ce ai nevoie pentru exterior</div>
+                            <div style="font-size: 1.22vh">Grătare, terase, echipamente, mobilier ...</div>
                         </div>
 
                         <div>
-                            <div class="text-bold q-pt-lg" style="font-size: 14px">
+                            <div class="text-bold q-pt-lg" style="font-size: 1.45vh">
                                 <i class="bi bi-lightning-charge" /> Electrice și iluminat
                             </div>
-                            <div style="font-size: 14px">Eficiență energetică și iluminat modern</div>
-                            <div style="font-size: 12px">Electrocasnice, baie, decorațiuni ...</div>
+                            <div style="font-size: 1.45vh">Eficiență energetică și iluminat modern</div>
+                            <div style="font-size: 1.22vh">Electrocasnice, baie, decorațiuni ...</div>
                         </div>
 
                         <div>
-                            <div class="text-bold q-pt-lg" style="font-size: 14px">
+                            <div class="text-bold q-pt-lg" style="font-size: 1.45vh">
                                 <i class="bi bi-thermometer-sun" /> Instalații termice și sanitare
                             </div>
-                            <div style="font-size: 14px">Soluții pentru confortul tău zilnic</div>
-                            <div style="font-size: 12px">Încălzire, răcire, instalații sanitare ...</div>
+                            <div style="font-size: 1.45vh">Soluții pentru confortul tău zilnic</div>
+                            <div style="font-size: 1.22vh">Încălzire, răcire, instalații sanitare ...</div>
                         </div>
 
                         <div>
-                            <div class="text-bold q-pt-lg" style="font-size: 14px">
+                            <div class="text-bold q-pt-lg" style="font-size: 1.45vh">
                                 <i class="bi bi-brush" /> Vopsea și finisaje
                             </div>
-                            <div style="font-size: 14px">Finisaje profesionale pentru orice</div>
-                            <div style="font-size: 12px">Vopseluri, lacuri, jaluzele, finisaje ...</div>
+                            <div style="font-size: 1.45vh">Finisaje profesionale pentru orice</div>
+                            <div style="font-size: 1.22vh">Vopseluri, lacuri, jaluzele, finisaje ...</div>
                         </div>
                         
                     </q-card-section>
@@ -262,7 +161,7 @@
                 animated
                 navigation
                 infinite
-                style="height: 600px; align-self: stretch;
+                style="height: 62.2vh; align-self: stretch;
                 border-radius: 36px; background: url(<path-to-image>) lightgray 50% / cover no-repeat;
                     box-shadow: 0px 4px 6px -4px rgba(16, 24, 40, 0.10), 0px 10px 15px -3px rgba(0, 0, 0, 0.10); width: 100%"
                 fit="contain"
@@ -286,7 +185,7 @@
                     <q-img style="display: flex; align-items: center;gap: 10px;" src="@/assets/tag.svg" />
                 </q-icon>
                 <div
-                    style="color: var(--blue1, #2563EB); text-align: center;  font-family: Inter;font-size: 12px; font-style: normal; font-weight: 500; line-height: 16px; /* 133.333% */"
+                    style="color: var(--blue1, #2563EB); text-align: center;  font-family: Inter; font-size: 12px; font-style: normal; font-weight: 500; line-height: 16px; /* 133.333% */"
                 >
                     Cautari populare
                 </div>
@@ -333,7 +232,7 @@
             <!-- Biggest Discounts -->
             <q-card-section
                 horizontal
-                style="display: flex; align-items: center; gap: 25px; margin-top: 20px;"
+                style="display: flex; align-items: center; gap: 25px; margin-top: 2vh;"
             >
                 <div style="margin-left: 30px;color: var(--color-icon, #18181B); font-family: Inter; font-size: 48px;
                     font-style: normal; font-weight: 600; line-height: 58px; /* 120.833% */"
