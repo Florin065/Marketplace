@@ -23,8 +23,8 @@
             :style="tab === '2' ? 'background-color: white !important; color: black !important; border-radius: 10px 10px 0px 0px;' : ''"
             label="Materiale de constructii" />
           <q-tab name="3"
-          :style="tab === '3' ? 'background-color: white !important; color: black !important; border-radius: 10px 10px 0px 0px;' : ''"
-            label="Oferte speciale" />
+          :style="tab === '3' ? 'background-color: white !important; color: black !important; border-radius: 10px 10px 0px 0px;' : 'background: var(--magenta, #EE0D50); border-radius: 6px; color: white; margin-bottom: 5px'"
+            label="Oferte speciale %" />
         </q-tabs>
             
         </q-card-section>
