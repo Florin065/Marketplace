@@ -1,16 +1,21 @@
 import { RouteRecordRaw } from 'vue-router';
-import DefaultLayout from "src/layouts/MainLayout.vue";
-import Home from "src/pages/Home.vue";
+import DefaultLayout from "@/layouts/MainLayout.vue";
+import DashboardLayout from "@/layouts/DashboardLayout.vue";
+import Home from "@/pages/Home.vue";
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => DefaultLayout,
     children: [
-      { path: '', 
+      {
+        path: '', 
         component: () => Home,
       },
-      { path: '/login', component: () => import('@/pages/Auth/Login.vue') },
+      {
+        path: '/login',
+        component: () => import('@/pages/Auth/Login.vue')
+      },
       {
         path: '/merchant-register',
         component: () => import('@/pages/Auth/Merchant.vue'),
@@ -22,6 +27,17 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/product',
         component: () => import('@/pages/Products/Product.vue'),
+      },
+    ],
+  },
+
+  {
+    path: '/dashboard',
+    component: () => DashboardLayout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/pages/DashBoard/DashBoard.vue'),
       },
     ],
   },

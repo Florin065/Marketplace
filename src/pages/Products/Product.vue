@@ -225,23 +225,41 @@
 
                                 <q-btn
                                     label="20 kg"
-                                    style="display: flex; height: var(--Size-size-input-lg, 44px); padding: var(--Spacing-spacing-sm, 8px) var (--Spacing-spacing-lg, 16px); align-items: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-input, 6px); border: 1px solid var(--color-border-info-muted, #60A5FA); background: var(--color-bg, #FFF); box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);"
+                                    style="display: flex; height: var(--Size-size-input-lg, 44px);
+                                      width: 72px;
+                                      padding: var(--Spacing-spacing-sm, 8px) var (--Spacing-spacing-lg, 16px);
+                                      align-items: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-input, 6px);
+                                      border: 1px solid var(--color-border-info-muted, #60A5FA); background: var(--color-bg, #FFF);
+                                      box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);"
                                 />
 
                                 <q-btn
                                     label="30 kg"
-                                    style="display: flex; height: var(--Size-size-input-lg, 44px); padding: var(--Spacing-spacing-sm, 8px) var (--Spacing-spacing-lg, 16px); align-items: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-input, 6px); border: 1px solid var(--color-border-info-muted, #60A5FA); background: var(--color-bg, #FFF); box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);"
+                                    style="display: flex; height: var(--Size-size-input-lg, 44px);
+                                      width: 72px;
+                                      padding: var(--Spacing-spacing-sm, 8px) var (--Spacing-spacing-lg, 16px);
+                                      align-items: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-input, 6px);
+                                      border: 1px solid var(--color-border-info-muted, #60A5FA); background: var(--color-bg, #FFF);
+                                      box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);"
                                 />
 
                                 <q-btn
                                     label="40 kg"
-                                    style="display: flex; height: var(--Size-size-input-lg, 44px); padding: var(--Spacing-spacing-sm, 8px) var (--Spacing-spacing-lg, 16px); align-items: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-input, 6px); border: 1px solid var(--color-border-info-muted, #60A5FA); background: var(--color-bg, #FFF); box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);"
-                                />
+                                    style="display: flex; height: var(--Size-size-input-lg, 44px);
+                                      width: 72px;
+                                      padding: var(--Spacing-spacing-sm, 8px) var (--Spacing-spacing-lg, 16px);
+                                      align-items: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-input, 6px);
+                                      border: 1px solid var(--color-border-info-muted, #60A5FA); background: var(--color-bg, #FFF);
+                                      box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);"                                />
 
                                 <q-btn
                                     label="50 kg"
-                                    style="display: flex; height: var(--Size-size-input-lg, 44px); padding: var(--Spacing-spacing-sm, 8px) var (--Spacing-spacing-lg, 16px); align-items: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-input, 6px); border: 1px solid var(--color-border-info-muted, #60A5FA); background: var(--color-bg, #FFF); box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);"
-                                />
+                                    style="display: flex; height: var(--Size-size-input-lg, 44px);
+                                      width: 72px;
+                                      padding: var(--Spacing-spacing-sm, 8px) var (--Spacing-spacing-lg, 16px);
+                                      align-items: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-input, 6px);
+                                      border: 1px solid var(--color-border-info-muted, #60A5FA); background: var(--color-bg, #FFF);
+                                      box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);"                                />
 
                             </q-card-section>
 

@@ -7,7 +7,9 @@
       src="~/src/assets/banner.jpeg"
     >
       <q-toolbar>
-        <q-img src="~/src/assets/logo.png" style="height: 120px; width: 120px; margin-left: 100px;" fit="contain" @click="() => router.push('/')"/>
+        <q-img src="~/src/assets/logo.png"
+          style="height: 120px; width: 120px; margin-left: 100px;"
+          fit="contain" @click="() => router.push('/')"/>
       </q-toolbar>
     </q-header>
     <q-page class="flex-center">
