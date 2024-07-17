@@ -101,7 +101,7 @@
          
          <q-btn
              label="Log In"
-             @click="() => router.push('/login')"
+             @click="() => router.push('/auth/login')"
              class="button-style"
              style="height: 40px; width: 150px;"
              v-if="!isLogged"

@@ -417,7 +417,7 @@ watch(() => formData.value.cui, () => {
 });
 
 const navigateToLogin = () => {
-  router.push('/login');
+  router.push('/auth/login');
 };
 
 const navigateToHome = () => {

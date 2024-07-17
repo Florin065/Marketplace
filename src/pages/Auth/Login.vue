@@ -95,7 +95,7 @@
                     class="create-btn"
                     label="Creeaza cont"
                     text-color="blue"
-                    to="/register"
+                    to="/auth/register"
                     >
 
                     </q-btn>
