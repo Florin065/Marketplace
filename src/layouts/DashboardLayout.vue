@@ -23,6 +23,53 @@
         <!-- Flex spacer to push elements to the sides -->
         <q-space />
 
+          <!-- Profile avatar on the right -->
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/img/avatar2.jpg" alt="User Avatar">
+          </q-avatar>
+        </q-toolbar>
+      </q-header>
+  
+      <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+
+      :mini="miniMode"
+      @click="miniMode = !miniMode"
+      mini-to-overlay
+
+      :width="200"
+      :breakpoint="500"
+      bordered
+      :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
+    >
+        <q-list v-for="tab in tabs" :key="tab.id">
+          <q-item clickable v-ripple @click="toggleTab(tab)">
+            <q-item-section avatar>
+              <q-icon :class="tab.icon" />
+            </q-item-section>
+            <q-item-section>
+              {{ tab.title }}
+            </q-item-section>
+            <q-item-section side>
+              <q-icon :name="tab.expanded ? 'chevron-up' : 'chevron-down'" />
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-drawer>
+  
+      <q-page-container>
+        <q-page padding>
+          <p v-for="n in 15" :key="n">
+            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssssssss
+          </p>
+        </q-page>
+      </q-page-container>
+    </q-layout>
+  </template>
+  
+  <script setup lang="ts">
+    import { ref } from 'vue';
         <!-- Profile avatar on the right -->
         <q-avatar>
           <img src="https://cdn.quasar.dev/img/avatar2.jpg" alt="User Avatar">
