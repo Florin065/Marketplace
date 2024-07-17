@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf" style="height: 100vh;">
-    <q-header>
+    <q-header style="box-shadow:none">
       <q-toolbar>
         <!-- Logo on the left -->
         <q-img src="../assets/logo.png" style="width:58px; height:48px;" fit="contain" @click="router.push('/')"/>
@@ -11,7 +11,6 @@
         <!-- Search bar in the center -->
         <!-- Use "flex-shrink: 0" to prevent it from shrinking in smaller screens -->
         <q-input
-          filled
           placeholder="Caută orice în back-office"
           class="q-mr-md q-ml-md"
           dense
@@ -43,13 +42,15 @@
     :width="250"
     :breakpoint="500"
     bordered
-    :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
+    :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-white'"
   >  
     <div
-      style="display: flex; padding: 3.07vh 0.87vw; flex-direction: column; justify-content: space-between; align-items: flex-end; width: 55px; height: 100vh; background: var(--color-bg, #FFF);"
+      style="display: flex; padding: 3.07vh 0.87vw; flex-direction: column; justify-content: space-between;
+      align-items: flex-end; width: 55px; height: 100vh; background: var(--color-bg, #FFF);"
     >
       <div
-        style="display: flex; padding: 14.96vh 0px; flex-direction: column; justify-content: space-between; align-items: flex-start; flex: 1 0 0; align-self: stretch;"
+        style="display: flex; padding: 12.96vh 0px; flex-direction: column; justify-content: space-between;
+        align-items: flex-start; flex: 1 0 0; align-self: stretch;"
         @click="miniMode = !miniMode"
       >
         <q-list v-for="tab in tabs" :key="tab.id">
@@ -60,9 +61,6 @@
               <q-item-section>
                 {{ tab.title }}
               </q-item-section>
-              <q-item-section side>
-                <q-icon :name="tab.expanded ? 'chevron-up' : 'chevron-down'" />
-              </q-item-section>
             </q-item>
           </q-list>
         </div>
@@ -70,11 +68,9 @@
     </div>
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container style="width: 100%;">
       <q-page padding>
-        <p v-for="n in 15" :key="n">
-          aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssssssss
-        </p>
+        <router-view />
       </q-page>
     </q-page-container>
   </q-layout>

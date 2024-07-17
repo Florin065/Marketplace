@@ -2,7 +2,6 @@
   <div>
     <q-header
       bordered
-      reveal
       class="bg-grey-3 text-primary"
       style="padding: 20px; height: 150px; width: 100%;"
       src="~/src/assets/banner.jpeg"
@@ -418,7 +417,7 @@ watch(() => formData.value.cui, () => {
 });
 
 const navigateToLogin = () => {
-  router.push('/auth/login');
+  router.push('auth/login');
 };
 
 const navigateToHome = () => {
