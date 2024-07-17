@@ -1,9 +1,9 @@
 <template>
   <q-layout view="lHh Lpr lFf" style="height: 100vh;">
-    <q-header elevated>
+    <q-header>
       <q-toolbar>
         <!-- Logo on the left -->
-        <q-img src="../assets/logo.png" style="width:58px; height:48px;"/>
+        <q-img src="../assets/logo.png" style="width:58px; height:48px;" fit="contain" @click="router.push('/')"/>
         
         <!-- Flex spacer to push elements to the sides -->
         <q-space />
@@ -14,6 +14,7 @@
           filled
           placeholder="Caută orice în back-office"
           class="q-mr-md q-ml-md"
+          dense
           style="box-shadow: none; border-radius: 12px; width: 476px; flex-shrink: 0;"
           v-model="search"
         >
@@ -37,27 +38,36 @@
     show-if-above
 
     :mini="miniMode"
-    @click="miniMode = !miniMode"
     mini-to-overlay
 
-    :width="200"
+    :width="250"
     :breakpoint="500"
     bordered
     :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
-  >
-      <q-list v-for="tab in tabs" :key="tab.id">
-        <q-item clickable v-ripple @click="toggleTab(tab)">
-          <q-item-section avatar>
-            <q-icon :class="tab.icon" />
-          </q-item-section>
-          <q-item-section>
-            {{ tab.title }}
-          </q-item-section>
-          <q-item-section side>
-            <q-icon :name="tab.expanded ? 'chevron-up' : 'chevron-down'" />
-          </q-item-section>
-        </q-item>
-      </q-list>
+  >  
+    <div
+      style="display: flex; padding: 3.07vh 0.87vw; flex-direction: column; justify-content: space-between; align-items: flex-end; width: 55px; height: 100vh; background: var(--color-bg, #FFF);"
+    >
+      <div
+        style="display: flex; padding: 14.96vh 0px; flex-direction: column; justify-content: space-between; align-items: flex-start; flex: 1 0 0; align-self: stretch;"
+        @click="miniMode = !miniMode"
+      >
+        <q-list v-for="tab in tabs" :key="tab.id">
+            <q-item clickable v-ripple @click="toggleTab(tab)">
+              <q-item-section avatar>
+                <q-icon :class="tab.icon" />
+              </q-item-section>
+              <q-item-section>
+                {{ tab.title }}
+              </q-item-section>
+              <q-item-section side>
+                <q-icon :name="tab.expanded ? 'chevron-up' : 'chevron-down'" />
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </div>
+        <q-icon name="logout" @click="logout" style="width: 24px; height: 24px;"/>
+    </div>
     </q-drawer>
 
     <q-page-container>
@@ -72,6 +82,9 @@
 
 <script setup lang="ts">
   import { ref } from 'vue';
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
 
   const search = ref('');
   const leftDrawerOpen = ref(false);
@@ -110,7 +123,7 @@
 
 <style scoped>
 .q-header {
-  background-color: #ffffff;
+  background: #F5F6FA;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 

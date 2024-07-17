@@ -143,7 +143,7 @@ defineOptions({
     align-items: flex-start;
     gap: 16px;
 
-    background: #FFF;
+    background: #F5F6FA;
 }
 
 .discountBanner {

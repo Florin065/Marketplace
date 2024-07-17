@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: #213547;
-  background-color: #ffffff;
+  background: #F5F6FA;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -63,7 +63,7 @@ button:focus-visible {
   margin:auto;
   height: auto;
   text-align: center;
-  
+  background: #F5F6FA;
 }
 
 
