@@ -20,6 +20,7 @@ export default defineConfig({
     alias: {
       "@": "/src",
       "src": "/src",
+      "@@": "/src/pages",
     }
   }
 })

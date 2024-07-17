@@ -2,7 +2,6 @@
   <q-layout view="lHh Lpr lFf" style="height: 100vh;">
     <q-header elevated>
       <q-toolbar>
-        <q-btn flat round icon="menu" @click="toggleLeftDrawer" />
         <!-- Logo on the left -->
         <q-img src="../assets/logo.png" style="width:58px; height:48px;"/>
         
@@ -78,9 +77,6 @@
   const leftDrawerOpen = ref(false);
   const miniMode = ref(true);
 
-  const toggleLeftDrawer = () => {
-    leftDrawerOpen.value = !leftDrawerOpen.value;
-  };
 
   const logout = () => {
     console.log('Logout');
