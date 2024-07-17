@@ -1,8 +1,8 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf" style="height: 100vh;">
     <q-header elevated>
       <q-toolbar>
-        <q-btn flat round icon="menu" @click="drawer" />
+        <q-btn flat round icon="menu" @click="toggleLeftDrawer" />
         <!-- Logo on the left -->
         <q-img src="../assets/logo.png" style="width:58px; height:48px;"/>
         
@@ -10,9 +10,12 @@
         <q-space />
         
         <!-- Search bar in the center -->
+        <!-- Use "flex-shrink: 0" to prevent it from shrinking in smaller screens -->
         <q-input
+          filled
           placeholder="Caută orice în back-office"
-          style="width: 476px;"
+          class="q-mr-md q-ml-md"
+          style="box-shadow: none; border-radius: 12px; width: 476px; flex-shrink: 0;"
           v-model="search"
         >
           <template v-slot:prepend>
@@ -23,53 +26,6 @@
         <!-- Flex spacer to push elements to the sides -->
         <q-space />
 
-          <!-- Profile avatar on the right -->
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/img/avatar2.jpg" alt="User Avatar">
-          </q-avatar>
-        </q-toolbar>
-      </q-header>
-  
-      <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-
-      :mini="miniMode"
-      @click="miniMode = !miniMode"
-      mini-to-overlay
-
-      :width="200"
-      :breakpoint="500"
-      bordered
-      :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
-    >
-        <q-list v-for="tab in tabs" :key="tab.id">
-          <q-item clickable v-ripple @click="toggleTab(tab)">
-            <q-item-section avatar>
-              <q-icon :class="tab.icon" />
-            </q-item-section>
-            <q-item-section>
-              {{ tab.title }}
-            </q-item-section>
-            <q-item-section side>
-              <q-icon :name="tab.expanded ? 'chevron-up' : 'chevron-down'" />
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-drawer>
-  
-      <q-page-container>
-        <q-page padding>
-          <p v-for="n in 15" :key="n">
-            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssssssss
-          </p>
-        </q-page>
-      </q-page-container>
-    </q-layout>
-  </template>
-  
-  <script setup lang="ts">
-    import { ref } from 'vue';
         <!-- Profile avatar on the right -->
         <q-avatar>
           <img src="https://cdn.quasar.dev/img/avatar2.jpg" alt="User Avatar">
@@ -77,26 +33,40 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="drawer" bordered
-      style="
-        display: flex; flex-direction: column; width: 55px;
-        background-color: #ffffff; box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-        color: var(--color-text, #09090B); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500;
-      "
-      :show-if-above="true"
-      persistent
-    >
-      <q-list>
-        <q-item v-for="tab in tabs" :key="tab.id" clickable v-ripple @click="toggleTab(tab)" class="sidebar-icon">
+    <q-drawer
+    v-model="leftDrawerOpen"
+    show-if-above
+
+    :mini="miniMode"
+    @click="miniMode = !miniMode"
+    mini-to-overlay
+
+    :width="200"
+    :breakpoint="500"
+    bordered
+    :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
+  >
+      <q-list v-for="tab in tabs" :key="tab.id">
+        <q-item clickable v-ripple @click="toggleTab(tab)">
           <q-item-section avatar>
-            <q-icon :class="tab.icon" :style="{color: tab.color}" />
+            <q-icon :class="tab.icon" />
+          </q-item-section>
+          <q-item-section>
+            {{ tab.title }}
+          </q-item-section>
+          <q-item-section side>
+            <q-icon :name="tab.expanded ? 'chevron-up' : 'chevron-down'" />
           </q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <q-page padding>
+        <p v-for="n in 15" :key="n">
+          aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasssssssssssssssssss
+        </p>
+      </q-page>
     </q-page-container>
   </q-layout>
 </template>
@@ -105,7 +75,16 @@
   import { ref } from 'vue';
 
   const search = ref('');
-  const drawer = ref(true);
+  const leftDrawerOpen = ref(false);
+  const miniMode = ref(true);
+
+  const toggleLeftDrawer = () => {
+    leftDrawerOpen.value = !leftDrawerOpen.value;
+  };
+
+  const logout = () => {
+    console.log('Logout');
+  };
 
   const tabs = ref([
       { id: 1, title: 'Dashboard', content: ['Overview', 'Notifications', 'Performance Metrics'],
@@ -123,9 +102,15 @@
       { id: 7, title: 'Store Settings', content: ['Shipping', 'Tax Settings', 'Notifications Settings'],
           icon: 'bi bi-gear-fill', color: '#0000004D', expanded: true, alwaysVisible: true},
       { id: 8, title: 'Account Settings', content: ['Profile Settings', 'Banking Information', 'User Roles and Permissions'],
-          icon: 'bi bi-person-circle', color: '#0000004D', expanded: true, alwaysVisible: true},
+          icon: 'bi bi-person-circle', expanded: true, alwaysVisible: true},
   ]);
-</script>
+
+
+  const toggleTab = (tab) => {
+    tab.expanded = !tab.expanded;
+  };
+
+  </script>
 
 <style scoped>
 .q-header {
@@ -134,30 +119,12 @@
 }
 
 .q-drawer {
-  width: 55px;
-  overflow: visible;
-  background-color: #ffffff;
+  width: 250px;
 }
 
 .q-avatar img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-}
-
-.sidebar-icon {
-  justify-content: center;
-}
-
-.sidebar-icon .q-item-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.q-list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 </style>
