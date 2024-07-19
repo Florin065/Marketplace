@@ -36,6 +36,7 @@ import { Loading, Notify } from 'quasar'
 // Assumes your root component is App.vue
 // and placed in same folder as main.js
 import App from './App.vue'
+// import HighchartsVue from 'highcharts-vue'
 
 const myApp = createApp(App)
 
@@ -53,4 +54,5 @@ myApp.use(Quasar, {
 
 // Assumes you have a <div id="app"></div> in your index.html
 myApp.use(router)
+// myApp.use(HighchartsVue)
 myApp.mount('#app')
