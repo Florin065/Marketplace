@@ -34,6 +34,7 @@
           Sales Chart
         </q-card-section>
         <q-card-section>
+          <chart></chart>
         </q-card-section>
       </q-card>
 
@@ -70,6 +71,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { format, subYears, subMonths, subWeeks, subDays, isAfter } from "date-fns";
+import Chart from "./components/ChartComponent.vue";
 
 const stats = [
   {
@@ -366,3 +368,28 @@ const filteredOrders = computed(() => {
   line-height: normal;
 }
 </style>
+
+<!-- <template>
+  <div><chart></chart></div>
+</template>
+
+<script setup lang="ts">
+import Chart from "./components/ChartComponent.vue";
+
+const Overview = {
+  components: {
+    chart: Chart
+  },
+  methods: {
+    handler() {
+      var args = arguments;
+      for (var arg of args) {
+        if (arg instanceof Function) {
+          arg();
+        }
+      }
+    }
+  }
+};
+
+</script> -->
