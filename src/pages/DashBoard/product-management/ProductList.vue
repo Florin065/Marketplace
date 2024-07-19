@@ -221,19 +221,26 @@
             row-key="SKU"
             style="display: flex; padding: 8px 0px; flex-direction: column; justify-content: flex-end; gap: 12px; align-self: stretch; border-radius: 16px; background: var(--color-bg, #FFF);"
             :rows-per-page-options="[5, 7, 10, 20]"
-            :pagination= "{rowsPerPage: 7}"
+            :pagination="{ rowsPerPage: 7 }"
         >
             <template v-slot:body-cell-image="props">
             <q-td :props="props">
-                <q-img :src="props.row.image" contain style="width: 50px; height: 50px;"></q-img>
+                <q-img :src="props.row.image" fit="contain" style="width: 71.525px; height: 60px;"></q-img>
             </q-td>
             </template>
 
             <template v-slot:body-cell-options="props">
             <q-td :props="props">
-                <q-btn-group>
-                <q-btn v-for="option in props.row.options" :key="option" :label="option"></q-btn>
-                </q-btn-group>
+                <div class="options-container">
+                <q-chip
+                    v-for="option in props.row.options"
+                    :key="option"
+                    :label="option"
+                    outline
+                    square
+                    class="option-chip"
+                />
+                </div>
             </q-td>
             </template>
 
@@ -245,14 +252,12 @@
             </template>
 
             <template v-slot:body-cell-productName="props">
-            <q-td
-                :props="props"
-                style="max-width: 20vw; white-space: normal; overflow-wrap: break-word;"
-            >
+            <q-td :props="props" style="max-width: 8vw; white-space: normal; overflow-wrap: break-word;">
                 {{ props.row.productName }}
             </q-td>
             </template>
         </q-table>
+
     </q-page>
 
 </template>
@@ -394,6 +399,27 @@ const deleteItem = (item) => {
 };
 </script>
 
-<style scoped>
+<style>
+.options-container {
+  display: flex;
+  width: 175px;
+  align-items: center;
+  align-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
+.option-chip {
+    display: flex;
+    height: var(--Size-size-input-lg, 44px);
+    padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px);
+    align-items: center;
+    gap: var(--Spacing-spacing-sm, 8px);
+    flex-shrink: 0;
+    border-radius: var(--Radii-radius-input, 6px);
+    border: 1px solid var(--color-border, #E4E4E7);
+    background: var(--color-bg, #FFF);
+
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
 </style>
