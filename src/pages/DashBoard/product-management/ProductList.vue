@@ -214,33 +214,45 @@
                 </template>
             </q-input>
         </q-card-section>
+        <!-- TODO: The columns doesn't have 'align' property even though it recognizes it. -->
         <q-table
             :rows="rows"
             :columns="columns"
             row-key="SKU"
+            style="display: flex; padding: 8px 0px; flex-direction: column; justify-content: flex-end; gap: 12px; align-self: stretch; border-radius: 16px; background: var(--color-bg, #FFF);"
+            :rows-per-page-options="[5, 7, 10, 20]"
+            :pagination= "{rowsPerPage: 7}"
         >
-        
-        <template v-slot:body-cell-image="props">
-          <q-td :props="props">
-            <q-img :src="props.row.image" contain style="width: 50px; height: 50px;"></q-img>
-          </q-td>
-        </template>
-        
-        <template v-slot:body-cell-options="props">
-          <q-td :props="props">
-            <q-btn-group>
-              <q-btn v-for="option in props.row.options" :key="option" :label="option"></q-btn>
-            </q-btn-group>
-          </q-td>
-        </template>
-  
-        <template v-slot:body-cell-actions="props">
-          <q-td :props="props">
-            <q-btn icon="edit" @click="editItem(props.row)"></q-btn>
-            <q-btn icon="delete" @click="deleteItem(props.row)"></q-btn>
-          </q-td>
-        </template>
-      </q-table>
+            <template v-slot:body-cell-image="props">
+            <q-td :props="props">
+                <q-img :src="props.row.image" contain style="width: 50px; height: 50px;"></q-img>
+            </q-td>
+            </template>
+
+            <template v-slot:body-cell-options="props">
+            <q-td :props="props">
+                <q-btn-group>
+                <q-btn v-for="option in props.row.options" :key="option" :label="option"></q-btn>
+                </q-btn-group>
+            </q-td>
+            </template>
+
+            <template v-slot:body-cell-actions="props">
+            <q-td :props="props">
+                <q-btn icon="edit" @click="editItem(props.row)"></q-btn>
+                <q-btn icon="delete" @click="deleteItem(props.row)"></q-btn>
+            </q-td>
+            </template>
+
+            <template v-slot:body-cell-productName="props">
+            <q-td
+                :props="props"
+                style="max-width: 20vw; white-space: normal; overflow-wrap: break-word;"
+            >
+                {{ props.row.productName }}
+            </q-td>
+            </template>
+        </q-table>
     </q-page>
 
 </template>
@@ -253,14 +265,14 @@ import { ref } from 'vue';
 const search = ref('');
 
 const columns = [
-        { name: 'image', label: 'Image',  field: 'image' },
-        { name: 'SKU', label: 'SKU', field: 'SKU', sortable: true },
-        { name: 'productName', label: 'Product Name', field: 'productName', sortable: true },
-        { name: 'category', label: 'Category', field: 'category', sortable: true },
-        { name: 'price', label: 'Price', field: 'price', sortable: true },
-        { name: 'inStock', label: 'In Stock', field: 'inStock', sortable: true },
-        { name: 'options', label: 'Options', field: 'options' },
-        { name: 'actions', label: 'Actions', field: 'actions' }
+        { name: 'image', label: 'Image',  field: 'image', align: 'center' },
+        { name: 'SKU', label: 'SKU', field: 'SKU', sortable: true, align: 'center'  },
+        { name: 'productName', label: 'Product Name', field: 'productName', sortable: true, align: 'center'  },
+        { name: 'category', label: 'Category', field: 'category', sortable: true, align: 'center'  },
+        { name: 'price', label: 'Price', field: 'price', sortable: true, align: 'center'  },
+        { name: 'inStock', label: 'In Stock', field: 'inStock', sortable: true, align: 'center'  },
+        { name: 'options', label: 'Options', field: 'options', align: 'center'  },
+        { name: 'actions', label: 'Actions', field: 'actions', align: 'center'  }
 ];
 const rows = [
         {
@@ -381,3 +393,7 @@ const deleteItem = (item) => {
     Notify.create({ message: `Delete ${item.productName}`, color: 'negative', position: 'top' });
 };
 </script>
+
+<style scoped>
+
+</style>
