@@ -38,8 +38,8 @@
         </q-card-section>
       </q-card>
 
-      <q-card class="q-mt-xl q-ml-lg q-mr-lg table" style="border-radius: 20px;">
-        <q-card-section class="title" style="text-align: left; display: flex; justify-content: space-between; align-items: center; font-weight: 700">
+      <q-card class="q-mt-xl q-ml-lg q-mr-lg" style="border-radius: 20px;">
+        <q-card-section class="title" style="text-align: left; display: flex; justify-content: space-between; align-items: center;">
           Recent Orders
           <q-select
             v-model="selectedTimeframe"
@@ -48,6 +48,7 @@
             dense
           />
         </q-card-section>
+
         <q-table
           :rows="filteredOrders"
           :columns="columns"
@@ -55,18 +56,55 @@
           flat
           wrap-cells
           separator="none"
-          style="max-height: 400px; overflow-y: auto; font-weight: 600; opacity: 0.9"
+          style="max-height: 400px; overflow-y: auto;"
         >
-          <template v-slot:body-cell-status="props">
-            <q-td :props="props">
-              <q-badge :color="props.row.statusColor" :label="props.row.status" />
-            </q-td>
+          <template v-slot:header="props">
+            <q-tr :props="props">
+              <q-th
+                v-for="col in props.cols"
+                :key="col.name"
+                :props="props"
+                class="table"
+                style="font-weight: 700;"
+              >
+                {{ col.label }}
+              </q-th>
+            </q-tr>
+          </template>
+
+          <template v-slot:body="props">
+            <q-tr :props="props">
+              <q-td
+                v-for="col in props.cols"
+                :key="col.name"
+                :props="props"
+                class="table"
+                style="font-weight: 600; opacity: 0.8"
+              >
+                <div v-if="col.name === 'status'">
+                  <q-badge
+                    :label="props.row.status"
+                    :style="{ backgroundColor: orderStatusBackgroundAndColor(props.row.status)?.bgColor,
+                              color: orderStatusBackgroundAndColor(props.row.status)?.color,
+                              fontSize: '12px', fontWeight: '700', width: '107.671px', height: '27px',
+                              display: 'flex', justifyContent: 'center', alignItems: 'center',
+                              borderRadius: '4.5px'
+                            }"
+                  />
+                </div>
+                <div v-else>
+                  {{ props.row[col.name] }}
+                </div>
+              </q-td>
+            </q-tr>
           </template>
         </q-table>
       </q-card>
     </q-card>
   </div>
 </template>
+
+
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
@@ -137,7 +175,6 @@ const orders = ref([
     date: '2024-09-04',
     category: 'Scânduri',
     status: 'Completed',
-    statusColor: 'green'
   },
   {
     id: '00002',
@@ -148,7 +185,6 @@ const orders = ref([
     date: '2024-05-28',
     category: 'Ciment, lianți, var',
     status: 'Processing',
-    statusColor: 'purple'
   },
   {
     id: '00003',
@@ -159,7 +195,6 @@ const orders = ref([
     date: '2024-11-23',
     category: 'Ciment, lianți, var',
     status: 'Rejected',
-    statusColor: 'red'
   },
   {
     id: '00004',
@@ -170,7 +205,6 @@ const orders = ref([
     date: '2024-11-23',
     category: 'Ciment, lianți, var',
     status: 'Pending',
-    statusColor: 'orange'
   },
   {
     id: '00005',
@@ -181,7 +215,6 @@ const orders = ref([
     date: '2024-11-23',
     category: 'Ciment, lianți, var',
     status: 'Completed',
-    statusColor: 'green'
   },
   {
     id: '00006',
@@ -192,7 +225,6 @@ const orders = ref([
     date: '2024-11-23',
     category: 'Ciment, lianți, var',
     status: 'Processing',
-    statusColor: 'purple'
   },
   {
     id: '00007',
@@ -203,7 +235,6 @@ const orders = ref([
     date: '2024-11-23',
     category: 'Ciment, lianți, var',
     status: 'Processing',
-    statusColor: 'purple'
   },
   {
     id: '00008',
@@ -214,7 +245,6 @@ const orders = ref([
     date: '2024-11-23',
     category: 'Ciment, lianți, var',
     status: 'Processing',
-    statusColor: 'purple'
   },
   {
     id: '00009',
@@ -225,7 +255,6 @@ const orders = ref([
     date: '2024-01-23',
     category: 'Ciment, lianți, var',
     status: 'Processing',
-    statusColor: 'purple'
   },
   {
     id: '00010',
@@ -236,7 +265,6 @@ const orders = ref([
     date: '2024-03-23',
     category: 'Ciment, lianți, var',
     status: 'Processing',
-    statusColor: 'purple'
   },
   {
     id: '00011',
@@ -247,7 +275,6 @@ const orders = ref([
     date: '2010-11-23',
     category: 'Ciment, lianți, var',
     status: 'Processing',
-    statusColor: 'purple'
   },
   {
     id: '00012',
@@ -258,7 +285,6 @@ const orders = ref([
     date: '2012-11-23',
     category: 'Ciment, lianți, var',
     status: 'Processing',
-    statusColor: 'purple'
   },
   {
     id: '00013',
@@ -269,7 +295,6 @@ const orders = ref([
     date: '2014-11-23',
     category: 'Ciment, lianți, var',
     status: 'Processing',
-    statusColor: 'purple'
   },
 ]);
 
@@ -287,7 +312,6 @@ const filteredOrders = computed(() => {
 
   const today = new Date();
   let filtered = orders.value;
-  console.log('Selected timeframe:', selectedTimeframe.value);
 
   switch (selectedTimeframe.value) {
     case 'All time':
@@ -329,6 +353,19 @@ const filteredOrders = computed(() => {
 
   return filtered;
 });
+
+const orderStatusBackgroundAndColor = (status: string) => {
+  switch (status) {
+    case 'Completed':
+      return { bgColor: 'rgba(0, 182, 155, 0.2)', color: '#0A9587' };
+    case 'Processing':
+      return { bgColor: 'rgba(98, 38, 239, 0.2)', color: '#6226EF' };
+    case 'Rejected':
+      return { bgColor: 'rgba(239, 56, 38, 0.2)', color: '#EF3826' };
+    case 'Pending':
+      return { bgColor: 'rgba(255, 165, 0, 0.2)', color: '#E77408' };
+  }
+};
 </script>
 
 <style scoped>
@@ -362,34 +399,9 @@ const filteredOrders = computed(() => {
 
 .table {
   color: #202224;
-  font-family: "Nunito Sans";
+  font-family: 'Nunito Sans';
   font-size: 14px;
   font-style: normal;
   line-height: normal;
 }
 </style>
-
-<!-- <template>
-  <div><chart></chart></div>
-</template>
-
-<script setup lang="ts">
-import Chart from "./components/ChartComponent.vue";
-
-const Overview = {
-  components: {
-    chart: Chart
-  },
-  methods: {
-    handler() {
-      var args = arguments;
-      for (var arg of args) {
-        if (arg instanceof Function) {
-          arg();
-        }
-      }
-    }
-  }
-};
-
-</script> -->

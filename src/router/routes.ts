@@ -74,8 +74,8 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@@/DashBoard/order-management/Invoices.vue'),
       },
       {
-        path: 'add-product',
-        name: 'add-product',
+        path: 'add-new-product',
+        name: 'add-new-product',
         component: () => import('@@/DashBoard/product-management/AddNewProduct.vue'),
       },
       {
@@ -89,8 +89,8 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@@/DashBoard/product-management/PricingList.vue'),
       },
       {
-        path: 'pricing-in-bulk',
-        name: 'pricing-in-bulk',
+        path: 'manage-pricing-in-bulk',
+        name: 'manage-pricing-in-bulk',
         component: () => import('@@/DashBoard/product-management/ManagePricingInBulk.vue'),
       },
       {
@@ -99,13 +99,13 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@@/DashBoard/marketing/Vouchers.vue'),
       },
       {
-        path: 'banners',
-        name: 'banners',
+        path: 'promotional-banners',
+        name: 'promotional-banners',
         component: () => import('@@/DashBoard/marketing/PromotionalBanners.vue'),
       },
       {
-        path: 'stock',
-        name: 'stock',
+        path: 'view-stock',
+        name: 'view-stock',
         component: () => import('@@/DashBoard/inventory/ViewStock.vue'),
       },
       {
@@ -159,8 +159,8 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@@/DashBoard/account-settings/BankingInformation.vue'),
       },
       {
-        path: 'user-roles-permissions',
-        name: 'user-roles-permissions',
+        path: 'user-roles-and-permissions',
+        name: 'user-roles-and-permissions',
         component: () => import('@@/DashBoard/account-settings/UserRolesAndPermissions.vue'),
       }
     ],
