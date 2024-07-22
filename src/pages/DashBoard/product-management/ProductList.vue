@@ -70,7 +70,10 @@
                     <q-menu anchor="bottom middle" self="top middle">
                         <q-list style="min-width: 100px" v-for="option in item.options">
                             <q-item clickable v-close-popup>
-                                <q-item-section>{{ option }}</q-item-section>
+                                <q-item-section 
+                                :style="item.selected === option ? 'color: #007BFF;' : ''"
+                                @click="item.selected = option"
+                                >{{ option }}</q-item-section>
                             </q-item>
                         </q-list>
                     </q-menu>
@@ -304,23 +307,23 @@ const buttons = [
 const filter = [
     {
         label: 'Option Type',
-        options: ['New tab', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
-        selected: 'New tab',
+        options: ['None', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
+        selected: 'None',
     }, 
     {
         label: 'Category',
-        options: ['New tab', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
-        selected: 'New tab',
+        options: ['None', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
+        selected: 'None',
     }, 
     {
         label: 'Price between',
-        options: ['New tab', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
-        selected: 'New tab',
+        options: ['None', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
+        selected: 'None',
     }, 
     {
         label: 'Left in Stock',
-        options: ['New tab', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
-        selected: 'New tab',
+        options: ['None', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
+        selected: 'None',
     }
 ]
 
