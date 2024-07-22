@@ -3,6 +3,7 @@
     <q-page
         style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; align-self: stretch; padding: 10px 0px;"
     >
+        <!-- Buttons for adding... -->
         <q-card-section
             horizontal
             style="display: flex; align-items: center; gap: 12.985vw; align-self: stretch;"
@@ -43,6 +44,7 @@
             </q-card-section>
         </q-card-section>
 
+        <!-- Filters -->
         <q-card-section
             horizontal
             style="display: flex; justify-content: space-between; align-items: center; align-self: stretch;"
@@ -100,6 +102,8 @@
                 </template>
             </q-input>
         </q-card-section>
+
+        <!-- Table -->
         <!-- TODO: The columns doesn't have 'align' property even though it recognizes it. -->
         <q-table
             :rows="rows"

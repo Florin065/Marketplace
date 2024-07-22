@@ -151,7 +151,7 @@
         
                     <q-tab-panel name="3">
                     <div class="text-h6">Movies</div>
-                    3 Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit. Mail Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     </q-tab-panel>
                 </q-tab-panels>
             </q-card>
@@ -192,38 +192,10 @@
             </q-card>
 
             <q-btn
+                v-for="searches in popularSearches"
+                :key="searches.label"
                 style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                label="Lac pentru gard"
-                unelevated
-            />
-
-            <q-btn
-                style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                label="Gratar"
-                unelevated
-            />
-
-            <q-btn
-                style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                label="Carbuni"
-                unelevated
-            />
-
-            <q-btn
-                style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                label="Panou lemn"
-                unelevated
-            />
-
-            <q-btn
-                style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                label="Parchet"
-                unelevated
-            />
-
-            <q-btn
-                style="display: flex; padding: var(--Spacing-spacing-2xs, 4px) var(--Spacing-spacing-sm, 8px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-2xs, 4px); border-radius: var(--Radii-radius, 6px); border: 1px solid var(--blue-light, rgba(37, 99, 235, 0.30)); background: var(--color-bg, #FFF);"
-                label="Vopsea Interior"
+                :label="searches.label"
                 unelevated
             />
 
@@ -270,236 +242,48 @@
                     style="height: 403px; max-width: 100vw; display: flex; align-items: flex-start; gap: 16px; flex: 1 0 0; box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);" ref="scrollAreaRef"
                 >
                     <div class="row no-wrap" style="display: flex; gap: 25px;">
-                        <!-- <div v-for="index in 15" :key="index" class="product-item"> -->
-                            <!-- Caramida -->
-                            <q-card
-                                bordered
-                                style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
-                                >
-                                    
-                                <div class="text-h6" @click="() => router.push('/product/1')">Caramida interior / exterior, rosii, 10 tone. </div>
-                                <q-card-section
-                                    horizontal
-                                    syle="display: flex; width: 334px;padding: 12px; align-items: center; justify-content: space-between; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
-                                >
-                                    <q-img
-                                        src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/caramida_Bg.png?alt=media&token=23f0f3f0-1169-4c8c-bcfb-8007a5774945"
-                                        style="width: 17vh; height: 20vh;"
-                                        fit="contain"
-                                        @click="() => router.push('/product/1')"
-                                    />
-                                    <q-card-section
-                                        vertical
-                                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; flex: 1 0 0; height:auto;"
-                                    >
-                                        <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 2vh; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through; text-align: center;"
-                                        >
-                                            32.99 Lei
-                                        </div>
-        
-                                        <div
-                                            style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
-                                        >
-                                            28.99 LEI
-                                        </div>
-                                        <div
-                                            style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; text-align: center;"
-                                        >
-        
-                                        </div>
-                                    </q-card-section>
-                                </q-card-section>
-                                
-                                <q-btn
-                                    label="Adauga in cos"
-                                    @click="() => addedToCart()"
-                                    style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
-                                />
-                            </q-card>
-                            <!-- Copper cable -->
-                            <q-card
-                                bordered
-                                style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
-                            >
-                                
-                            <div class="text-h6" @click="() => router.push('/product/1')"> Cablu electric litat MYF (1.5MM-100M./rola)  </div>
-                            <q-card-section
-                                horizontal
-                                syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
-                            >
-                                <q-img
-                                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/cablu_cupru-removebg-preview.png?alt=media&token=5c30e3f7-5330-4236-9171-06b478367824"
-                                    style="width: 150px; height: 200px;"
-                                    fit="contain"
-                                    @click="() => router.push('/product/1')"
-                                />
-                                <q-card-section
-                                    vertical
-                                    style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; flex: 1 0 0; height:auto;"
-                                >
-                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through;
-                                    text-align: center;"
-                                    >
-                                        32.99 Lei
-                                    </div>
-    
-                                    <div
-                                        style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
-                                    >
-                                        28.99 LEI
-                                    </div>
-                                    <div
-                                        style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; text-align: center;"
-                                    >
-    
-                                    </div>
-                                </q-card-section>
-                            </q-card-section>
-                            
-                            <q-btn
-                                label="Adauga in cos"
-                                @click="() => addedToCart()"
-                                style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
-                            />
-                            </q-card>
-                            <!-- Wood -->
-                            <q-card
+                    
+                        <q-card
+                            v-for="prod in testProducts"
                             bordered
                             style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
-                            >
-                                
-                            <div class="text-h6" @click="() => router.push('/product/1')"> Lemne de foc paletizate, 0.8 mc, fag, 1.2 m x 1.45 m  </div>
+                        >
+                    
+                            <div class="text-h6" @click="prod.func"> {{ prod.label }} </div>
                             <q-card-section
                                 horizontal
-                                syle="display: flex; width: 334px; padding: 12px; align-items: center; justify-content: space-between; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
+                                syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
                             >
+
                                 <q-img
-                                    src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1"
-                                    style="width: 150px; height: 200px;"
-                                    fit="contain"
-                                    @click="() => router.push('/product/1')"
+                                    :src="prod.image.src"
+                                    :style="prod.image.style"
+                                    :fit="prod.image.fit"
+                                    @click="prod.func"
                                 />
+
                                 <q-card-section
                                     vertical
                                     style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; flex: 1 0 0; height:auto;"
                                 >
-                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through; text-align: center;"
-                                    >
-                                        32.99 Lei
-                                    </div>
-    
+                                    <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 2vh; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through; text-align: center;"
+                                    > {{ prod.price }} </div>
+
                                     <div
-                                        style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
-                                    >
-                                        28.99 LEI
-                                    </div>
-                                    <div
-                                        style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; text-align: center;"
-                                    >
-    
-                                    </div>
+                                            style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
+                                        > {{ prod.discount }} {{ prod.currency }} </div>
+
                                 </q-card-section>
                             </q-card-section>
-                            
+
                             <q-btn
+                                class="add-to-cart-btn"
                                 label="Adauga in cos"
                                 @click="() => addedToCart()"
-                                style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
                             />
                         </q-card>
-                            <!-- BCA -->
-                            <q-card
-                                bordered
-                                style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
-                                >
-                                    
-                                <div class="text-h6" @click="() => router.push('/product/1')">BCA Ytong Design, 599 x 75 x 199 mm (LxGxH)</div> 
-                                <q-card-section
-                                    horizontal
-                                    syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
-                                >
-                                    <q-img
-                                        src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/BCA-removebg-preview.png?alt=media&token=5ec49478-ce72-4177-87e5-6be5e5ce2b4f"
-                                        style="width: 150px; height: 200px;"
-                                        fit="contain"
-                                        @click="() => router.push('/product/1')"
-                                    />
-                                    <q-card-section
-                                        vertical
-                                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; flex: 1 0 0; height:auto;"
-                                    >
-                                        <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through; text-align: center;"
-                                        >
-                                            32.99 Lei
-                                        </div>
-        
-                                        <div
-                                            style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
-                                        >
-                                            28.99 LEI
-                                        </div>
-                                        <div
-                                            style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; text-align: center;"
-                                        >
-        
-                                        </div>
-                                    </q-card-section>
-                                </q-card-section>
-                                
-                                <q-btn
-                                    label="Adauga in cos"
-                                    @click="() => addedToCart()"
-                                    style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
-                                />
-                            </q-card>
-                            <!-- Ciment -->
-                            <q-card
-                                bordered
-                                style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
-                                >
-                                    
-                                <div class="text-h6" @click="() => router.push('/product/1')">Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg</div>
-                                <q-card-section
-                                    horizontal
-                                    syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
-                                >
-                                    <q-img
-                                        src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465"
-                                        style="width: 150px; height: 200px;"
-                                        fit="contain"
-                                        @click="() => router.push('/product/1')"
-                                    />
-                                    <q-card-section
-                                        vertical
-                                        style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; flex: 1 0 0; height:auto;"
-                                    >
-                                        <div style="align-self: stretch; color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 400; line-height: 38px;  text-decoration-line: strikethrough; text-decoration:line-through; text-align: center;"
-                                        >
-                                            32.99 Lei
-                                        </div>
-        
-                                        <div
-                                            style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
-                                        >
-                                            28.99 LEI
-                                        </div>
-                                        <div
-                                            style="width: 150px; color: var(--blue1, #2563EB); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; text-align: center;"
-                                        >
-        
-                                        </div>
-                                    </q-card-section>
-                                </q-card-section>
-                                
-                                <q-btn
-                                    label="Adauga in cos"
-                                    @click="() => addedToCart()"
-                                    style="display: flex; height: var(--Size-size-button-xl, 48px); padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); align-self: stretch; border-radius: var(--Spacing-spacing-lg, 16px); background: var(--blue1, #2563EB); box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);"
-                                />
-                            </q-card>
-                        </div>
-                        
-                    <!-- </div> -->
+                    
+                    </div>
                 </q-scroll-area>
                 <q-btn icon="chevron_right" @click="scrollRight" flat />
             </q-card-section>
@@ -553,160 +337,24 @@
                 <q-card-section
                     horizontal
                     style="display: flex; align-items: flex-start; gap: 34px; align-self: stretch;"
-                >
+                    v-for="i in 2"
+                    >
                     <q-card-section
+                        v-for="category in categories"
                         class="clickable-card-section"
                         horizontal
                         style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => Notify.create({message: 'Unelte filter applied', color: 'positive', position: 'top', timeout: 2000})"
-
+                        @click = "category.func"
                     >
-
+                        
                         <q-icon style="width: 127px; height: 130px;">
-                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/borm.jpg?alt=media&token=e43f8c90-4c54-4188-8199-e38e9819d7bd" />
+                            <q-img :src="category.image" />
                         </q-icon>
                         <div
                             style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
                         >
-                            Unelte de mana
+                            {{ category.label }}
                         </div>
-
-                    </q-card-section>
-
-                    <q-card-section
-                        class="clickable-card-section"
-                        horizontal
-                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => Notify.create({message: 'Ciment filter applied', color: 'positive', position: 'top', timeout: 2000})"
-                    >
-
-                        <q-icon style="width: 127px; height: 130px;">
-                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/ciment2.png?alt=media&token=5394417a-2fc2-4eb6-ab64-5fe63cb4a48e" />
-                        </q-icon>
-                        <div
-                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
-                        >
-                            Ciment
-                        </div>
-
-                    </q-card-section>
-
-                    <q-card-section
-                        class="clickable-card-section"
-                        horizontal
-                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => Notify.create({message: 'Ferestre filter applied', color: 'positive', position: 'top', timeout: 2000})"
-
-                    >
-
-                        <q-icon style="width: 127px; height: 130px;">
-                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/geam.png?alt=media&token=c03a1ddb-ee56-431f-9b83-72732ca5b0b9" />
-                        </q-icon>
-                        <div
-                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
-                        >
-                            Ferestre
-                        </div>
-
-                    </q-card-section>
-
-                    <q-card-section
-                        class="clickable-card-section"
-                        horizontal
-                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => Notify.create({message: 'Lemne filter applied', color: 'positive', position: 'top', timeout: 2000})"
-                    >
-
-                        <q-icon style="width: 127px; height: 130px;">
-                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1" />
-                        </q-icon>
-                        <div
-                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
-                        >
-                            Lemn si Placaje
-                        </div>
-
-                    </q-card-section>
-
-
-                </q-card-section>
-
-                <q-card-section
-                    horizontal
-                    style="display: flex; align-items: flex-start; gap: 34px; align-self: stretch;"
-                >
-                    <q-card-section
-                        class="clickable-card-section"
-                        horizontal
-                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => Notify.create({message: 'Ferestre filter applied', color: 'positive', position: 'top', timeout: 2000})"
-
-                    >
-
-                    <q-icon style="width: 127px; height: 130px;">
-                        <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/geam.png?alt=media&token=c03a1ddb-ee56-431f-9b83-72732ca5b0b9" />
-                    </q-icon>
-                    <div
-                        style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
-                    >
-                        Ferestre
-                    </div>
-
-                    </q-card-section>
-
-                    <q-card-section
-                        class="clickable-card-section"
-                        horizontal
-                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => Notify.create({message: 'Lemne filter applied', color: 'positive', position: 'top', timeout: 2000})"
-
-                    >
-
-                        <q-icon style="width: 127px; height: 130px;">
-                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1" />
-                        </q-icon>
-                        <div
-                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
-                        >
-                            Lemn si Placaje
-                        </div>
-
-                    </q-card-section>
-
-                    <q-card-section
-                        class="clickable-card-section"
-                        horizontal
-                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => Notify.create({message: 'Unelte filter applied', color: 'positive', position: 'top', timeout: 2000})"
-                    >
-
-                        <q-icon style="width: 127px; height: 130px;">
-                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/borm.jpg?alt=media&token=e43f8c90-4c54-4188-8199-e38e9819d7bd" />
-                        </q-icon>
-                        <div
-                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
-                        >
-                            Unelte de mana
-                        </div>
-
-                    </q-card-section>
-
-                    <q-card-section
-                        class="clickable-card-section"
-                        horizontal
-                        style="display: flex; padding: 10px 20px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 12px; border: 1px solid var(--color-border-info-muted, #60A5FA); background: rgba(37, 99, 235, 0.10); "
-                        @click="() => Notify.create({message: 'Ciment filter applied', color: 'positive', position: 'top', timeout: 2000})"
-                    >
-
-                        <q-icon style="width: 127px; height: 130px;">
-                            <q-img src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/ciment2.png?alt=media&token=5394417a-2fc2-4eb6-ab64-5fe63cb4a48e" />
-                        </q-icon>
-                        <div
-                            style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 500; line-height: 32px;"
-                        >
-                            Ciment
-                        </div>
-
                     </q-card-section>
                 </q-card-section>
 
@@ -738,6 +386,124 @@ const tab = ref<string>('1');
 
 const isLogged = ref<boolean>(false);
 isLogged.value = auth.currentUser !== null;
+
+const popularSearches = [
+    {
+        label: 'Lac pentru gard',
+        func: () => search.value = 'Lac pentru gard'
+    },
+    {
+        label: 'Gratar',
+        func: () => search.value = 'Gratar'
+    },
+    {
+        label: 'Carbuni',
+        func: () => search.value = 'Carbuni'
+    },
+    {
+        label: 'Panou lemn',
+        func: () => search.value = 'Panou lemn'
+    },
+    {
+        label: 'Parchet',
+        func: () => search.value = 'Parchet'
+    },
+    {
+        label: 'Vopsea interior',
+        func: () => search.value = 'Vopsea interior'
+    }
+];
+
+const testProducts = [
+    {
+        SKU: 1,
+        label: "Caramida interior / exterior, rosii, 10 tone.",
+        price: 32.99,
+        discount: 28.99,
+        currency: "LEI",
+        image: {
+            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/caramida_Bg.png?alt=media&token=23f0f3f0-1169-4c8c-bcfb-8007a5774945",
+            style: "width: 9vw; height: 20vh;",
+            fit: "contain"
+        },
+        func: () => router.push('/product/1'),
+    },
+    {
+        SKU: 2,
+        label: "Cablu electric litat MYF (1.5MM-100M./rola)",
+        price: 32.99,
+        discount: 28.99,
+        image: {
+            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/cablu_cupru-removebg-preview.png?alt=media&token=5c30e3f7-5330-4236-9171-06b478367824",
+            style: "width: 9vw; height: 20vh;",
+            fit: "contain"
+        },
+        func: () => router.push('/product/2'),
+    },
+    {
+        SKU: 3,
+        label: "Lemne de foc paletizate, 0.8 mc, fag, 1.2 m x 1.45 m",
+        price: 32.99,
+        discount: 28.99,
+        currency: "LEI",
+        image: {
+            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1",
+            style: "width: 9vw; height: 20vh;",
+            fit: "contain"
+        },
+        func: () => router.push('/product/3')
+    },
+    {
+        SKU: 4,
+        label: "BCA Ytong Design, 599 x 75 x 199 mm (LxGxH)",
+        price: 32.99,
+        discount: 28.99,
+        currency: "LEI",
+        image: {
+            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/BCA-removebg-preview.png?alt=media&token=5ec49478-ce72-4177-87e5-6be5e5ce2b4f",
+            style: "width: 9vw; height: 20vh;",
+            fit: "contain"
+        },
+        func: () => router.push('/product/4')
+    },
+    {
+        SKU: 5,
+        label: 'Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40kg',
+        price: 32.99,
+        discount: 28.99,
+        currency: "LEI",
+        image: {
+            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465",
+            style: "width: 9vw; height: 20vh;",
+            fit: "contain"
+        },
+        func: () => router.push('/product/5')
+    }
+
+]
+
+const categories = [
+    {
+        label: 'Unelte de mana',
+        image: 'https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/borm.jpg?alt=media&token=e43f8c90-4c54-4188-8199-e38e9819d7bd',
+        func: () => Notify.create({message: 'Unelte filter applied', color: 'positive', position: 'top', timeout: 2000})
+    },
+    {
+        label: 'Ciment',
+        image: 'https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/ciment2.png?alt=media&token=5394417a-2fc2-4eb6-ab64-5fe63cb4a48e',
+        func: () => Notify.create({message: 'Ciment filter applied', color: 'positive', position: 'top', timeout: 2000})
+    },
+    {
+        label: 'Ferestre',
+        image: 'https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/geam.png?alt=media&token=c03a1ddb-ee56-431f-9b83-72732ca5b0b9',
+        func: () => Notify.create({message: 'Ferestre filter applied', color: 'positive', position: 'top', timeout: 2000})
+    },
+    {
+        label: 'Lemn si Placaje',
+        image: 'https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1',
+        func: () => Notify.create({message: 'Lemne filter applied', color: 'positive', position: 'top', timeout: 2000})
+    }
+]
 
 const addedToCart = () => {
     Notify.create({
@@ -802,4 +568,17 @@ const scrollRight = () => {
     /* Optional: add a shadow or other effects */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
+
+.add-to-cart-btn {
+    display: flex;
+    height: var(--Size-size-button-xl, 48px); 
+    padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px);
+    justify-content: center;
+    align-items: center; 
+    gap: var(--Spacing-spacing-sm, 8px); 
+    align-self: stretch; 
+    border-radius: var(--Spacing-spacing-lg, 16px); 
+    background: var(--blue1, #2563EB); 
+    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.10), 0px 1px 3px 0px rgba(16, 24, 40, 0.10);
+}
 </style>
