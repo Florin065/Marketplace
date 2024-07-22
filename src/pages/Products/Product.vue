@@ -332,12 +332,84 @@
                             name="1"
                             style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 1 0 0;"
                         >
+                        <div class="row items-center" style="display: flex; justify-content: space-between; align-items: center; align-self: stretch;">
+                            <div class="text-h5">Opiniile Clienților {{ product.reviews.average }} / 5</div>
+                            <q-rating
+                                v-model="product.reviews.average"
+                                color="orange"
+                                readonly
+                                size="md"
+                                icon-selected="bi-star-fill"
+                                icon-half="bi-star-half"
+                                icon="bi-star"
+                                no-dimming
+                                max="5"
+                            />
+                            <div class="q-ml-md">{{ product.reviews.total }} recenzii</div>
+                        </div>
                         
+                        <q-scroll-area style="height: 31vh; align-self: stretch; overflow-y: auto; width: 55vw;">
                             <div
                                 style="align-self: stretch; color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 600; line-height: 32px;"
                             >
-                                Recenzii
+                                <q-card class="q-pa-md q-mb-md">
+                                    
+                                    <q-bar class="q-mt-md" v-for="(stars, index) in product.reviews.stars" :key="index"  style="display: flex; align-items: center; gap: 12px; align-self: stretch; background: transparent">
+                                    
+                                        <div style="display: flex; width: 200px; justify-content: flex-end; align-items: center; gap: 5px;">
+                                            <q-icon v-for="i in 5-index" size="md" name="bi-star-fill" color="orange"></q-icon>
+                                        </div>
+                                        <q-linear-progress
+                                            :value="product.reviews.stars[4-index] / product.reviews.total"
+                                            color="orange"
+                                            class="q-ml-md"
+                                            track-color="grey-4"
+                                            style="display: flex; height: 36px; padding-right: 335px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 4px; background: var(--color-bg-subtle, #FAFAFA);"
+                                        />
+
+                                        <div style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 600; line-height: 32px; width: 31px;">
+                                            {{ product.reviews.stars[4-index] }}
+                                        </div>
+                                    
+                                    </q-bar>
+                                </q-card>
+                            
+                                <q-card v-for="review in product.reviews.comments" :key="review.uID" style="display: flex; flex-direction: column; align-items:  flex-start; gap: 14px; align-self: stretch;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; align-self: stretch;">
+
+                                        <div
+                                            style="display: flex; width: auto; align-items: center; align-content: center; gap: 0px 20px; flex-wrap: wrap;"
+                                        >
+                                            <q-avatar
+                                                style="border-radius: 60px; background: url(<path-to-image>) lightgray 50% / cover no-repeat; width: 64px; height: 64px; flex-shrink: 0;" 
+                                            >
+                                                <q-img :src="review.avatar" />
+                                            </q-avatar>
+
+                                            {{ review.name }}
+                                        </div>
+
+                                        <q-rating
+                                            v-model="review.rating"
+                                            color="orange"
+                                            readonly
+                                            size="md"
+                                            icon-selected="bi-star-fill"
+                                            icon-half="bi-star-half"
+                                            icon="bi-star"
+                                            no-dimming
+                                            max="5"
+                                        />
+
+                                    </div>
+
+                                    <div style="color: var(--color-text, #09090B); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 400; line-height: 24px; align-self: stretch; text-align: left">
+                                        {{ review.comment }}
+                                    </div>
+                                    
+                                </q-card>
                             </div>
+                        </q-scroll-area>
                         
                         </q-tab-panel>
 
@@ -652,72 +724,120 @@ const product = {
     dimensions: ["20 kg", "30 kg","40 kg", "50 kg"],
     together: ["Produse complementare", "Betoniere", "Unelte si accesorii"],
     boughtTogether : [
-    {
-        SKU: 1,
-        label: "Caramida interior / exterior, rosii, 10 tone.",
-        price: 32.99,
-        discount: 28.99,
-        currency: "LEI",
-        image: {
-            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/caramida_Bg.png?alt=media&token=23f0f3f0-1169-4c8c-bcfb-8007a5774945",
-            style: "width: 9vw; height: 20vh;",
-            fit: "contain"
+        {
+            SKU: 1,
+            label: "Caramida interior / exterior, rosii, 10 tone.",
+            price: 32.99,
+            discount: 28.99,
+            currency: "LEI",
+            image: {
+                src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/caramida_Bg.png?alt=media&token=23f0f3f0-1169-4c8c-bcfb-8007a5774945",
+                style: "width: 9vw; height: 20vh;",
+                fit: "contain"
+            },
+            func: () => router.push('/product/1'),
         },
-        func: () => router.push('/product/1'),
-    },
-    {
-        SKU: 2,
-        label: "Cablu electric litat MYF (1.5MM-100M./rola)",
-        price: 32.99,
-        discount: 28.99,
-        image: {
-            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/cablu_cupru-removebg-preview.png?alt=media&token=5c30e3f7-5330-4236-9171-06b478367824",
-            style: "width: 9vw; height: 20vh;",
-            fit: "contain"
+        {
+            SKU: 2,
+            label: "Cablu electric litat MYF (1.5MM-100M./rola)",
+            price: 32.99,
+            discount: 28.99,
+            image: {
+                src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/cablu_cupru-removebg-preview.png?alt=media&token=5c30e3f7-5330-4236-9171-06b478367824",
+                style: "width: 9vw; height: 20vh;",
+                fit: "contain"
+            },
+            func: () => router.push('/product/2'),
         },
-        func: () => router.push('/product/2'),
-    },
-    {
-        SKU: 3,
-        label: "Lemne de foc paletizate, 0.8 mc, fag, 1.2 m x 1.45 m",
-        price: 32.99,
-        discount: 28.99,
-        currency: "LEI",
-        image: {
-            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1",
-            style: "width: 9vw; height: 20vh;",
-            fit: "contain"
+        {
+            SKU: 3,
+            label: "Lemne de foc paletizate, 0.8 mc, fag, 1.2 m x 1.45 m",
+            price: 32.99,
+            discount: 28.99,
+            currency: "LEI",
+            image: {
+                src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1",
+                style: "width: 9vw; height: 20vh;",
+                fit: "contain"
+            },
+            func: () => router.push('/product/3')
         },
-        func: () => router.push('/product/3')
-    },
-    {
-        SKU: 4,
-        label: "BCA Ytong Design, 599 x 75 x 199 mm (LxGxH)",
-        price: 32.99,
-        discount: 28.99,
-        currency: "LEI",
-        image: {
-            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/BCA-removebg-preview.png?alt=media&token=5ec49478-ce72-4177-87e5-6be5e5ce2b4f",
-            style: "width: 9vw; height: 20vh;",
-            fit: "contain"
+        {
+            SKU: 4,
+            label: "BCA Ytong Design, 599 x 75 x 199 mm (LxGxH)",
+            price: 32.99,
+            discount: 28.99,
+            currency: "LEI",
+            image: {
+                src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/BCA-removebg-preview.png?alt=media&token=5ec49478-ce72-4177-87e5-6be5e5ce2b4f",
+                style: "width: 9vw; height: 20vh;",
+                fit: "contain"
+            },
+            func: () => router.push('/product/4')
         },
-        func: () => router.push('/product/4')
-    },
-    {
-        SKU: 5,
-        label: 'Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40kg',
-        price: 32.99,
-        discount: 28.99,
-        currency: "LEI",
-        image: {
-            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465",
-            style: "width: 9vw; height: 20vh;",
-            fit: "contain"
-        },
-        func: () => router.push('/product/5')
+        {
+            SKU: 5,
+            label: 'Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40kg',
+            price: 32.99,
+            discount: 28.99,
+            currency: "LEI",
+            image: {
+                src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465",
+                style: "width: 9vw; height: 20vh;",
+                fit: "contain"
+            },
+            func: () => router.push('/product/5')
+        }
+    ],
+    reviews: {
+        stars: [1, 1, 1, 1, 2],
+        total: 6,
+        average: 4.5,
+        comments: [
+            {
+                uID: 1,
+                name: "Ion Popescu", 
+                rating: 5,
+                comment: "Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! ",
+                avatar: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/borm.jpg?alt=media&token=e43f8c90-4c54-4188-8199-e38e9819d7bd"
+            },
+            {
+                uID: 2,
+                name: "Maria Ionescu", 
+                rating: 4,
+                comment: "Produsul este destul de bun, recomand cu incredere! Produsul este destul de bun, recomand cu incredere! Produsul este destul de bun, recomand cu incredere! Produsul este destul de bun, recomand cu incredere! Produsul este destul de bun, recomand cu incredere! Produsul este destul de bun, recomand cu incredere! Produsul este destul de bun, recomand cu incredere! Produsul este destul de bun, recomand cu incredere! Produsul este destul de bun, recomand cu incredere! Produsul este destul de bun, recomand cu incredere! Produsul este destul de bun, recomand cu incredere! ",
+                avatar: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/borm.jpg?alt=media&token=e43f8c90-4c54-4188-8199-e38e9819d7bd"
+            },
+            {
+                uID: 3,
+                name: "Andrei Popa", 
+                rating: 3,
+                comment: " Produsul este foarte decent, recomand cu incredere! Produsul este foarte decent, recomand cu incredere! Produsul este foarte decent, recomand cu incredere! Produsul este foarte decent, recomand cu incredere! Produsul este foarte decent, recomand cu incredere! Produsul este foarte decent, recomand cu incredere! Produsul este foarte decent, recomand cu incredere! Produsul este foarte decent, recomand cu incredere! Produsul este foarte decent, recomand cu incredere! Produsul este foarte decent, recomand cu incredere! Produsul este foarte decent, recomand cu incredere!",
+                avatar: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/borm.jpg?alt=media&token=e43f8c90-4c54-4188-8199-e38e9819d7bd"
+            },
+            {
+                uID: 4,
+                name: "Ana Maria", 
+                rating: 2,
+                comment: "Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere! Produsul este prost, nu recomand cu incredere!  ",
+                avatar: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/borm.jpg?alt=media&token=e43f8c90-4c54-4188-8199-e38e9819d7bd"
+            },
+            {
+                uID: 5,
+                name: "Mihai Popescu", 
+                rating: 5,
+                comment: "Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! Produsul este foarte bun, recomand cu incredere! ",
+                avatar: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/borm.jpg?alt=media&token=e43f8c90-4c54-4188-8199-e38e9819d7bd"
+            },
+            {
+                uID: 6,
+                name: "Cristi Rolando",
+                rating: 1,
+                comment: "Foarte prost, recomand fara incredere! Foarte prost, recomand fara incredere! Foarte prost, recomand fara incredere! Foarte prost, recomand fara incredere! Foarte prost, recomand fara incredere! Foarte prost, recomand fara incredere! Foarte prost, recomand fara incredere! Foarte prost, recomand fara incredere! Foarte prost, recomand fara incredere! Foarte prost, recomand fara incredere! ",
+                avatar: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/borm.jpg?alt=media&token=e43f8c90-4c54-4188-8199-e38e9819d7bd"
+            }
+        ]   
     }
-
-]
 }
 
 const imgTab = ref<string>('1');
