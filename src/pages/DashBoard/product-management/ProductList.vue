@@ -31,8 +31,8 @@
 
 
                 <q-btn
-                    style="border-radius: var(--Radii-radius-button, 6px); color: var(--color-text, #09090B); border: 1px solid var(--color-border-primary, #18181B);
-"
+                    style="border-radius: var(--Radii-radius-button, 6px); color: var(--color-text, #09090B); border: 1px solid var(--color-border-primary, #18181B);"
+                    @click="Notify.create({ message: 'Bulk Actions clicked', color: 'positive', position: 'top' })"
                 >       
                     <div style="display: flex; justify-content: center; align-items: center; padding: var(--Spacing-space-2, 8px) var(--Spacing-spacing-lg, 12px); gap: var(--Spacing-spacing-sm, 8px);">
                         <q-icon class="bi bi-eye" /> 
