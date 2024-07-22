@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <q-card class="q-mt-xl q-ml-lg q-mr-lg" style="border-radius: 20px">
+      <q-card class="q-mt-xl q-ml-lg q-mr-lg" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
         <q-card-section class="title" style="text-align: left">
           Sales Chart
         </q-card-section>
@@ -38,7 +38,7 @@
         </q-card-section>
       </q-card>
 
-      <q-card class="q-mt-xl q-ml-lg q-mr-lg" style="border-radius: 20px;">
+      <q-card class="q-mt-xl q-ml-lg q-mr-lg" style="border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);">
         <q-card-section class="title" style="text-align: left; display: flex; justify-content: space-between; align-items: center;">
           Recent Orders
           <q-select

@@ -2,32 +2,24 @@
   <q-layout view="lHh Lpr lFf" style="height: 100vh;">
     <q-header style="box-shadow:none">
       <q-toolbar>
-        <!-- Logo on the left -->
         <q-img class="q-ml-xl" src="../assets/logo.png" style="width:58px; height:48px;" fit="contain" @click="router.push('/')" />
 
-        <!-- Flex spacer to push elements to the sides -->
-        <q-space />
-
-        <!-- Search bar in the center -->
-        <!-- Use "flex-shrink: 0" to prevent it from shrinking in smaller screens -->
-        <q-input placeholder="Caută orice în back-office" class="q-mr-md q-ml-md" dense
-          style="box-shadow: none; border-radius: 12px; width: 476px; flex-shrink: 0;" v-model="search">
+        <q-input placeholder="Caută orice în back-office" dense v-model="search" borderless
+          style="box-shadow: none; border-radius: 12px; width: 476px; flex-shrink: 0; margin-left: 550px">
           <template v-slot:prepend>
             <q-icon name="search" />
           </template>
         </q-input>
 
-        <!-- Flex spacer to push elements to the sides -->
         <q-space />
-
-        <!-- Profile avatar on the right -->
+        
         <q-avatar>
-          <img src="https://cdn.quasar.dev/img/avatar2.jpg" alt="User Avatar">
+          <q-img src="https://cdn.quasar.dev/img/avatar2.jpg" alt="User Avatar"/>
         </q-avatar>
       </q-toolbar>
     </q-header>
 
-<q-drawer v-model="leftDrawerOpen" show-if-above :mini="miniMode" mini-to-overlay :width="250" :breakpoint="500"
+    <q-drawer v-model="leftDrawerOpen" show-if-above :mini="miniMode" mini-to-overlay :width="250" :breakpoint="500"
       bordered :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-white'">
       <div style="display: flex; flex-direction: column; justify-content: space-between;
         align-items: center; width: 100%; height: 100vh; background: var(--color-bg, #FFF);">

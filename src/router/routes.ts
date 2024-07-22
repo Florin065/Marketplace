@@ -46,6 +46,7 @@ const routes: RouteRecordRaw[] = [
 
   {
     path: '/dashboard',
+    redirect: '/dashboard/overview',
     component: DashboardLayout,
     children: [
       {
