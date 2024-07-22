@@ -138,7 +138,7 @@
             </template>
 
             <template v-slot:body-cell-productName="props">
-            <q-td :props="props" style="max-width: 8vw; white-space: normal; overflow-wrap: break-word;">
+            <q-td :props="props" style="max-width: 20vw; white-space: normal; overflow-wrap: break-word;">
                 {{ props.row.productName }}
             </q-td>
             </template>
@@ -340,7 +340,7 @@ const deleteItem = (item) => {
 <style>
 .options-container {
   display: flex;
-  width: 175px;
+  max-width: 18vw;
   align-items: center;
   align-content: center;
   gap: 10px;

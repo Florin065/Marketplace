@@ -277,7 +277,7 @@
                                 style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
                                 >
                                     
-                                <div class="text-h6" @click="() => router.push('/product')">Caramida interior / exterior, rosii, 10 tone. </div>
+                                <div class="text-h6" @click="() => router.push('/product/1')">Caramida interior / exterior, rosii, 10 tone. </div>
                                 <q-card-section
                                     horizontal
                                     syle="display: flex; width: 334px;padding: 12px; align-items: center; justify-content: space-between; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
@@ -286,7 +286,7 @@
                                         src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/caramida_Bg.png?alt=media&token=23f0f3f0-1169-4c8c-bcfb-8007a5774945"
                                         style="width: 17vh; height: 20vh;"
                                         fit="contain"
-                                        @click="() => router.push('/product')"
+                                        @click="() => router.push('/product/1')"
                                     />
                                     <q-card-section
                                         vertical
@@ -322,7 +322,7 @@
                                 style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
                             >
                                 
-                            <div class="text-h6" @click="() => router.push('/product')"> Cablu electric litat MYF (1.5MM-100M./rola)  </div>
+                            <div class="text-h6" @click="() => router.push('/product/1')"> Cablu electric litat MYF (1.5MM-100M./rola)  </div>
                             <q-card-section
                                 horizontal
                                 syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
@@ -331,7 +331,7 @@
                                     src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/cablu_cupru-removebg-preview.png?alt=media&token=5c30e3f7-5330-4236-9171-06b478367824"
                                     style="width: 150px; height: 200px;"
                                     fit="contain"
-                                    @click="() => router.push('/product')"
+                                    @click="() => router.push('/product/1')"
                                 />
                                 <q-card-section
                                     vertical
@@ -368,7 +368,7 @@
                             style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
                             >
                                 
-                            <div class="text-h6" @click="() => router.push('/product')"> Lemne de foc paletizate, 0.8 mc, fag, 1.2 m x 1.45 m  </div>
+                            <div class="text-h6" @click="() => router.push('/product/1')"> Lemne de foc paletizate, 0.8 mc, fag, 1.2 m x 1.45 m  </div>
                             <q-card-section
                                 horizontal
                                 syle="display: flex; width: 334px; padding: 12px; align-items: center; justify-content: space-between; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); background: rgba(255, 255, 255, 0.00);"
@@ -377,7 +377,7 @@
                                     src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1"
                                     style="width: 150px; height: 200px;"
                                     fit="contain"
-                                    @click="() => router.push('/product')"
+                                    @click="() => router.push('/product/1')"
                                 />
                                 <q-card-section
                                     vertical
@@ -413,7 +413,7 @@
                                 style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
                                 >
                                     
-                                <div class="text-h6" @click="() => router.push('/product')">BCA Ytong Design, 599 x 75 x 199 mm (LxGxH)</div> 
+                                <div class="text-h6" @click="() => router.push('/product/1')">BCA Ytong Design, 599 x 75 x 199 mm (LxGxH)</div> 
                                 <q-card-section
                                     horizontal
                                     syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
@@ -422,7 +422,7 @@
                                         src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/BCA-removebg-preview.png?alt=media&token=5ec49478-ce72-4177-87e5-6be5e5ce2b4f"
                                         style="width: 150px; height: 200px;"
                                         fit="contain"
-                                        @click="() => router.push('/product')"
+                                        @click="() => router.push('/product/1')"
                                     />
                                     <q-card-section
                                         vertical
@@ -458,7 +458,7 @@
                                 style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
                                 >
                                     
-                                <div class="text-h6" @click="() => router.push('/product')">Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg</div>
+                                <div class="text-h6" @click="() => router.push('/product/1')">Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg</div>
                                 <q-card-section
                                     horizontal
                                     syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
@@ -467,7 +467,7 @@
                                         src="https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465"
                                         style="width: 150px; height: 200px;"
                                         fit="contain"
-                                        @click="() => router.push('/product')"
+                                        @click="() => router.push('/product/1')"
                                     />
                                     <q-card-section
                                         vertical
