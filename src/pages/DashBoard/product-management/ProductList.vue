@@ -81,6 +81,7 @@
                 <q-btn
                     style="display: flex; justify-content: space-between; align-items: center; align-self: stretch; color: #EA0234; min-width: 98px; font-size: 14px; font-weight: 600;"
                     flat
+                    @click="() => {for (let item of filter) item.selected = 'None'}"
                 >
                     <q-icon class="bi bi-arrow-counterclockwise" />
                     Reset Filter
