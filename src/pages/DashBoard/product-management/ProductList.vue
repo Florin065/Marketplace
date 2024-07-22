@@ -19,23 +19,17 @@
                 style="display: flex; align-items: center; gap: 16px;"
             >
                 <q-btn
-                    icon="add"
-                    label="Add Product List"
-                    style="display: flex; align-items: center; justify-content: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-button, 6px); background: var(--blue1, #2563EB); color: var(--color-text-onColor, #FFF); height: var(--Size-size-button-md, 40px); padding: var(--Spacing-space-2, 8px) var(--Spacing-spacing-lg, 16px);"
-                    @click="() => Notify.create({ message: 'Add Product List clicked', color: 'positive', position: 'top' })"
-                />
-                <q-btn
-                    icon="add"
-                    label="Add Single Product"
-                    style="display: flex; align-items: center; justify-content: center; gap: var(--Spacing-spacing-sm, 8px); border: 1px solid var(--color-border-focusRing, #3B82F6); color: var(--color-icon-interactive, #2563EB); height: var(--Size-size-button-md, 40px); padding: var(--Spacing-space-2, 8px) var(--Spacing-spacing-lg, 16px);"
-                    @click="() => Notify.create({ message: 'Add Single Product clicked', color: 'positive', position: 'top' })"
-                />
-                <q-btn
-                    label="View Product List"
-                    style="display: flex; padding: var(--Spacing-space-2, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--q-space-sm, 8px); border-radius: var(--Radii-radius-button, 6px);"
-                    flat
-                    @click="() => Notify.create({ message: 'View Product List clicked', color: 'positive', position: 'top' })"
-                />
+                    v-for="button in buttons"
+                    :key="button.label"
+                    :label="button.label"
+                    :icon="button.icon"
+                    @click="button.action"
+                    :style="`display: flex; align-items: center; justify-content: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-button, 6px); background: ${button.backgroundColor}; color: ${button.color} height: var(--Size-size-button-md, 40px); padding: var(--Spacing-space-2, 8px) var(--Spacing-spacing-lg, 16px); border: 1px solid var(--color-border-focusRing, ${button.borderColor});`"
+                    :flat="button.isFlat"
+                    :color="button.color"
+                    />
+
+
                 <q-btn
                     style="border-radius: var(--Radii-radius-button, 6px); color: var(--color-text, #09090B); border: 1px solid var(--color-border-primary, #18181B);
 "
@@ -65,134 +59,22 @@
                     Filter By
                 </div>
 
-                <q-btn style="display: flex; padding: 0px 12px; align-items: center; align-self: stretch; border-right: 1px solid var(--color-border, #E4E4E7); color: var(--color-text-muted, #71717A); font-size: 14px; font-weight: 700;" label="Option Type" flat>
+                <q-btn
+                    v-for="item in filter"
+                    :key="item.label"
+                    :label="item.label"
+                    style="display: flex; padding: 0px 12px; align-items: center; align-self: stretch; border-right: 1px solid var(--color-border, #E4E4E7); color: var(--color-text-muted, #71717A); font-size: 14px; font-weight: 700;"
+                    flat
+                >
                     <q-icon class="bi bi-chevron-down" size="xs" style="margin-left: 2px;" />
                     <q-menu anchor="bottom middle" self="top middle">
-                        <q-list style="min-width: 100px">
-                        <q-item clickable v-close-popup>
-                            <q-item-section>New tab</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>New incognito tab</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Recent tabs</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>History</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Downloads</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Settings</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Help &amp; Feedback</q-item-section>
-                        </q-item>
+                        <q-list style="min-width: 100px" v-for="option in item.options">
+                            <q-item clickable v-close-popup>
+                                <q-item-section>{{ option }}</q-item-section>
+                            </q-item>
                         </q-list>
                     </q-menu>
                 </q-btn>
-
-                <q-btn style="display: flex; padding: 0px 12px; align-items: center; align-self: stretch; border-right: 1px solid var(--color-border, #E4E4E7); color: var(--color-text-muted, #71717A); font-size: 14px; font-weight: 700;" label="Category" flat>
-                    <q-icon class="bi bi-chevron-down" size="xs" style="margin-left: 2px;" />
-                    <q-menu anchor="bottom middle" self="top middle">
-                        <q-list style="min-width: 100px">
-                        <q-item clickable v-close-popup>
-                            <q-item-section>New tab</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>New incognito tab</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Recent tabs</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>History</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Downloads</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Settings</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Help &amp; Feedback</q-item-section>
-                        </q-item>
-                        </q-list>
-                    </q-menu>
-                </q-btn>
-
-                <q-btn style="display: flex; padding: 0px 12px; align-items: center; align-self: stretch; border-right: 1px solid var(--color-border, #E4E4E7); color: var(--color-text-muted, #71717A); font-size: 14px; font-weight: 700;" label="Price between" flat>
-                    <q-icon class="bi bi-chevron-down" size="xs" style="margin-left: 2px;" />
-                    <q-menu anchor="bottom middle" self="top middle">
-                        <q-list style="min-width: 100px">
-                        <q-item clickable v-close-popup>
-                            <q-item-section>New tab</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>New incognito tab</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Recent tabs</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>History</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Downloads</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Settings</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Help &amp; Feedback</q-item-section>
-                        </q-item>
-                        </q-list>
-                    </q-menu>
-                </q-btn>
-
-                <q-btn style="display: flex; padding: 0px 12px; align-items: center; align-self: stretch; border-right: 1px solid var(--color-border, #E4E4E7); color: var(--color-text-muted, #71717A); font-size: 14px; font-weight: 700;" label="Left in Stock" flat>
-                    <q-icon class="bi bi-chevron-down" size="xs" style="margin-left: 2px;" />
-                    <q-menu anchor="bottom middle" self="top middle">
-                        <q-list style="min-width: 100px">
-                        <q-item clickable v-close-popup>
-                            <q-item-section>New tab</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>New incognito tab</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Recent tabs</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>History</q-item-section>
-                        </q-item>
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Downloads</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Settings</q-item-section>
-                        </q-item>
-                        <q-separator />
-                        <q-item clickable v-close-popup>
-                            <q-item-section>Help &amp; Feedback</q-item-section>
-                        </q-item>
-                        </q-list>
-                    </q-menu>
-                </q-btn>
-
                 <q-btn
                     style="display: flex; justify-content: space-between; align-items: center; align-self: stretch; color: #EA0234; min-width: 98px; font-size: 14px; font-weight: 600;"
                     flat
@@ -389,6 +271,58 @@ const rows = [
           options: ['20 kg', '40 kg', '50 kg', '60 kg']
         },
 ];
+
+const buttons = [
+    {
+        label: 'Add Product List',
+        icon: 'add',
+        color: '#FFF',
+        backgroundColor: '#2563EB',
+        borderColor: '#2563EB',
+        action: () => Notify.create({ message: 'Add Product List clicked', color: 'positive', position: 'top' }),
+        isFlat: false
+    },
+    {
+        label: 'Add Single Product',
+        icon: 'add',
+        color: 'primary',
+        backgroundColor: 'transparent',
+        borderColor: '#3B82F6',
+        action: () => Notify.create({ message: 'Add Single Product clicked', color: 'positive', position: 'top' }),
+        isFlat: true
+    },
+    {
+        label: 'View Product List',
+        color: 'var(--color-text, #09090B)',
+        backgroundColor: 'transparent',
+        borderColor: '#181818B',
+        action: () => Notify.create({ message: 'View Product List clicked', color: 'positive', position: 'top' }),
+        isFlat: true
+    }
+];
+
+const filter = [
+    {
+        label: 'Option Type',
+        options: ['New tab', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
+        selected: 'New tab',
+    }, 
+    {
+        label: 'Category',
+        options: ['New tab', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
+        selected: 'New tab',
+    }, 
+    {
+        label: 'Price between',
+        options: ['New tab', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
+        selected: 'New tab',
+    }, 
+    {
+        label: 'Left in Stock',
+        options: ['New tab', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
+        selected: 'New tab',
+    }
+]
 
 const editItem = (item) => {
     Notify.create({ message: `Edit ${item.productName}`, color: 'positive', position: 'top' });
