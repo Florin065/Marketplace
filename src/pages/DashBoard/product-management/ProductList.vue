@@ -62,7 +62,7 @@
                 </div>
 
                 <q-btn
-                    v-for="item in filter"
+                    v-for="item in filterMenu"
                     :key="item.label"
                     :label="item.label"
                     style="display: flex; padding: 0px 12px; align-items: center; align-self: stretch; border-right: 1px solid var(--color-border, #E4E4E7); color: var(--color-text-muted, #71717A); font-size: 14px; font-weight: 700;"
@@ -74,16 +74,42 @@
                             <q-item clickable v-close-popup>
                                 <q-item-section 
                                 :style="item.selected === option ? 'color: #007BFF;' : ''"
-                                @click="item.selected = option"
+                                @click="() => { item.selected = option; applyFilter(); }"
                                 >{{ option }}</q-item-section>
                             </q-item>
                         </q-list>
                     </q-menu>
                 </q-btn>
+
+                <q-btn
+                    v-for="item in filterSlider"
+                    :key="item.label"
+                    :label="item.label"
+                    style="display: flex; padding: 0px 12px; align-items: center; align-self: stretch; border-right: 1px solid var(--color-border, #E4E4E7); color: var(--color-text-muted, #71717A); font-size: 14px; font-weight: 700;"
+                    flat
+                >
+                    <q-icon class="bi bi-chevron-down" size="xs" style="margin-left: 2px;" />
+                    <q-menu anchor="bottom middle" self="top middle">  
+                        <q-item style="min-width: 10vw; margin-top: 4vh;;">
+                            <q-range
+                                v-model="item.selected.value"
+                                :min="0"
+                                :max="maxValue(rows, item.col)"
+                                label-always
+                                @change="applyFilter"
+                            ></q-range>
+                        </q-item>
+
+                    </q-menu>
+                </q-btn>
                 <q-btn
                     style="display: flex; justify-content: space-between; align-items: center; align-self: stretch; color: #EA0234; min-width: 98px; font-size: 14px; font-weight: 600;"
                     flat
-                    @click="() => {for (let item of filter) item.selected = 'None'}"
+                    @click="() => {
+                        for (let item of filterMenu) item.selected = 'None';
+                        for (let item of filterSlider) item.selected.value = {min: 0, max: maxValue(rows, item.col)}; newRows = rows;
+                        applyFilter();
+                    }"
                 >
                     <q-icon class="bi bi-arrow-counterclockwise" />
                     Reset Filter
@@ -95,7 +121,6 @@
                 v-model="search"
                 placeholder="Product Name / SKU"
                 icon="add"
-                
             >
                 <template v-slot:prepend>
                     <q-icon name="search" />
@@ -106,7 +131,7 @@
         <!-- Table -->
         <!-- TODO: The columns doesn't have 'align' property even though it recognizes it. -->
         <q-table
-            :rows="rows"
+            :rows="newRows"
             :columns="columns"
             row-key="SKU"
             style="display: flex; padding: 8px 0px; flex-direction: column; justify-content: flex-end; gap: 12px; align-self: stretch; border-radius: 16px; background: var(--color-bg, #FFF);"
@@ -133,6 +158,12 @@
                 </div>
             </q-td>
             </template>
+
+            <template v-slot:body-cell-price="props">
+                <q-td :props="props">
+                  {{ props.row.price }} {{ props.row.currency }}
+                </q-td>
+              </template>
 
             <template v-slot:body-cell-actions="props">
             <q-td :props="props">
@@ -175,8 +206,9 @@ const rows = [
           SKU: '218754322',
           productName: 'Cherestea nerindeluita, Detroit City, lemn mold, A/ B, 2000 x 100 x 22 mm',
           category: 'Scânduri',
-          price: '€ 6.00',
-          inStock: 63,
+          price: 8.00,
+          currency: '€',
+          inStock: 3,
           options: ['alb', 'galben', 'maro', 'mustar']
         },
         {
@@ -184,8 +216,9 @@ const rows = [
           SKU: '218754323',
           productName: 'Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg',
           category: 'Ciment, lianti, var',
-          price: '€ 192.00',
-          inStock: 13,
+          price: 58.00,
+          currency: '€',
+          inStock: 103,
           options: ['20 kg', '40 kg', '50 kg', '60 kg']
         },
         {
@@ -193,8 +226,9 @@ const rows = [
           SKU: '218754324',
           productName: 'Cherestea nerindeluita, Detroit City, lemn mold, A/ B, 2000 x 100 x 22 mm',
           category: 'Scânduri',
-          price: '€ 6.00',
-          inStock: 63,
+          price: 4.00,
+          currency: '€',
+          inStock: 65,
           options: ['alb', 'galben', 'maro', 'mustar']
         },
         {
@@ -202,8 +236,9 @@ const rows = [
           SKU: '218754325',
           productName: 'Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg',
           category: 'Ciment, lianti, var',
-          price: '€ 192.00',
-          inStock: 13,
+          price: 510.00,
+          currency: '€',
+          inStock: 42,
           options: ['20 kg', '40 kg', '50 kg', '60 kg']
         },
         {
@@ -211,8 +246,9 @@ const rows = [
           SKU: '218754326',
           productName: 'Cherestea nerindeluita, Detroit City, lemn mold, A/ B, 2000 x 100 x 22 mm',
           category: 'Scânduri',
-          price: '€ 6.00',
-          inStock: 63,
+          price: 4.00,
+          currency: '€',
+          inStock: 1,
           options: ['alb', 'galben', 'maro', 'mustar']
         },
         {
@@ -220,8 +256,9 @@ const rows = [
           SKU: '218754327',
           productName: 'Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg',
           category: 'Ciment, lianti, var',
-          price: '€ 192.00',
-          inStock: 13,
+          price: 200.00,
+          currency: '€',
+          inStock: 75,
           options: ['20 kg', '40 kg', '50 kg', '60 kg']
         },
         {
@@ -229,7 +266,8 @@ const rows = [
           SKU: '218754328',
           productName: 'Cherestea nerindeluita, Detroit City, lemn mold, A/ B, 2000 x 100 x 22 mm',
           category: 'Scânduri',
-          price: '€ 6.00',
+          price: 8.00,
+          currency: '€',
           inStock: 63,
           options: ['alb', 'galben', 'maro', 'mustar']
         },
@@ -238,7 +276,8 @@ const rows = [
           SKU: '218754329',
           productName: 'Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg',
           category: 'Ciment, lianti, var',
-          price: '€ 192.00',
+          price: 92.00,
+          currency: '€',
           inStock: 13,
           options: ['20 kg', '40 kg', '50 kg', '60 kg']
         },
@@ -247,8 +286,9 @@ const rows = [
           SKU: '218754330',
           productName: 'Cherestea nerindeluita, Detroit City, lemn mold, A/ B, 2000 x 100 x 22 mm',
           category: 'Scânduri',
-          price: '€ 6.00',
-          inStock: 63,
+          price: 6.00,
+          currency: '€',
+          inStock: 27,
           options: ['alb', 'galben', 'maro', 'mustar']
         },
         {
@@ -256,8 +296,9 @@ const rows = [
           SKU: '218754331',
           productName: 'Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg',
           category: 'Ciment, lianti, var',
-          price: '€ 192.00',
-          inStock: 13,
+          price: 375.00,
+          currency: '€',
+          inStock: 91,
           options: ['20 kg', '40 kg', '50 kg', '60 kg']
         },
         {
@@ -265,8 +306,9 @@ const rows = [
           SKU: '218754332',
           productName: 'Cherestea nerindeluita, Detroit City, lemn mold, A/ B, 2000 x 100 x 22 mm',
           category: 'Scânduri',
-          price: '€ 6.00',
-          inStock: 63,
+          price: 6.00,
+          currency: '€',
+          inStock: 4,
           options: ['alb', 'galben', 'maro', 'mustar']
         },
         {
@@ -274,11 +316,25 @@ const rows = [
           SKU: '218754333',
           productName: 'Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg',
           category: 'Ciment, lianti, var',
-          price: '€ 192.00',
+          price: 192.00,
+          currency: '€',
           inStock: 13,
           options: ['20 kg', '40 kg', '50 kg', '60 kg']
         },
 ];
+
+interface Product {
+  image: string;
+  SKU: string;
+  productName: string;
+  category: string;
+  price: number;
+  currency: string;
+  inStock: number;
+  options: string[];
+};
+
+const newRows = ref(rows);
 
 const buttons = [
     {
@@ -309,7 +365,7 @@ const buttons = [
     }
 ];
 
-const filter = [
+const filterMenu = [
     {
         label: 'Option Type',
         options: ['None', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
@@ -317,20 +373,41 @@ const filter = [
     }, 
     {
         label: 'Category',
-        options: ['None', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
-        selected: 'None',
-    }, 
-    {
-        label: 'Price between',
-        options: ['None', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
-        selected: 'None',
-    }, 
-    {
-        label: 'Left in Stock',
-        options: ['None', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
+        options: ['None', 'Scânduri', 'Ciment, lianti, var'],
         selected: 'None',
     }
 ]
+
+const maxValue = (array: Product[], property: keyof Product): number => {
+  return array.reduce((max, item) => {
+    if (typeof item[property] === 'number') {
+      return Math.max(max, item[property] as number);
+    }
+    throw new Error(`Property ${property} is not a number.`);
+  }, -Infinity);
+}
+
+const filterSlider = [
+    {
+        label: 'Price between',
+        col: 'price',
+        selected: ref({min: 0, max: maxValue(rows, 'price')}),
+    }, 
+    {
+        label: 'Left in Stock',
+        col: 'inStock',
+        selected: ref({min: 0, max: maxValue(rows, 'inStock')}),
+    }
+]
+
+const applyFilter = () => {
+    // Filter all the rows based on the selected filters
+    newRows.value = rows.filter(row => {
+        return filterMenu.every(filter => filter.selected === 'None' || row[filter.label.toLowerCase()] === filter.selected)
+            && filterSlider.every(filter => filter.selected.value.min <= row[filter.col] && row[filter.col] <= filter.selected.value.max)
+            && (row.productName.toLowerCase().includes(search.value.toLowerCase()) || row.SKU.toLowerCase().includes(search.value.toLowerCase()));
+    });
+}
 
 const editItem = (item) => {
     Notify.create({ message: `Edit ${item.productName}`, color: 'positive', position: 'top' });
