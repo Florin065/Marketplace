@@ -153,6 +153,8 @@ async function submitLogIn() {
     color: var(--green, #0CD496);
     text-align: center;
 
+    background-color: #F5F6FA;
+    
     /* text-4xl/font-semiBold */
     font-family: Inter;
     font-size: 36px;
