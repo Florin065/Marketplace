@@ -163,12 +163,38 @@
                 <q-td :props="props">
                   {{ props.row.price }} {{ props.row.currency }}
                 </q-td>
-              </template>
+            </template>
 
             <template v-slot:body-cell-actions="props">
             <q-td :props="props">
-                <q-btn icon="edit" @click="editItem(props.row)"></q-btn>
-                <q-btn icon="delete" @click="deleteItem(props.row)"></q-btn>
+
+                <svg width="113" height="33" viewBox="0 0 113 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background Rectangle -->
+                    <rect x="0.556836" y="1.3" width="112.143" height="31.4" rx="7.7" fill="#FAFBFD" stroke="#D5D5D5" stroke-width="0.6"/>
+                    
+                    <!-- Separator Line -->
+                    <path opacity="0.700544" d="M56.2156 32.7641V1" stroke="#979797" stroke-width="0.4" stroke-linecap="square"/>
+                    
+                    <!-- First Graphical Elements (left half) -->
+                    <g opacity="0.6">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M29.2608 18.424L26.3545 18.778L26.7694 16.3027L34.2434 9.93867C34.9313 9.35288 36.0467 9.35288 36.7347 9.93867C37.4227 10.5245 37.4227 11.4742 36.7347 12.06L29.2608 18.424Z" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M33.4126 10.646L35.9039 12.7673" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M33.7272 18.5V23.5C33.7272 24.0523 33.2014 24.5 32.5528 24.5H20.8087C20.1601 24.5 19.6343 24.0523 19.6343 23.5V13.5C19.6343 12.9477 20.1601 12.5 20.8087 12.5H26.6807" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                    
+                    <!-- Second Graphical Elements (right half) -->
+                    <g transform="translate(56.5, 0)" >
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M33.7465 24.4H23.8815C23.1031 24.4 22.4722 23.8627 22.4722 23.2V12.4H35.1558V23.2C35.1558 23.8627 34.5248 24.4 33.7465 24.4Z" stroke="#EF3826" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M26.7007 20.8V16" stroke="#EF3826" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M30.9283 20.8V16" stroke="#EF3826" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <!-- Adjusted Horizontal Line -->
+                      <path d="M19.0736 12.4H39.0736" stroke="#EF3826" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M30.9282 10H26.7003C25.922 10 25.291 10.5373 25.291 11.2V12.4H32.3375V11.2C32.3375 10.5373 31.7065 10 30.9282 10Z" stroke="#EF3826" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                  </svg>
+                       
+                <!-- <q-btn icon="edit" @click="editItem(props.row)"></q-btn>
+                <q-btn icon="delete" @click="deleteItem(props.row)"></q-btn> -->
             </q-td>
             </template>
 
@@ -444,4 +470,5 @@ const deleteItem = (item) => {
 
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 }
+
 </style>
