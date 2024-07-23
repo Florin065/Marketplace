@@ -1,7 +1,6 @@
 <template>
 
     <q-card-section
-        hotizontal
         style="display:flex; height: 44px; justify-content: flex-end; align-items: center; gap: 24px; align-self: stretch; width: 80vw;"
         >
         <q-btn
@@ -21,14 +20,14 @@
         <q-btn
             label="Cancel"
             icon="bi-x"
-            style="border-radius: var(--Radii-radius-button, 6px); border: 1px solid var(--magenta, #EE0D50); display: flex; align-items: center; justify-content: center; align-self: stretch; color: #EE0D50; font-size: 14px; font-weight: 500; height: 44px"
+            style="border-radius: var(--Radii-radius-button, 6px); border: 1px solid var(--magenta, #EE0D50); display: flex; align-items: center; justify-content: center; align-self: stretch; color: #EE0D50; font-size: 14px; font-weight: 500; height: 44px; margin-right: 80px"
             @click="Notify.create({message: 'Changes discarded', color: 'negative', position: 'top'})"
         />
 
     </q-card-section>
 
-    <div style="margin-left: 165px">
-        <div class="row q-mt-md">
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 24px; width: 80vw; margin-top: 24px;">
+        <div class="row">
             <q-card-section
                 style="display: flex; flex-direction: column; align-items: flex-start; gap: var(--Space-spacing-2xs, 4px);"
                 >
@@ -37,15 +36,20 @@
                 </div>
 
                 <q-card style="border-radius: 8px; border: 1px dashed #E0E0E0; display: flex; align-items: center; justify-content: center; width: 160px; height: 160px;">
-                    <q-file borderless class="clickable-card-section"
+                    <q-file
+                      borderless class="clickable-card-section"
                       v-model="featuredImage"
                       style="width: 100%; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
                       accept="image/*"
-                      @rejected="Notify.create({message: 'The file is not an image', color: 'negative', position: 'top'})"
+                      no-preview
+                      @update:model-value="handleUpload()"
                     >
-                      <template v-slot>
-                          <q-icon name="add_photo_alternate" size="80px" color="grey-6" />
-                      </template>
+                        <div v-if="featuredImage === null">
+                            <q-icon name="add_photo_alternate" size="80px" color="grey-6" />
+                        </div>
+                        <div v-else>
+                            <q-img :src="featuredImageUrl" style="width:161px; height: 161px; margin-top: 188px; border-radius: 8px" />
+                        </div>
                     </q-file>
                 </q-card>
                   
@@ -82,48 +86,84 @@
             </q-card-section>
         </div>
     
-        <div class="row q-mt-xs">
+        <div
+            style="display: flex; justify-content: center; align-items: center; min-height: 48px;"
+            >
             <q-card-section
                 style="display: flex; flex-direction: column; align-items: flex-start; gap: var(--Spacing-spacing-2xs, 4px)"
-                >
+            >
                 <div>
                     Category <span style="color: red;">*</span>
                 </div>
-    
-                <q-select
-                    filled
-                    v-model="category"
-                    :options="['Electronics', 'Clothing', 'Shoes', 'Accessories']"
-                    style="height: 48px; width: 561px;"
-                />
+            
+                <q-btn style="width: 550px; min-height: 48px; height:auto">
+                    <div v-if="categories.some(category => category.checked)">
+                        <div v-for="category in categories" :key="category.name">
+                            <div v-if="category.checked">
+                                {{ category.name }} —> {{ category.children.filter(child => child.checked).map(child => child.name).join(' + ') }}
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else>
+                        Click to select
+                    </div>                        
+                    <q-menu fit>
+                        <q-list dense v-for="category in categories" :key="category.name">
+                            <q-item clickable>
+                                <q-item-section>
+                                    <q-item-label>
+                                        <q-checkbox v-model="category.checked" :disable="!category.checked" @click="uncheckChildren(category)"/>
+                                        {{ category.name }}
+                                    </q-item-label>
+                                </q-item-section>
+                                <q-item-section side>
+                                    <q-icon name="bi-chevron-right" />
+                                </q-item-section>
+                
+                                <q-menu anchor="top end" self="top start">
+                                    <q-list dense>
+                                        <q-item clickable v-for="child in category.children" :key="child.name">
+                                            <q-item-section>
+                                                <q-item-label>
+                                                    <q-checkbox v-model="child.checked" :label="child.name" @click="toggleCategory(category)" />
+                                                </q-item-label>
+                                            </q-item-section>
+                                        </q-item>
+                                    </q-list>
+                                </q-menu>
+                            </q-item>
+                        </q-list>
+                    </q-menu>
+                </q-btn>
             </q-card-section>
     
             <q-card-section
-                class="col"
                 style="display: flex; flex-direction: column; align-items: flex-start; gap: var(--Spacing-spacing-2xs, 4px)"
                 >
                 <div>
                     Tags <span style="color: red;">*</span>
                 </div>
     
-                <q-select
-                    filled
-                    v-model="tags"
-                    multiple
-                    :options="['Special', 'Reducere vară', 'Black Friday', 'New Collection', 'gresie', 'geam']"
-                    style="height: 48px; width: 561px;"
-                />
+                <q-card>
+                    <q-select
+                        v-model="tags"
+                        multiple
+                        :options="['Special', 'Reducere vară', 'Black Friday', 'New Collection', 'gresie', 'geam']"
+                        style="width: 561px; min-height: 48px; height: 48px"
+                        borderless
+                        />
+                </q-card>
             </q-card-section>
     
             <q-card-section
-                class="col q-mt-lg"
-                style="display: flex; flex-direction: column; align-items: flex-start; gap: var(--Spacing-spacing-2xs, 4px); margin-left: 190px">
+                class="q-mt-lg"
+                style="display: flex; flex-direction: column; align-items: flex-start; gap: var(--Spacing-spacing-2xs, 4px);">
     
                 <q-btn
                     label="Delete variant"
                     icon="bi-trash"
                     text-color="pink"
-                    style="height: 54px; width: 154px;
+                    style="height: 48px; width: 154px;
                             color: var(--magenta, #EE0D50); font-family: Inter; font-size: 10.5px; font-style: normal; font-weight: 500; line-height: 20px;"
                     @click="Notify.create({message: 'New tag added', color: 'primary', position: 'top'})"
                 />
@@ -131,7 +171,6 @@
         </div>
     
         <q-card-section
-            class="q-mt-xs"
             style="display: flex; flex-direction: column; align-items: flex-start"
             >
             <div>
@@ -231,7 +270,6 @@
         </q-card-section>
 
         <q-card-section
-            class="q-mt-xs"
             style="display: flex; flex-direction: column; align-items: flex-start"
             >
             <div>
@@ -240,7 +278,7 @@
 
             <q-file
                 v-model="pdfFiles"
-                style="width: 1330px; height: 56px; text-align: left"
+                style="width: 1330px; height: 56px; text-align: left; background: var(--color-bg, #FFF)"
                 accept=".pdf"
                 use-chips
                 multiple
@@ -268,21 +306,21 @@
 
             <q-file
                 v-model="excelFiles"
-                style="width: 1330px; height: 56px; text-align: left"
+                style="width: 1330px; height: 56px; text-align: left; background: var(--color-bg, #FFF)"
                 accept=".xls, .xlsx, .csv, .gsheet"
                 use-chips
                 multiple
                 outlined
                 @rejected="Notify.create({message: 'The file is not an Excel or a Spreadsheet', color: 'negative', position: 'top'})"
             >
-            <template v-slot:prepend>
-                <q-icon class="q-ml-lg" name="bi-file-earmark-arrow-up" />
+                <template v-slot:prepend>
+                    <q-icon class="q-ml-lg" name="bi-file-earmark-arrow-up" />
 
-                <div v-if="excelFiles.length === 0"
-                style="margin-left: 8px; font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px;">
-                    Adaugă fișă specificații tehnice în format excel sau spreadsheet (.xlsx, .csv, .xls, .gsheet) (drag & drop sau click)
-                </div>
-            </template>
+                    <div v-if="excelFiles.length === 0"
+                    style="margin-left: 8px; font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px;">
+                        Adaugă fișă specificații tehnice în format excel sau spreadsheet (.xlsx, .csv, .xls, .gsheet) (drag & drop sau click)
+                    </div>
+                </template>
             </q-file>
         </q-card-section>
     </div>
@@ -293,17 +331,82 @@
 import { ref } from 'vue';
 import { Notify } from 'quasar';
 
+const featuredImage = ref(null);
+const featuredImageUrl = ref('');
+const handleUpload = () => {
+    console.log('handleUpload is triggered');
+    if (featuredImage.value) {
+        featuredImageUrl.value = URL.createObjectURL(featuredImage.value);
+    }
+}
+
 const SKU = ref('');
 const title = ref('');
-const category = ref('');
+
+const categories = ref([
+    {
+        name: 'Casă și Grădină',
+        checked: false,
+        children: [
+            { name: 'Gresie și faianță', checked: false },
+            { name: 'Finisaje Baie', checked: false },
+            { name: 'Grădină și exterior', checked: false }
+        ]
+    },
+    {
+        name: 'Electrice și iluminat',
+        checked: false,
+        children: [
+            { name: 'Cabluri', checked: false },
+            { name: 'Becuri', checked: false },
+            { name: 'Corpuri de iluminat', checked: false }
+        ]
+    },
+    {
+        name: 'Materiale de construcție',
+        checked: false,
+        children: [
+            { name: 'Ciment', checked: false },
+            { name: 'Nisip', checked: false },
+            { name: 'Caramizi', checked: false }
+        ]
+    },
+    {
+        name: 'Instalații termice și sanitare',
+        checked: false,
+        children: [
+            { name: 'Radiatoare', checked: false },
+            { name: 'Boilere', checked: false },
+            { name: 'Vane', checked: false }
+        ]
+    },
+    {
+        name: 'Vopsea și finisaje',
+        checked: false,
+        children: [
+            { name: 'Vopsele de interior', checked: false },
+            { name: 'Vopsele de exterior', checked: false },
+            { name: 'Lacuri', checked: false }
+        ]
+    }
+])
+
+const toggleCategory = (category: { checked: any; children: any[]; }) => {
+    category.checked = category.children.some(child => child.checked);
+}
+
+const uncheckChildren = (category: { checked: any; children: any[]; }) => {
+    if (!category.checked) {
+        category.children.forEach(child => child.checked = false);
+    }
+}
+
 const tags = ref([]);
 const qeditor = ref('');
 const pdfFiles = ref([]);
 const excelFiles = ref([]);
-const featuredImage = ref([]);
 
 </script>
 
 <style scoped>
-
 </style>
