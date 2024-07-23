@@ -89,7 +89,7 @@
                     flat
                 >
                     <q-icon class="bi bi-chevron-down" size="xs" style="margin-left: 2px;" />
-                    <q-menu anchor="bottom middle" self="top middle">  
+                    <q-menu anchor="bottom middle" self="top middle">
                         <q-item style="min-width: 10vw; margin-top: 4vh;;">
                             <q-range
                                 v-model="item.selected.value"
@@ -211,7 +211,7 @@ const rows = [
           price: 8.00,
           currency: '€',
           inStock: 3,
-          options: ['alb', 'galben', 'maro', 'mustar']
+          options: ['mesteacan', 'stejar', 'lemn']
         },
         {
           image: 'https://www.figma.com/file/Nye8DVipMC2A78sDwCXLv9/image/5f2553518f412a3af1f64d0ce6bb2777f81b74b0',
@@ -231,7 +231,7 @@ const rows = [
           price: 4.00,
           currency: '€',
           inStock: 65,
-          options: ['alb', 'galben', 'maro', 'mustar']
+          options: ['mesteacan', 'stejar', 'lemn']
         },
         {
           image: 'https://www.figma.com/file/Nye8DVipMC2A78sDwCXLv9/image/5f2553518f412a3af1f64d0ce6bb2777f81b74b0',
@@ -251,7 +251,7 @@ const rows = [
           price: 4.00,
           currency: '€',
           inStock: 1,
-          options: ['alb', 'galben', 'maro', 'mustar']
+          options: ['mesteacan', 'stejar', 'lemn']
         },
         {
           image: 'https://www.figma.com/file/Nye8DVipMC2A78sDwCXLv9/image/5f2553518f412a3af1f64d0ce6bb2777f81b74b0',
@@ -271,7 +271,8 @@ const rows = [
           price: 8.00,
           currency: '€',
           inStock: 63,
-          options: ['alb', 'galben', 'maro', 'mustar']
+          options: ['mesteacan', 'stejar', 'lemn']
+
         },
         {
           image: 'https://www.figma.com/file/Nye8DVipMC2A78sDwCXLv9/image/5f2553518f412a3af1f64d0ce6bb2777f81b74b0',
@@ -291,7 +292,7 @@ const rows = [
           price: 6.00,
           currency: '€',
           inStock: 27,
-          options: ['alb', 'galben', 'maro', 'mustar']
+          options: ['mesteacan', 'stejar', 'lemn']
         },
         {
           image: 'https://www.figma.com/file/Nye8DVipMC2A78sDwCXLv9/image/5f2553518f412a3af1f64d0ce6bb2777f81b74b0',
@@ -311,7 +312,7 @@ const rows = [
           price: 6.00,
           currency: '€',
           inStock: 4,
-          options: ['alb', 'galben', 'maro', 'mustar']
+          options: ['mesteacan', 'stejar', 'lemn']
         },
         {
           image: 'https://www.figma.com/file/Nye8DVipMC2A78sDwCXLv9/image/5f2553518f412a3af1f64d0ce6bb2777f81b74b0',
