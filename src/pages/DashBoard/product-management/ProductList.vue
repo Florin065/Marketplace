@@ -94,7 +94,7 @@
                             <q-range
                                 v-model="item.selected.value"
                                 :min="0"
-                                :max="maxValue(rows, item.col)"
+                                :max="maxValue(rows, item.col as keyof Product)"
                                 label-always
                                 @change="applyFilter"
                             ></q-range>
@@ -107,7 +107,7 @@
                     flat
                     @click="() => {
                         for (let item of filterMenu) item.selected = 'None';
-                        for (let item of filterSlider) item.selected.value = {min: 0, max: maxValue(rows, item.col)}; newRows = rows;
+                        for (let item of filterSlider) item.selected.value = {min: 0, max: maxValue(rows, item.col as keyof Product)}; newRows = rows;
                         applyFilter();
                     }"
                 >
@@ -117,9 +117,9 @@
             </q-card-section>
             
             <q-input
-                style="display: flex; align-items: center; padding: 0px 12px; border-radius: 10px; border: 0.6px solid #D5D5D5; background: var(--color-bg, #FFF); gap: 21px; height: 70px;"
+                style="display: flex; align-items: center; padding: 0px 12px; border-radius: 10px; border: 0.6px solid #D5D5D5; background: var(--color-bg, #FFF); gap: 21px; height: 70px; width: 14.6vw"
                 v-model="search"
-                placeholder="Product Name / SKU"
+                placeholder="Search for Product Name or SKU"
                 icon="add"
             >
                 <template v-slot:prepend>
@@ -200,6 +200,8 @@ const columns = [
         { name: 'options', label: 'Options', field: 'options', align: 'center'  },
         { name: 'actions', label: 'Actions', field: 'actions', align: 'center'  }
 ];
+
+// TODO: Get the products fromt the database once it's connected.
 const rows = [
         {
           image: 'https://s3-alpha-sig.figma.com/img/d420/ab08/174f1393eb4867c484c35bbd1aab104d?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RfqegEixi78n~Ja-E9W9uTXVI-eli1xZgV5z0qF3613RRKSsE~VliWWyJlh-~xvd66OyiEUYqLXBSqRb0NLn1Mt9ILMCdF035hW2n9SSsl-eI8Uou3vUSjZQIp54iL20q4j~Vfwa-iM1zocrNeEMpqEamIf5EIUmM0Q7bcGxluQA890STXKNi2Oy-xIvPJBQz9v6OpdqBhDQ8FS4BeZgdVhp0XFGz4-dRJQmmOk0tTuPzaHHbQn1ehDsULsKpOzdn0HlPobgbGZAkdpT0ipP32VSH00UquiJx3pMJh2qqh8EL-wGFx2tI4vdTZ2eGEJlJVDyl8uo5wLWMX0HiLqH9w__',
@@ -368,7 +370,7 @@ const buttons = [
 const filterMenu = [
     {
         label: 'Option Type',
-        options: ['None', 'New incognito tab', 'Recent tabs', 'History', 'Downloads', 'Settings', 'Help & Feedback'],
+        options: ['None', 'Type 1', 'Type 2', 'Type 3', 'Type 4'],
         selected: 'None',
     }, 
     {
