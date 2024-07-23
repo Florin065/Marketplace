@@ -34,7 +34,7 @@
             >
                 <q-img
                     :src="product.images[imgTab]"
-                    style="width: 700px; height: 700px; border-radius: 28px 0px 0px 28px;"
+                    style="width: 700px; height: 700px; border-radius: 28px 0px 0px 28px; background: #FFF"
                     fit="contain"
                 />
 
@@ -45,7 +45,7 @@
 
                     <q-tabs v-model="imgTab">
                         <q-tab v-for="(img, index) in product.images" :key="index" :name="index">
-                            <q-img :src="img" style="width: 100px; height: 100px; border-radius: 6px; background: url(<path-to-image>) lightgray 50% / cover no-repeat;"/>
+                            <q-img :src="img" style="width: 100px; height: 100px; border-radius: 6px; background: url(<path-to-image>) lightgray 50% / cover no-repeat; background: #FFF"/>
                         </q-tab>
                     </q-tabs>
                     
@@ -473,13 +473,24 @@
                             name="4"
                             style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 1 0 0;"
                         >
-
-                            <div
-                                style="align-self: stretch; color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 600; line-height: 32px;"
-                            >
-                                Descriere produs
+                            <div style="max-height: 27.29vh;">
+                                <q-table
+                                    :rows="rows"
+                                    :columns="columns"
+                                    row-key="attribute"
+                                    flat
+                                    bordered
+                                    hide-bottom
+                                    virtual-scroll
+                                    :rows-per-page-options="[0]"
+                                >
+                                    <template v-slot:body-cell="props">
+                                        <q-td :props="props">
+                                            {{ props.row[props.col.name] }}
+                                        </q-td>
+                                    </template>
+                                </q-table>
                             </div>
-
                         </q-tab-panel>
                     </q-tab-panels>
                     
@@ -533,7 +544,7 @@
                 <q-btn
                     style="display: flex; align-items: center; gap: 6px; align-self: stretch;"
                     flat
-                    @click="() => hiddenBoughtTogether = !hiddenBoughtTogether"
+                    @click="() => {hiddenBoughtTogether = !hiddenBoughtTogether; console.log(hiddenBoughtTogether);}"
                 >
 
                     <q-icon :class="hiddenBoughtTogether ? 'bi bi-eye' : 'bi bi-eye-slash'" size="12px"/>
@@ -560,6 +571,7 @@
         <q-card-section
                 horizontal
                 style="display: flex; align-items: center; gap: 10px; align-self: stretch;"
+                :style="hiddenBoughtTogether ? 'display: none;' : 'display: flex; align-items: center; gap: 10px; align-self: stretch;'"
             >
                 <q-btn icon="chevron_left" @click="scrollLeft" flat />
     
@@ -636,6 +648,20 @@ isLogged.value = auth.currentUser !== null;
 const position = ref<number>(0);
 const scrollAreaRef = ref<any>(null);
 
+const columns = [
+    { name: 'attribute', align: 'left', label: 'Model', field: 'attribute' },
+    { name: 'value', align: 'left', label: 'CEM II B-M (S-LL) 42.5 Rt', field: 'value' }
+]
+const rows = [
+    { attribute: 'Cantitate', value: '40 Kg' },
+    { attribute: 'Compoziție', value: 'clincher Portland, calcar de puritate ridicată (LL), componente auxiliare minore' },
+    { attribute: 'Timp initial de priza (min)', value: '60' },
+    { attribute: 'Rezistenta la compresiune initiala (MPa)', value: '20' },
+    { attribute: 'Rezistenta la compresiune standard (MPa)', value: '42.5' },
+    { attribute: 'Mod de ambalare', value: 'sac 40 Kg' },
+    { attribute: 'Mod ambalare (saci/palet)', value: '40' }
+]
+
 const scrollLeft = () => {
     // scrollAreaRef.value.setScrollPosition('horizontal', -position.value, 300)
     // position.value = Math.floor(Math.random() * 1001) * 20
@@ -647,7 +673,6 @@ const scrollLeft = () => {
     scrollAreaRef.value.setScrollPosition('horizontal', position.value, scrollDuration);
 
 }
-
 
 const scrollRight = () => {
     const scrollDistance = 200; // Smaller scroll distance
@@ -854,7 +879,6 @@ const imgTab = ref<string>('1');
     align-items: flex-start;
     gap: 16px;
 
-    background: #FFF;
 }
 
 .discountBanner {
