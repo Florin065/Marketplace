@@ -37,7 +37,7 @@
                 </div>
 
                 <q-card style="border-radius: 8px; border: 1px dashed #E0E0E0; display: flex; align-items: center; justify-content: center; width: 160px; height: 160px;">
-                    <q-file borderless
+                    <q-file borderless class="clickable-card-section"
                       v-model="featuredImage"
                       style="width: 100%; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
                       accept="image/*"

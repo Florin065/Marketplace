@@ -85,3 +85,11 @@ html { font-family: "Inter", "system-ui"; }
 @supports (font-variation-settings: normal) {
   html { font-family: "InterVariable", "system-ui"; } /* If using the variable font */
 }
+
+
+.clickable-card-section:hover {
+  cursor: pointer; /* Changes the cursor to indicate it's clickable */
+  background-color: rgba(37, 99, 235, 0.15); /* Slightly darker on hover */
+  /* Optional: add a shadow or other effects */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
