@@ -12,14 +12,14 @@
           fit="contain" @click="() => router.push('/')"/>
       </q-toolbar>
     </q-header>
-    <q-page class="flex-center">
+    <q-page class="flex-center" style="background: #FFF">
       <div>
         <h4 class="text-h4 text-bold" style="color:#0CD496; margin-bottom: 10px;">Formular de înregistrare</h4>
       </div>
 
       <q-tabs dense class="text-bold text-primary">
-        <q-tab style="width:500px" name="persoana_fizica" label="Persoană fizică" @click="helper.tab = 'persoana_fizica'; formData.isPersoanaFizica = true; clearFormData()" />
-        <q-tab style="width:500px" name="persoana_juridica" label="Persoană Juridică" @click="helper.tab = 'persoana_juridica'; formData.isPersoanaFizica = false; clearFormData()" />
+        <q-tab style="width:500px;" name="persoana_fizica" label="Persoană fizică" @click="helper.tab = 'persoana_fizica'; formData.isPersoanaFizica = true; clearFormData()"/>
+        <q-tab style="width:500px;" name="persoana_juridica" label="Persoană Juridică" @click="helper.tab = 'persoana_juridica'; formData.isPersoanaFizica = false; clearFormData()"/>
       </q-tabs>
 
       <q-card style="width: 1000px; height: fit; border-radius: 16px">
