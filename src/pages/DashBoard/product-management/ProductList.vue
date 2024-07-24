@@ -34,6 +34,7 @@
                 <q-btn
                     style="border-radius: var(--Radii-radius-button, 6px); color: var(--color-text, #09090B); border: 1px solid var(--color-border-primary, #18181B);"
                     @click="() => {Notify.create({ message: 'Bulk Actions clicked', color: 'positive', position: 'top' }); bulk = !bulk;}"
+                    v-if="!bulk"
                 >       
                     <div style="display: flex; justify-content: center; align-items: center; padding: var(--Spacing-space-2, 8px) var(--Spacing-spacing-lg, 12px); gap: var(--Spacing-spacing-sm, 8px);">
                         <q-icon class="bi bi-eye" /> 
@@ -91,6 +92,14 @@
                 >
                     <q-icon class="bi bi-chevron-down" size="xs" style="margin-left: 2px;" />
                     <q-menu anchor="bottom middle" self="top middle">
+                        
+                        <q-item>
+                            <q-item-section>
+                                <q-input v-model="item.selected.value.min" style="width: 5vw; margin-right: 2vw;" @change="applyFilter" />
+                                <q-input v-model="item.selected.value.max" style="width: 5vw;" @change="applyFilter" />
+                            </q-item-section>
+                        </q-item>
+                        
                         <q-item style="min-width: 10vw; margin-top: 4vh;;">
                             <q-range
                                 v-model="item.selected.value"
@@ -109,6 +118,8 @@
                     @click="() => {
                         for (let item of filterMenu) item.selected = 'None';
                         for (let item of filterSlider) item.selected.value = {min: 0, max: maxValue(rows, item.col as keyof Product)}; newRows = rows;
+                        search = '';
+                        for (let item of rows) item.selected = false;
                         applyFilter();
                     }"
                 >
@@ -151,10 +162,11 @@
             :rows="newRows"
             :columns="columns"
             row-key="SKU"
-            style="display: flex; padding: 8px 0px; flex-direction: column; justify-content: flex-end; gap: 12px; align-self: stretch; border-radius: 16px; background: var(--color-bg, #FFF);"
+            style="display: flex; padding: 8px 0px; flex-direction: column; justify-content: flex-end; gap: 12px; align-self: stretch; border-radius: 16px; background: var(--color-bg, #FFF); width: 85vw"
             :rows-per-page-options="[5, 7, 10, 20]"
             :pagination="{ rowsPerPage: 7 }"
             :visible-columns = "['image', 'SKU', 'productName', 'category', 'price', 'inStock', 'options', 'actions'].concat(bulk ? ['selected'] : [])"
+            dense
         >
             <template v-slot:body-cell-image="props">
             <q-td :props="props">
@@ -185,34 +197,8 @@
 
             <template v-slot:body-cell-actions="props">
             <q-td :props="props">
-
-                <svg width="113" height="33" viewBox="0 0 113 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Background Rectangle -->
-                    <rect x="0.556836" y="1.3" width="112.143" height="31.4" rx="7.7" fill="#FAFBFD" stroke="#D5D5D5" stroke-width="0.6"/>
-                    
-                    <!-- Separator Line -->
-                    <path opacity="0.700544" d="M56.2156 32.7641V1" stroke="#979797" stroke-width="0.4" stroke-linecap="square"/>
-                    
-                    <!-- First Graphical Elements (left half) -->
-                    <g opacity="0.6">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M29.2608 18.424L26.3545 18.778L26.7694 16.3027L34.2434 9.93867C34.9313 9.35288 36.0467 9.35288 36.7347 9.93867C37.4227 10.5245 37.4227 11.4742 36.7347 12.06L29.2608 18.424Z" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M33.4126 10.646L35.9039 12.7673" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M33.7272 18.5V23.5C33.7272 24.0523 33.2014 24.5 32.5528 24.5H20.8087C20.1601 24.5 19.6343 24.0523 19.6343 23.5V13.5C19.6343 12.9477 20.1601 12.5 20.8087 12.5H26.6807" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </g>
-                    
-                    <!-- Second Graphical Elements (right half) -->
-                    <g transform="translate(56.5, 0)" >
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M33.7465 24.4H23.8815C23.1031 24.4 22.4722 23.8627 22.4722 23.2V12.4H35.1558V23.2C35.1558 23.8627 34.5248 24.4 33.7465 24.4Z" stroke="#EF3826" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M26.7007 20.8V16" stroke="#EF3826" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M30.9283 20.8V16" stroke="#EF3826" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <!-- Adjusted Horizontal Line -->
-                      <path d="M19.0736 12.4H39.0736" stroke="#EF3826" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M30.9282 10H26.7003C25.922 10 25.291 10.5373 25.291 11.2V12.4H32.3375V11.2C32.3375 10.5373 31.7065 10 30.9282 10Z" stroke="#EF3826" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </g>
-                  </svg>
-
-                  <!-- <q-btn icon="bi-pencil-square" style="color: #D5D5D5" @click="editItem(props.row)"></q-btn>
-                  <q-btn icon="bi-trash" style="color: #EF3862" @click="deleteItem(props.row)"></q-btn> -->
+                  <q-btn icon="bi-pencil-square" style="color: #D5D5D5" @click="editItem(props.row)"></q-btn>
+                  <q-btn icon="bi-trash" style="color: #EF3862" @click="deleteItem(props.row)"></q-btn>
             </q-td>
             </template>
 
@@ -437,7 +423,7 @@ const buttonsFour = [
         label: 'Bulk Actions',
         icon: 'bi-eye',
         color: '#000000',
-        action: () => {Notify.create({ message: 'Bulk Actions clicked', color: 'positive', position: 'top' }); bulk.value = !bulk.value; console.log(bulk.value);},
+        action: () => {Notify.create({ message: 'Bulk Actions clicked', color: 'positive', position: 'top' }); bulk.value = !bulk.value;},
     },
     {
         label: 'Offer Discount',
@@ -455,7 +441,7 @@ const buttonsFour = [
         label: 'Delete Selected',
         icon: 'bi-trash',
         color: '#EE0D50',
-        action: () => Notify.create({ message: 'Bulk Actions clicked', color: 'positive', position: 'top' }),
+        action: () => {Notify.create({ message: 'Deleted selected items', color: 'negative', position: 'top' }); newRows.value = newRows.value.filter(row => !row.selected);},
     }
 ]
 
@@ -501,7 +487,6 @@ const applyFilter = () => {
     newRows.value = rows.filter(row => {
         return filterMenu.every(filter => filter.selected === 'None' || row[filter.label.toLowerCase()] === filter.selected)
             && filterSlider.every(filter => filter.selected.value.min <= row[filter.col] && row[filter.col] <= filter.selected.value.max)
-            && (row.productName.toLowerCase().includes(search.value.toLowerCase()) || row.SKU.toLowerCase().includes(search.value.toLowerCase()))
             && (row.productName.toLowerCase().includes(search.value.toLowerCase()) || row.SKU.toLowerCase().includes(search.value.toLowerCase()));
     });
 }
@@ -514,6 +499,7 @@ const editItem = (item) => {
 
 const deleteItem = (item) => {
     Notify.create({ message: `Delete ${item.productName}`, color: 'negative', position: 'top' });
+    newRows.value = newRows.value.filter(row => row !== item);
 };
 </script>
 
@@ -529,7 +515,7 @@ const deleteItem = (item) => {
 
 .option-chip {
     display: flex;
-    height: var(--Size-size-input-lg, 44px);
+    height: var(--Size-size-input-sm, 44px);
     padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px);
     align-items: center;
     gap: var(--Spacing-spacing-sm, 8px);
@@ -537,6 +523,7 @@ const deleteItem = (item) => {
     border-radius: var(--Radii-radius-input, 6px);
     border: 1px solid var(--color-border, #E4E4E7);
     background: var(--color-bg, #FFF);
+    scale: 1;
 
     box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 }
