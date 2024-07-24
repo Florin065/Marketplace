@@ -193,8 +193,8 @@
                     </g>
                   </svg>
                        
-                <!-- <q-btn icon="edit" @click="editItem(props.row)"></q-btn>
-                <q-btn icon="delete" @click="deleteItem(props.row)"></q-btn> -->
+                  <!-- <q-btn icon="bi-pencil-square" style="color: #D5D5D5" @click="editItem(props.row)"></q-btn>
+                  <q-btn icon="bi-trash" style="color: #EF3862" @click="deleteItem(props.row)"></q-btn> -->
             </q-td>
             </template>
 
