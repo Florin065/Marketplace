@@ -210,7 +210,7 @@
                       <path fill-rule="evenodd" clip-rule="evenodd" d="M30.9282 10H26.7003C25.922 10 25.291 10.5373 25.291 11.2V12.4H32.3375V11.2C32.3375 10.5373 31.7065 10 30.9282 10Z" stroke="#EF3826" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                     </g>
                   </svg>
-                       
+
                   <!-- <q-btn icon="bi-pencil-square" style="color: #D5D5D5" @click="editItem(props.row)"></q-btn>
                   <q-btn icon="bi-trash" style="color: #EF3862" @click="deleteItem(props.row)"></q-btn> -->
             </q-td>
@@ -237,7 +237,7 @@
 
 <script setup lang="ts">
 import { Notify } from 'quasar';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const search = ref('');
 
@@ -258,7 +258,7 @@ const rows = [
     {
           image: 'https://s3-alpha-sig.figma.com/img/d420/ab08/174f1393eb4867c484c35bbd1aab104d?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RfqegEixi78n~Ja-E9W9uTXVI-eli1xZgV5z0qF3613RRKSsE~VliWWyJlh-~xvd66OyiEUYqLXBSqRb0NLn1Mt9ILMCdF035hW2n9SSsl-eI8Uou3vUSjZQIp54iL20q4j~Vfwa-iM1zocrNeEMpqEamIf5EIUmM0Q7bcGxluQA890STXKNi2Oy-xIvPJBQz9v6OpdqBhDQ8FS4BeZgdVhp0XFGz4-dRJQmmOk0tTuPzaHHbQn1ehDsULsKpOzdn0HlPobgbGZAkdpT0ipP32VSH00UquiJx3pMJh2qqh8EL-wGFx2tI4vdTZ2eGEJlJVDyl8uo5wLWMX0HiLqH9w__',
           SKU: '218754322',
-          productName: 'Cherestea nerindeluita, Detroit City, lemn mold, A/ B, 2000 x 100 x 22 mm',
+          productName: 'Cherestea nerindeluita diferita, Detroit City, lemn mold, A/ B, 2000 x 100 x 22 mm',
           category: 'Scânduri',
           price: 8.00,
           currency: '€',
@@ -501,9 +501,12 @@ const applyFilter = () => {
     newRows.value = rows.filter(row => {
         return filterMenu.every(filter => filter.selected === 'None' || row[filter.label.toLowerCase()] === filter.selected)
             && filterSlider.every(filter => filter.selected.value.min <= row[filter.col] && row[filter.col] <= filter.selected.value.max)
+            && (row.productName.toLowerCase().includes(search.value.toLowerCase()) || row.SKU.toLowerCase().includes(search.value.toLowerCase()))
             && (row.productName.toLowerCase().includes(search.value.toLowerCase()) || row.SKU.toLowerCase().includes(search.value.toLowerCase()));
     });
 }
+
+watch(search, applyFilter);
 
 const editItem = (item) => {
     Notify.create({ message: `Edit ${item.productName}`, color: 'positive', position: 'top' });
