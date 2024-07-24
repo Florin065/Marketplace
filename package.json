@@ -27,6 +27,7 @@
     "inter-ui": "^4.0.2",
     "pdf-lib": "^1.17.1",
     "quasar": "^2.16.4",
+    "resize-observer-polyfill": "^1.5.1",
     "vite-plugin-checker": "^0.7.0",
     "vue": "^3.4.29",
     "vue-chartjs": "^5.3.1",
