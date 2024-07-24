@@ -1,7 +1,7 @@
 <template>
 
     <q-page
-        style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; align-self: stretch; padding: 10px 0px;"
+        style="display: flex; padding: 10px 0px; flex-direction: column; align-items: flex-start; gap: 12px; align-self: stretch;"
     >
         <!-- Buttons for adding... -->
         <q-card-section
@@ -33,7 +33,7 @@
 
                 <q-btn
                     style="border-radius: var(--Radii-radius-button, 6px); color: var(--color-text, #09090B); border: 1px solid var(--color-border-primary, #18181B);"
-                    @click="Notify.create({ message: 'Bulk Actions clicked', color: 'positive', position: 'top' })"
+                    @click="() => {Notify.create({ message: 'Bulk Actions clicked', color: 'positive', position: 'top' }); bulk = !bulk;}"
                 >       
                     <div style="display: flex; justify-content: center; align-items: center; padding: var(--Spacing-space-2, 8px) var(--Spacing-spacing-lg, 12px); gap: var(--Spacing-spacing-sm, 8px);">
                         <q-icon class="bi bi-eye" /> 
@@ -48,6 +48,7 @@
         <q-card-section
             horizontal
             style="display: flex; justify-content: space-between; align-items: center; align-self: stretch;"
+            v-if="!bulk"
         >
             <q-card-section
                 horizontal
@@ -128,6 +129,22 @@
             </q-input>
         </q-card-section>
 
+        <!-- 4 Buttons -->
+        <q-card-section
+            horizontal
+            style="display: flex; padding: 8px 12px; align-items: center; gap: 2.4vw; border-radius: 12px; background: var(--color-bg, #FFF); box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);"
+            v-if="bulk"
+        >
+        <q-btn
+            v-for="button in buttonsFour"
+            :key="button.label"
+            :label="button.label"
+            :icon="button.icon"
+            @click="button.action"
+            :style="`display: flex; align-items: center; justify-content: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-button, 6px); color: ${button.color}; height: var(--Size-size-button-md, 40px); padding: var(--Spacing-space-2, 8px) var(--Spacing-spacing-lg, 16px); border: 1px solid var(--color-border-focusRing, ${button.color});`"
+            />
+        </q-card-section>
+
         <!-- Table -->
         <!-- TODO: The columns doesn't have 'align' property even though it recognizes it. -->
         <q-table
@@ -137,6 +154,7 @@
             style="display: flex; padding: 8px 0px; flex-direction: column; justify-content: flex-end; gap: 12px; align-self: stretch; border-radius: 16px; background: var(--color-bg, #FFF);"
             :rows-per-page-options="[5, 7, 10, 20]"
             :pagination="{ rowsPerPage: 7 }"
+            :visible-columns = "['image', 'SKU', 'productName', 'category', 'price', 'inStock', 'options', 'actions'].concat(bulk ? ['selected'] : [])"
         >
             <template v-slot:body-cell-image="props">
             <q-td :props="props">
@@ -203,6 +221,13 @@
                 {{ props.row.productName }}
             </q-td>
             </template>
+
+            <!-- Selected box -->
+            <template v-slot:body-cell-selected="props">
+                <q-td :props="props">
+                    <q-checkbox v-model="props.row.selected" />
+                </q-td>
+            </template>
         </q-table>
 
     </q-page>
@@ -217,6 +242,7 @@ import { ref } from 'vue';
 const search = ref('');
 
 const columns = [
+        {name: 'selected', label: 'Selected', field: 'selected', align: 'center' },
         { name: 'image', label: 'Image',  field: 'image', align: 'center' },
         { name: 'SKU', label: 'SKU', field: 'SKU', sortable: true, align: 'center'  },
         { name: 'productName', label: 'Product Name', field: 'productName', sortable: true, align: 'center'  },
@@ -229,7 +255,7 @@ const columns = [
 
 // TODO: Get the products fromt the database once it's connected.
 const rows = [
-        {
+    {
           image: 'https://s3-alpha-sig.figma.com/img/d420/ab08/174f1393eb4867c484c35bbd1aab104d?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RfqegEixi78n~Ja-E9W9uTXVI-eli1xZgV5z0qF3613RRKSsE~VliWWyJlh-~xvd66OyiEUYqLXBSqRb0NLn1Mt9ILMCdF035hW2n9SSsl-eI8Uou3vUSjZQIp54iL20q4j~Vfwa-iM1zocrNeEMpqEamIf5EIUmM0Q7bcGxluQA890STXKNi2Oy-xIvPJBQz9v6OpdqBhDQ8FS4BeZgdVhp0XFGz4-dRJQmmOk0tTuPzaHHbQn1ehDsULsKpOzdn0HlPobgbGZAkdpT0ipP32VSH00UquiJx3pMJh2qqh8EL-wGFx2tI4vdTZ2eGEJlJVDyl8uo5wLWMX0HiLqH9w__',
           SKU: '218754322',
           productName: 'Cherestea nerindeluita, Detroit City, lemn mold, A/ B, 2000 x 100 x 22 mm',
@@ -237,7 +263,8 @@ const rows = [
           price: 8.00,
           currency: '€',
           inStock: 3,
-          options: ['mesteacan', 'stejar', 'lemn']
+          options: ['mesteacan', 'stejar', 'lemn'],
+          selected: false,
         },
         {
           image: 'https://www.figma.com/file/Nye8DVipMC2A78sDwCXLv9/image/5f2553518f412a3af1f64d0ce6bb2777f81b74b0',
@@ -247,7 +274,8 @@ const rows = [
           price: 58.00,
           currency: '€',
           inStock: 103,
-          options: ['20 kg', '40 kg', '50 kg', '60 kg']
+          options: ['20 kg', '40 kg', '50 kg', '60 kg'],
+          selected: false,
         },
         {
           image: 'https://s3-alpha-sig.figma.com/img/d420/ab08/174f1393eb4867c484c35bbd1aab104d?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RfqegEixi78n~Ja-E9W9uTXVI-eli1xZgV5z0qF3613RRKSsE~VliWWyJlh-~xvd66OyiEUYqLXBSqRb0NLn1Mt9ILMCdF035hW2n9SSsl-eI8Uou3vUSjZQIp54iL20q4j~Vfwa-iM1zocrNeEMpqEamIf5EIUmM0Q7bcGxluQA890STXKNi2Oy-xIvPJBQz9v6OpdqBhDQ8FS4BeZgdVhp0XFGz4-dRJQmmOk0tTuPzaHHbQn1ehDsULsKpOzdn0HlPobgbGZAkdpT0ipP32VSH00UquiJx3pMJh2qqh8EL-wGFx2tI4vdTZ2eGEJlJVDyl8uo5wLWMX0HiLqH9w__',
@@ -257,7 +285,8 @@ const rows = [
           price: 4.00,
           currency: '€',
           inStock: 65,
-          options: ['mesteacan', 'stejar', 'lemn']
+          options: ['mesteacan', 'stejar', 'lemn'],
+          selected: false,
         },
         {
           image: 'https://www.figma.com/file/Nye8DVipMC2A78sDwCXLv9/image/5f2553518f412a3af1f64d0ce6bb2777f81b74b0',
@@ -267,7 +296,8 @@ const rows = [
           price: 510.00,
           currency: '€',
           inStock: 42,
-          options: ['20 kg', '40 kg', '50 kg', '60 kg']
+          options: ['20 kg', '40 kg', '50 kg', '60 kg'],
+          selected: false,
         },
         {
           image: 'https://s3-alpha-sig.figma.com/img/d420/ab08/174f1393eb4867c484c35bbd1aab104d?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RfqegEixi78n~Ja-E9W9uTXVI-eli1xZgV5z0qF3613RRKSsE~VliWWyJlh-~xvd66OyiEUYqLXBSqRb0NLn1Mt9ILMCdF035hW2n9SSsl-eI8Uou3vUSjZQIp54iL20q4j~Vfwa-iM1zocrNeEMpqEamIf5EIUmM0Q7bcGxluQA890STXKNi2Oy-xIvPJBQz9v6OpdqBhDQ8FS4BeZgdVhp0XFGz4-dRJQmmOk0tTuPzaHHbQn1ehDsULsKpOzdn0HlPobgbGZAkdpT0ipP32VSH00UquiJx3pMJh2qqh8EL-wGFx2tI4vdTZ2eGEJlJVDyl8uo5wLWMX0HiLqH9w__',
@@ -277,7 +307,8 @@ const rows = [
           price: 4.00,
           currency: '€',
           inStock: 1,
-          options: ['mesteacan', 'stejar', 'lemn']
+          options: ['mesteacan', 'stejar', 'lemn'],
+          selected: false,
         },
         {
           image: 'https://www.figma.com/file/Nye8DVipMC2A78sDwCXLv9/image/5f2553518f412a3af1f64d0ce6bb2777f81b74b0',
@@ -287,7 +318,8 @@ const rows = [
           price: 200.00,
           currency: '€',
           inStock: 75,
-          options: ['20 kg', '40 kg', '50 kg', '60 kg']
+          options: ['20 kg', '40 kg', '50 kg', '60 kg'],
+          selected: false,
         },
         {
           image: 'https://s3-alpha-sig.figma.com/img/d420/ab08/174f1393eb4867c484c35bbd1aab104d?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RfqegEixi78n~Ja-E9W9uTXVI-eli1xZgV5z0qF3613RRKSsE~VliWWyJlh-~xvd66OyiEUYqLXBSqRb0NLn1Mt9ILMCdF035hW2n9SSsl-eI8Uou3vUSjZQIp54iL20q4j~Vfwa-iM1zocrNeEMpqEamIf5EIUmM0Q7bcGxluQA890STXKNi2Oy-xIvPJBQz9v6OpdqBhDQ8FS4BeZgdVhp0XFGz4-dRJQmmOk0tTuPzaHHbQn1ehDsULsKpOzdn0HlPobgbGZAkdpT0ipP32VSH00UquiJx3pMJh2qqh8EL-wGFx2tI4vdTZ2eGEJlJVDyl8uo5wLWMX0HiLqH9w__',
@@ -297,7 +329,8 @@ const rows = [
           price: 8.00,
           currency: '€',
           inStock: 63,
-          options: ['mesteacan', 'stejar', 'lemn']
+          options: ['mesteacan', 'stejar', 'lemn'],
+          selected: false,
 
         },
         {
@@ -308,7 +341,8 @@ const rows = [
           price: 92.00,
           currency: '€',
           inStock: 13,
-          options: ['20 kg', '40 kg', '50 kg', '60 kg']
+          options: ['20 kg', '40 kg', '50 kg', '60 kg'],
+          selected: false,
         },
         {
           image: 'https://s3-alpha-sig.figma.com/img/d420/ab08/174f1393eb4867c484c35bbd1aab104d?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RfqegEixi78n~Ja-E9W9uTXVI-eli1xZgV5z0qF3613RRKSsE~VliWWyJlh-~xvd66OyiEUYqLXBSqRb0NLn1Mt9ILMCdF035hW2n9SSsl-eI8Uou3vUSjZQIp54iL20q4j~Vfwa-iM1zocrNeEMpqEamIf5EIUmM0Q7bcGxluQA890STXKNi2Oy-xIvPJBQz9v6OpdqBhDQ8FS4BeZgdVhp0XFGz4-dRJQmmOk0tTuPzaHHbQn1ehDsULsKpOzdn0HlPobgbGZAkdpT0ipP32VSH00UquiJx3pMJh2qqh8EL-wGFx2tI4vdTZ2eGEJlJVDyl8uo5wLWMX0HiLqH9w__',
@@ -318,7 +352,8 @@ const rows = [
           price: 6.00,
           currency: '€',
           inStock: 27,
-          options: ['mesteacan', 'stejar', 'lemn']
+          options: ['mesteacan', 'stejar', 'lemn'],
+          selected: false,
         },
         {
           image: 'https://www.figma.com/file/Nye8DVipMC2A78sDwCXLv9/image/5f2553518f412a3af1f64d0ce6bb2777f81b74b0',
@@ -328,7 +363,8 @@ const rows = [
           price: 375.00,
           currency: '€',
           inStock: 91,
-          options: ['20 kg', '40 kg', '50 kg', '60 kg']
+          options: ['20 kg', '40 kg', '50 kg', '60 kg'],
+          selected: false,
         },
         {
           image: 'https://s3-alpha-sig.figma.com/img/d420/ab08/174f1393eb4867c484c35bbd1aab104d?Expires=1722211200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=RfqegEixi78n~Ja-E9W9uTXVI-eli1xZgV5z0qF3613RRKSsE~VliWWyJlh-~xvd66OyiEUYqLXBSqRb0NLn1Mt9ILMCdF035hW2n9SSsl-eI8Uou3vUSjZQIp54iL20q4j~Vfwa-iM1zocrNeEMpqEamIf5EIUmM0Q7bcGxluQA890STXKNi2Oy-xIvPJBQz9v6OpdqBhDQ8FS4BeZgdVhp0XFGz4-dRJQmmOk0tTuPzaHHbQn1ehDsULsKpOzdn0HlPobgbGZAkdpT0ipP32VSH00UquiJx3pMJh2qqh8EL-wGFx2tI4vdTZ2eGEJlJVDyl8uo5wLWMX0HiLqH9w__',
@@ -338,7 +374,8 @@ const rows = [
           price: 6.00,
           currency: '€',
           inStock: 4,
-          options: ['mesteacan', 'stejar', 'lemn']
+          options: ['mesteacan', 'stejar', 'lemn'],
+          selected: false,
         },
         {
           image: 'https://www.figma.com/file/Nye8DVipMC2A78sDwCXLv9/image/5f2553518f412a3af1f64d0ce6bb2777f81b74b0',
@@ -348,7 +385,8 @@ const rows = [
           price: 192.00,
           currency: '€',
           inStock: 13,
-          options: ['20 kg', '40 kg', '50 kg', '60 kg']
+          options: ['20 kg', '40 kg', '50 kg', '60 kg'],
+          selected: false,
         },
 ];
 
@@ -394,6 +432,33 @@ const buttons = [
     }
 ];
 
+const buttonsFour = [
+    {
+        label: 'Bulk Actions',
+        icon: 'bi-eye',
+        color: '#000000',
+        action: () => {Notify.create({ message: 'Bulk Actions clicked', color: 'positive', position: 'top' }); bulk.value = !bulk.value; console.log(bulk.value);},
+    },
+    {
+        label: 'Offer Discount',
+        icon: 'bi-percent',
+        color: '#000000',
+        action: () => Notify.create({ message: 'Offer Discount clicked', color: 'positive', position: 'top' }),
+    },
+    {
+        label: 'Set same price',
+        icon: 'bi-currency-euro',
+        color: '#000000',
+        action: () => Notify.create({ message: 'Set same price clicked', color: 'positive', position: 'top' }),
+    },
+    {
+        label: 'Delete Selected',
+        icon: 'bi-trash',
+        color: '#EE0D50',
+        action: () => Notify.create({ message: 'Bulk Actions clicked', color: 'positive', position: 'top' }),
+    }
+]
+
 const filterMenu = [
     {
         label: 'Option Type',
@@ -406,6 +471,8 @@ const filterMenu = [
         selected: 'None',
     }
 ]
+
+const bulk = ref(false);
 
 const maxValue = (array: Product[], property: keyof Product): number => {
   return array.reduce((max, item) => {
