@@ -465,6 +465,8 @@ import { useRouter } from 'vue-router';
 import {db} from '@/firebase/firebase';
 import { setDoc, doc } from 'firebase/firestore';
 
+// TODO: Move the types to a separate file so they can be accessed from other components
+
 interface CategoryType {
     name: string;
     checked: boolean;
@@ -489,6 +491,13 @@ interface Variant {
   types: VariantType[];
 }
 
+interface Review {
+  name: string;
+  email: string;
+  rating: number;
+  review: string;
+}
+
 interface dataToSendType {
   featuredImage: string | null;
   SKU: string;
@@ -496,6 +505,7 @@ interface dataToSendType {
   subCategory: string;
   tags: string[];
   qeditor: string;
+  reviews: Review[];
 //   pdfFiles: File[];
 //   excelFiles: File[];
   variants: Variant[];
@@ -585,10 +595,15 @@ const dataToSend: dataToSendType = {
   subCategory: '',
   tags: [],
   qeditor: '',
+  reviews: [],
+  average: 0,
 //   pdfFiles: [],
 //   excelFiles: [],
   variants: [],
 };
+
+// TODO: File upload to Firebase Storage. This will return the link to the firebase storage file
+const uploadFile = (file) => {console.log('nimic')};
 
 // Handle the upload of the featured image and display it
 const handleUpload = (item: File | Variant) => {
