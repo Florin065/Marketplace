@@ -67,7 +67,7 @@
                         style="display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid #ccc;
                         color: var(--color-text, #09090B); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500; line-height: 24px;
                         height: 160px; width: 147px; padding: var(--Spacing-spacing-md, 12px) var(--Spacing-spacing-xl, 24px);"
-                        v-model="SKU"
+                        v-model="productData.SKU"
                         maxlength="16"
                     />
                 </div>
@@ -85,7 +85,7 @@
                         style="display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid #ccc;
                             color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 600; line-height: 32px;
                             height: 160px; width: 953px; padding: var(--Spacing-spacing-md, 12px) var(--Spacing-spacing-xl, 24px);"
-                        v-model="title"
+                        v-model="productData.title"
                         maxlength="120"
                     />
                 </div>
@@ -156,7 +156,7 @@
     
                 <q-card>
                     <q-select
-                        v-model="tags"
+                        v-model="productData.tags"
                         multiple
                         :options="['Special', 'Reducere vară', 'Black Friday', 'New Collection', 'gresie', 'geam']"
                         style="width: 547px; min-height: 48px; height: 48px"
@@ -192,7 +192,7 @@
             <q-editor
                 style="width: 1330px; min-height: 245px; text-align: left"
                 placeholder="Enter a description..."
-                v-model="qeditor"
+                v-model="productData.description"
                 :dense="$q.screen.lt.md"
                 :toolbar="[
                     [
@@ -337,7 +337,7 @@
         </q-card-section>
         
         <div style="display: flex; flex-direction: column; gap: 24px; width: 1362px; margin-top: -20px">
-            <div v-for="(variant, variantIndex) in variants" :key="variantIndex" class="variant-section">
+            <div v-for="(variant, variantIndex) in productData.variants" :key="variantIndex" class="variant-section">
                 <q-separator style="width:1330px; margin-left: 15px"/>
                 <q-card-section style="display: flex; gap: 24px;">
                     <!-- Image upload and delete button column -->
@@ -424,7 +424,7 @@
                                 <div style="text-align: start; flex: 1; ">
                                     Type <span style="color: red;">*</span>
                                     <q-select
-                                    v-model="type.name" :options="typeOptions.map(option => option.name)"
+                                    v-model="type.type" :options="typeOptions.map(option => option.name)"
                                     outlined @update:model-value="type.unit = ''; type.value = ''" 
                                     style="background-color: white;"
                                     />
@@ -432,7 +432,7 @@
                                 <div style="text-align: start; flex: 1">
                                     Unit <span style="color: red;">*</span>
                                     <q-select
-                                        v-model="type.unit" :options="typeOptions.find(option => option.name === type.name)?.units"
+                                        v-model="type.unit" :options="typeOptions.find(option => option.name === type.type)?.units"
                                         outlined style="background-color: white;"
                                         />
                                 </div>
@@ -462,10 +462,32 @@
 import { ref } from 'vue';
 import { Notify } from 'quasar';
 import { useRouter } from 'vue-router';
-import {db} from '@/firebase/firebase';
+import {db, storage} from '@/firebase/firebase';
 import { setDoc, doc } from 'firebase/firestore';
+import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // TODO: Move the types to a separate file so they can be accessed from other components
+interface Product {
+  SKU: string;
+  title: string;
+  description: string;
+  featuredImage: string | File;
+  category: string;
+  tags: string[];
+  // pdfFiles: string[];
+  // excelFiles: string[];
+  currency: string;
+  discount: number;
+  variants: Variant[];
+  reviews: Review[];
+}
+
+interface VariantType {
+  type: string;
+  unit: string;
+  value: number | string;
+}
+
 
 interface CategoryType {
     name: string;
@@ -473,14 +495,40 @@ interface CategoryType {
     children: { name: string; checked: boolean; }[];
 }
 
-interface VariantType {
-  name: string;
-  unit: string;
-  value: number | string;
-}
+const productData = ref<Product>({
+  SKU: '',
+  title: '',
+  description: '',
+  featuredImage: '',
+  category: '',
+  tags: [],
+  // pdfFiles: [],
+  // excelFiles: [],
+  currency: 'RON',
+  discount: 0,
+  reviews: [],
+  variants: [
+    {
+      image: null,
+      imagePreview: '',
+      name: '',
+      sku: '',
+      inStock: 0,
+      price: 0,
+      discountType: '%',
+      discountPrice: 'Discounted',
+      types: [{
+          type: '',
+          unit: '',
+          value: '',
+          }],
+    },
+  ],
+});
+const images = ref<File[]>([]);
 
 interface Variant {
-  image: File | null;
+  image: File | string | null;
   imagePreview: string;
   name: string;
   sku: string;
@@ -498,27 +546,11 @@ interface Review {
   review: string;
 }
 
-interface dataToSendType {
-  featuredImage: string | null;
-  SKU: string;
-  title: string;
-  subCategory: string;
-  tags: string[];
-  qeditor: string;
-  reviews: Review[];
-//   pdfFiles: File[];
-//   excelFiles: File[];
-  variants: Variant[];
-}
-
 const route = useRouter();
 
 // Basic product information
 const featuredImage = ref(null);
 const featuredImageUrl = ref('');
-const SKU = ref('');
-const title = ref('');
-const selectedCategory = ref('');
 const categories = ref<CategoryType[]>([
     { name: 'Casă și Grădină', checked: false, children: [
         { name: 'Gresie și faianță', checked: false },
@@ -546,29 +578,9 @@ const categories = ref<CategoryType[]>([
         { name: 'Lacuri', checked: false }
     ]}
 ]);
-const tags = ref([]);
-const qeditor = ref('');
 const pdfFiles = ref([]);
 const excelFiles = ref([]);
 
-// Variants information and types options
-const variants = ref<Variant[]>([
-  {
-    image: null,
-    imagePreview: '',
-    name: '',
-    sku: '',
-    inStock: 0,
-    price: 0,
-    discountType: '%',
-    discountPrice: 'Discounted',
-    types: [{
-        name: '',
-        unit: '',
-        value: '',
-        }],
-  },
-]);
 const typeOptions = [
   { name: 'Dimensions', units: ['mm', 'cm', 'm', 'in', 'ft'], valueType: 'int/float' },
   { name: 'Color/Swatch', units: ['color names', 'HEX/RGB values'], valueType: 'HEX' },
@@ -587,28 +599,24 @@ const typeOptions = [
   { name: 'Type of Cut', units: ['Rough', 'Smooth', 'Sawn', 'Planed'], valueType: 'dropdown/string' },
 ];
 
-// Data to send to the backend
-const dataToSend: dataToSendType = {
-  featuredImage: null,
-  SKU: '',
-  title: '',
-  subCategory: '',
-  tags: [],
-  qeditor: '',
-  reviews: [],
-  average: 0,
-//   pdfFiles: [],
-//   excelFiles: [],
-  variants: [],
-};
-
 // TODO: File upload to Firebase Storage. This will return the link to the firebase storage file
-const uploadFile = (file) => {console.log('nimic')};
+const uploadFile = async (file, SKU) => {
+  // Upload the file to Firebase Storage
+  const type = file.type.split('/')[1];
+
+  const path = `products/${SKU}/${file.name}`;
+  const fileRef = storageRef(storage, path);
+
+  await uploadBytes(fileRef, file);
+  
+  return getDownloadURL(fileRef);
+
+};
 
 // Handle the upload of the featured image and display it
 const handleUpload = (item: File | Variant) => {
     if (item instanceof File) {
-        featuredImageUrl.value = URL.createObjectURL(item);
+      featuredImageUrl.value = URL.createObjectURL(item);
     } else if (item && item.image instanceof File) {
         item.imagePreview = URL.createObjectURL(item.image);
     }
@@ -645,12 +653,12 @@ const uncheckChildren = (category: { checked: any; children: any[]; }) => {
 
 // Select a category
 const selectCategory = () => {
-    selectedCategory.value = categories.value.find(category => category.checked).name;
+    productData.value.category = categories.value.find(category => category.checked).name;
 }
 
 // Add a new variant to the variants array
 const addVariant = () => {
-  variants.value.push({
+  productData.value.variants.push({
     image: null,
     imagePreview: '',
     name: '',
@@ -660,7 +668,7 @@ const addVariant = () => {
     discountType: '%',
     discountPrice: 'Discounted',
     types: [{
-        name: '',
+        type: '',
         unit: '',
         value: '',
         }],
@@ -669,13 +677,14 @@ const addVariant = () => {
 
 // Delete a variant from the variants array
 const deleteVariant = (index: number) => {
-  variants.value.splice(index, 1);
+  productData.value.variants.splice(index, 1);
+  images.value.splice(index, 1);
 };
 
 // Add a new type to a variant
 const addType = (variant: Variant) => {
   variant.types.push({
-    name: '',
+    type: '',
     unit: '',
     value: '',
   });
@@ -688,31 +697,25 @@ const deleteType = (variant: Variant, index: number) => {
 
 // Save the changes made to the product and send the data to the backend
 const saveChanges = async () => {
-  if (featuredImage.value !== null && SKU.value !== '' && title.value !== '' && categories.value.some(category => category.checked)
-  && tags.value.length > 0 && qeditor.value !== '' &&
-variants.value.every(variant => variant.image !== null && variant.name !== '' && variant.sku !== '' && variant.inStock > 0 && variant.price > 0
-&& variant.types.every(type => type.name !== '' && type.unit !== '' && type.value !== ''))) {
-    dataToSend.featuredImage = featuredImageUrl.value;
-    dataToSend.SKU = SKU.value;
-    dataToSend.title = title.value;
-    dataToSend.subCategory = categories.value.find(category => category.checked).children.find(child => child.checked).name;
-    dataToSend.tags = tags.value;
-    dataToSend.qeditor = qeditor.value;
-    // dataToSend.pdfFiles = pdfFiles.value;
-    // dataToSend.excelFiles = excelFiles.value;
-    dataToSend.variants = variants.value;
-    dataToSend.variants.forEach(variant => {
-        variant.image = null;
-    })
+  if (featuredImage.value !== null && productData.value.SKU !== '' && productData.value.title !== '' && categories.value.some(category => category.checked)
+      && productData.value.tags.length > 0 && productData.value.description !== '' &&
+      productData.value.variants.every(variant => variant.image !== null && variant.name !== '' && variant.sku !== '' && variant.inStock > 0 && variant.price > 0
+      && variant.types.every(type => type.type !== '' && type.unit !== '' && type.value !== '')) 
+    ) {
+      // Upload the featured image to Firebase Storage
+      productData.value.featuredImage = await uploadFile(featuredImage.value, productData.value.SKU);
 
-    console.log(dataToSend);
-    console.log(selectedCategory.value);
-    await setDoc(doc(db, 'products', selectedCategory.value), dataToSend);
+      // Upload the images of the variants to Firebase Storage, variants.image should be a File object while dataToSend.variants.image should have the url
+      for (let i = 0; i < productData.value.variants.length; i++) {
+        productData.value.variants[i].image = await uploadFile(productData.value.variants[i].image, productData.value.variants[i].sku);
+      }
+
+      // Send the data to the backend
+    await setDoc(doc(db, `products/${productData.value.category}/items`, productData.value.SKU), productData.value);
 
     Notify.create({message: 'Product saved successfully', color: 'positive', position: 'top'});
 
     route.push('/dashboard/overview');
-    console.log(dataToSend);
   } else {
     Notify.create({message: 'Please fill in all the required fields', color: 'negative', position: 'top'});
   }
