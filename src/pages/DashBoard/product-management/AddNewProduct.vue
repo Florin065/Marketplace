@@ -493,7 +493,7 @@ interface dataToSendType {
   featuredImage: string | null;
   SKU: string;
   title: string;
-  categories: CategoryType[];
+  subCategory: string;
   tags: string[];
   qeditor: string;
 //   pdfFiles: File[];
@@ -582,7 +582,7 @@ const dataToSend: dataToSendType = {
   featuredImage: null,
   SKU: '',
   title: '',
-  categories: [],
+  subCategory: '',
   tags: [],
   qeditor: '',
 //   pdfFiles: [],
@@ -680,7 +680,7 @@ variants.value.every(variant => variant.image !== null && variant.name !== '' &&
     dataToSend.featuredImage = featuredImageUrl.value;
     dataToSend.SKU = SKU.value;
     dataToSend.title = title.value;
-    dataToSend.categories = categories.value;
+    dataToSend.subCategory = categories.value.find(category => category.checked).children.find(child => child.checked).name;
     dataToSend.tags = tags.value;
     dataToSend.qeditor = qeditor.value;
     // dataToSend.pdfFiles = pdfFiles.value;
