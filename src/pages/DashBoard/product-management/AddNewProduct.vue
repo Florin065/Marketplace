@@ -108,7 +108,7 @@
                     style="width: 540px; min-height: 48px; height: auto">
                     <div v-if="categories.some(category => category.checked)">
                         <div v-for="category in categories" :key="category.name">
-                            <div v-if="category.checked" @change="selectCategory">
+                            <div v-if="category.checked">
                                 {{ category.name }} —> {{ category.children.filter(child => child.checked).map(child => child.name).join(' + ') }}
                                 
                             </div>
@@ -135,7 +135,7 @@
                                         <q-item clickable v-for="child in category.children" :key="child.name">
                                             <q-item-section>
                                                 <q-item-label>
-                                                    <q-checkbox v-model="child.checked" :label="child.name" @click="toggleCategory(category, child)"/>
+                                                    <q-checkbox v-model="child.checked" :label="child.name" @click="{toggleCategory(category, child); selectCategory()}"/>
                                                 </q-item-label>
                                             </q-item-section>
                                         </q-item>
@@ -690,6 +690,8 @@ variants.value.every(variant => variant.image !== null && variant.name !== '' &&
         variant.image = null;
     })
 
+    console.log(dataToSend);
+    console.log(selectedCategory.value);
     await setDoc(doc(db, 'products', selectedCategory.value), dataToSend);
 
     Notify.create({message: 'Product saved successfully', color: 'positive', position: 'top'});
