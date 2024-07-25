@@ -1,7 +1,8 @@
 <template>
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 24px; width: 80vw; margin-top: 24px;">
 
     <q-card-section
-        style="display:flex; height: 44px; justify-content: flex-end; align-items: center; gap: 24px; align-self: stretch; width: 80vw;"
+        style="display:flex; height: 44px; justify-content: flex-end; align-items: center; gap: 24px; align-self: stretch;"
         >
         <q-btn
             label="Add global discount"
@@ -14,19 +15,18 @@
             label="Save Changes"
             icon="bi-check2"
             style="background: var(--green, #0CD496); border-radius: var(--Rad11-radius-button, 6px); display:flex; align-self: stretch; justify-content: center; align-items: center; color: #fff; font-size: 14px; font-weight: 500; height: 44px"
-            @click="Notify.create({message: 'Changes saved', color: 'positive', position: 'top'})"
+            @click="saveChanges()"
         />
 
         <q-btn
             label="Cancel"
             icon="bi-x"
-            style="border-radius: var(--Radii-radius-button, 6px); border: 1px solid var(--magenta, #EE0D50); display: flex; align-items: center; justify-content: center; align-self: stretch; color: #EE0D50; font-size: 14px; font-weight: 500; height: 44px; margin-right: 80px"
-            @click="Notify.create({message: 'Changes discarded', color: 'negative', position: 'top'})"
+            style="border-radius: var(--Radii-radius-button, 6px); border: 1px solid var(--magenta, #EE0D50); display: flex; align-items: center; justify-content: center; align-self: stretch; color: #EE0D50; font-size: 14px; font-weight: 500; height: 44px;"
+            @click="$router.go(-1)"
         />
 
     </q-card-section>
 
-    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 24px; width: 80vw; margin-top: 24px;">
         <div class="row">
             <q-card-section
                 style="display: flex; flex-direction: column; align-items: flex-start; gap: var(--Space-spacing-2xs, 4px);"
@@ -42,7 +42,7 @@
                       style="width: 100%; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
                       accept="image/*"
                       no-preview
-                      @update:model-value="handleUpload()"
+                      @update:model-value="featuredImage!== null && handleUpload(featuredImage)"
                     >
                         <div v-if="featuredImage === null">
                             <q-icon name="add_photo_alternate" size="80px" color="grey-6" />
@@ -108,8 +108,9 @@
                     style="width: 540px; min-height: 48px; height: auto">
                     <div v-if="categories.some(category => category.checked)">
                         <div v-for="category in categories" :key="category.name">
-                            <div v-if="category.checked">
+                            <div v-if="category.checked" @change="selectCategory">
                                 {{ category.name }} —> {{ category.children.filter(child => child.checked).map(child => child.name).join(' + ') }}
+                                
                             </div>
                         </div>
                     </div>
@@ -354,7 +355,7 @@
                                     no-preview
                                     style="height: 200px; width: 200px; border: 1px dashed #E0E0E0;
                                         display: flex; align-items: center; justify-content: center; flex-direction: column;"
-                                    @update:model-value="handleUploadVariantPicture(variant)"
+                                    @update:model-value="handleUpload(variant)"
                                     >
                                     <div v-if="variant.image === null">
                                         <q-icon name="add_photo_alternate" size="80px" color="grey-6" />
@@ -460,18 +461,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Notify } from 'quasar';
-
-const featuredImage = ref(null);
-const featuredImageUrl = ref('');
-const handleUpload = () => {
-    console.log('handleUpload is triggered');
-    if (featuredImage.value) {
-        featuredImageUrl.value = URL.createObjectURL(featuredImage.value);
-    }
-}
-
-const SKU = ref('');
-const title = ref('');
+import { useRouter } from 'vue-router';
+import {db} from '@/firebase/firebase';
+import { setDoc, doc } from 'firebase/firestore';
 
 interface CategoryType {
     name: string;
@@ -479,6 +471,44 @@ interface CategoryType {
     children: { name: string; checked: boolean; }[];
 }
 
+interface VariantType {
+  name: string;
+  unit: string;
+  value: number | string;
+}
+
+interface Variant {
+  image: File | null;
+  imagePreview: string;
+  name: string;
+  sku: string;
+  inStock: number;
+  price: number;
+  discountType: '%' | 'RON';
+  discountPrice: number | 'Discounted';
+  types: VariantType[];
+}
+
+interface dataToSendType {
+  featuredImage: string | null;
+  SKU: string;
+  title: string;
+  categories: CategoryType[];
+  tags: string[];
+  qeditor: string;
+//   pdfFiles: File[];
+//   excelFiles: File[];
+  variants: Variant[];
+}
+
+const route = useRouter();
+
+// Basic product information
+const featuredImage = ref(null);
+const featuredImageUrl = ref('');
+const SKU = ref('');
+const title = ref('');
+const selectedCategory = ref('');
 const categories = ref<CategoryType[]>([
     { name: 'Casă și Grădină', checked: false, children: [
         { name: 'Gresie și faianță', checked: false },
@@ -506,7 +536,70 @@ const categories = ref<CategoryType[]>([
         { name: 'Lacuri', checked: false }
     ]}
 ]);
+const tags = ref([]);
+const qeditor = ref('');
+const pdfFiles = ref([]);
+const excelFiles = ref([]);
 
+// Variants information and types options
+const variants = ref<Variant[]>([
+  {
+    image: null,
+    imagePreview: '',
+    name: '',
+    sku: '',
+    inStock: 0,
+    price: 0,
+    discountType: '%',
+    discountPrice: 'Discounted',
+    types: [{
+        name: '',
+        unit: '',
+        value: '',
+        }],
+  },
+]);
+const typeOptions = [
+  { name: 'Dimensions', units: ['mm', 'cm', 'm', 'in', 'ft'], valueType: 'int/float' },
+  { name: 'Color/Swatch', units: ['color names', 'HEX/RGB values'], valueType: 'HEX' },
+  { name: 'Weight', units: ['g', 'kg', 'lb', 't'], valueType: 'int/float' },
+  { name: 'Volume', units: ['ml', 'L', 'm³', 'gal', 'ft³'], valueType: 'int/float' },
+  { name: 'Quantity', units: ['pcs', 'units', 'packs', 'boxes', 'bundles'], valueType: 'list/dropdown' },
+  { name: 'Grade/Quality', units: ['A', 'B', 'C', 'Premium', 'Standard', 'Economy'], valueType: 'list/dropdown' },
+  { name: 'Thickness', units: ['mm', 'in'], valueType: 'int/float' },
+  { name: 'Length', units: ['m', 'cm', 'mm', 'ft', 'in'], valueType: 'int/float' },
+  { name: 'Width', units: ['m', 'cm', 'mm', 'ft', 'in'], valueType: 'int/float' },
+  { name: 'Diameter', units: ['mm', 'cm', 'in'], valueType: 'int/float' },
+  { name: 'Strength', units: ['PSI', 'MPa', 'N/mm²'], valueType: 'int/float' },
+  { name: 'Hardness', units: ['Rockwell', 'Brinell', 'Mohs'], valueType: 'dropdown' },
+  { name: 'Material', units: ['Wood', 'Metal', 'Plastic', 'Concrete', 'Composite'], valueType: 'dropdown/string' },
+  { name: 'Finish', units: ['Glossy', 'Matte', 'Satin', 'Textured', 'Polished'], valueType: 'dropdown/string' },
+  { name: 'Type of Cut', units: ['Rough', 'Smooth', 'Sawn', 'Planed'], valueType: 'dropdown/string' },
+];
+
+// Data to send to the backend
+const dataToSend: dataToSendType = {
+  featuredImage: null,
+  SKU: '',
+  title: '',
+  categories: [],
+  tags: [],
+  qeditor: '',
+//   pdfFiles: [],
+//   excelFiles: [],
+  variants: [],
+};
+
+// Handle the upload of the featured image and display it
+const handleUpload = (item: File | Variant) => {
+    if (item instanceof File) {
+        featuredImageUrl.value = URL.createObjectURL(item);
+    } else if (item && item.image instanceof File) {
+        item.imagePreview = URL.createObjectURL(item.image);
+    }
+}
+
+// Toggle the checked status of a category and its children based on the clicked child
 const toggleCategory = (selectedCategory: { checked: boolean; children: any[]; }, clickedChild: any) => {
     // Deselect all children in the selected category except the clicked one
     selectedCategory.children.forEach(child => {
@@ -527,6 +620,7 @@ const toggleCategory = (selectedCategory: { checked: boolean; children: any[]; }
     });
 }
 
+// Uncheck all children of a category if the category is unchecked
 const uncheckChildren = (category: { checked: any; children: any[]; }) => {
     category.checked = false;
     if (!category.checked) {
@@ -534,65 +628,12 @@ const uncheckChildren = (category: { checked: any; children: any[]; }) => {
     }
 }
 
-const tags = ref([]);
-const qeditor = ref('');
-const pdfFiles = ref([]);
-const excelFiles = ref([]);
-
-interface VariantType {
-  name: string;
-  unit: string;
-  value: number | string;
+// Select a category
+const selectCategory = () => {
+    selectedCategory.value = categories.value.find(category => category.checked).name;
 }
 
-interface Variant {
-  image: File | null;
-  imagePreview: string;
-  name: string;
-  sku: string;
-  inStock: number;
-  price: number;
-  discountType: '%' | 'RON';
-  discountPrice: number | 'Discounted';
-  types: VariantType[];
-}
-
-const variants = ref<Variant[]>([
-  {
-    image: null,
-    imagePreview: '',
-    name: '',
-    sku: '',
-    inStock: 0,
-    price: 0,
-    discountType: '%',
-    discountPrice: 'Discounted',
-    types: [{
-        name: '',
-        unit: '',
-        value: '',
-        }],
-  },
-]);
-
-const typeOptions = [
-  { name: 'Dimensions', units: ['mm', 'cm', 'm', 'in', 'ft'], valueType: 'int/float' },
-  { name: 'Color/Swatch', units: ['color names', 'HEX/RGB values'], valueType: 'HEX' },
-  { name: 'Weight', units: ['g', 'kg', 'lb', 't'], valueType: 'int/float' },
-  { name: 'Volume', units: ['ml', 'L', 'm³', 'gal', 'ft³'], valueType: 'int/float' },
-  { name: 'Quantity', units: ['pcs', 'units', 'packs', 'boxes', 'bundles'], valueType: 'list/dropdown' },
-  { name: 'Grade/Quality', units: ['A', 'B', 'C', 'Premium', 'Standard', 'Economy'], valueType: 'list/dropdown' },
-  { name: 'Thickness', units: ['mm', 'in'], valueType: 'int/float' },
-  { name: 'Length', units: ['m', 'cm', 'mm', 'ft', 'in'], valueType: 'int/float' },
-  { name: 'Width', units: ['m', 'cm', 'mm', 'ft', 'in'], valueType: 'int/float' },
-  { name: 'Diameter', units: ['mm', 'cm', 'in'], valueType: 'int/float' },
-  { name: 'Strength', units: ['PSI', 'MPa', 'N/mm²'], valueType: 'int/float' },
-  { name: 'Hardness', units: ['Rockwell', 'Brinell', 'Mohs'], valueType: 'dropdown' },
-  { name: 'Material', units: ['Wood', 'Metal', 'Plastic', 'Concrete', 'Composite'], valueType: 'dropdown/string' },
-  { name: 'Finish', units: ['Glossy', 'Matte', 'Satin', 'Textured', 'Polished'], valueType: 'dropdown/string' },
-  { name: 'Type of Cut', units: ['Rough', 'Smooth', 'Sawn', 'Planed'], valueType: 'dropdown/string' },
-];
-
+// Add a new variant to the variants array
 const addVariant = () => {
   variants.value.push({
     image: null,
@@ -611,10 +652,12 @@ const addVariant = () => {
   });
 };
 
+// Delete a variant from the variants array
 const deleteVariant = (index: number) => {
   variants.value.splice(index, 1);
 };
 
+// Add a new type to a variant
 const addType = (variant: Variant) => {
   variant.types.push({
     name: '',
@@ -623,15 +666,41 @@ const addType = (variant: Variant) => {
   });
 };
 
+// Delete a type from a variant
 const deleteType = (variant: Variant, index: number) => {
   variant.types.splice(index, 1);
 };
 
-const handleUploadVariantPicture = (variant: Variant) => {
-  if (variant.image) {
-    variant.imagePreview = URL.createObjectURL(variant.image);
+// Save the changes made to the product and send the data to the backend
+const saveChanges = async () => {
+  if (featuredImage.value !== null && SKU.value !== '' && title.value !== '' && categories.value.some(category => category.checked)
+  && tags.value.length > 0 && qeditor.value !== '' &&
+variants.value.every(variant => variant.image !== null && variant.name !== '' && variant.sku !== '' && variant.inStock > 0 && variant.price > 0
+&& variant.types.every(type => type.name !== '' && type.unit !== '' && type.value !== ''))) {
+    dataToSend.featuredImage = featuredImageUrl.value;
+    dataToSend.SKU = SKU.value;
+    dataToSend.title = title.value;
+    dataToSend.categories = categories.value;
+    dataToSend.tags = tags.value;
+    dataToSend.qeditor = qeditor.value;
+    // dataToSend.pdfFiles = pdfFiles.value;
+    // dataToSend.excelFiles = excelFiles.value;
+    dataToSend.variants = variants.value;
+    dataToSend.variants.forEach(variant => {
+        variant.image = null;
+    })
+
+    await setDoc(doc(db, 'products', selectedCategory.value), dataToSend);
+
+    Notify.create({message: 'Product saved successfully', color: 'positive', position: 'top'});
+
+    route.push('/dashboard/overview');
+    console.log(dataToSend);
+  } else {
+    Notify.create({message: 'Please fill in all the required fields', color: 'negative', position: 'top'});
   }
 };
+
 </script>
 
 <style scoped>
