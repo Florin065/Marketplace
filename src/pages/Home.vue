@@ -249,7 +249,7 @@
                             style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
                         >
                     
-                            <div class="text-h6" @click="productClick(prod.SKU)"> {{ prod.title }} </div>
+                            <div class="text-h6" @click="productClick(prod.SKU, prod.category)"> {{ prod.title }} </div>
                             <q-card-section
                                 horizontal
                                 syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
@@ -259,7 +259,7 @@
                                     :src="prod.featuredImage"
                                     style="width: 9vw; height: 20vh;"
                                     fit="contain"
-                                    @click="productClick(prod.SKU)"
+                                    @click="productClick(prod.SKU, prod.category)"
                                 />
 
                                 <q-card-section
@@ -419,8 +419,8 @@ const popularSearches = [
 
 const currency = ref<string>('LEI');
 
-const productClick = (SKU: number) => {
-    router.push(`/product/${SKU}`);
+const productClick = (SKU: string, category: string) => {
+    router.push(`/product/${category}/${SKU}`);
 }
 
 const categories = [

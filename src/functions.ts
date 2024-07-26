@@ -28,6 +28,7 @@ export async function getProductsPreview(): Promise<productPreview[]> {
         });
     }));
 
+
     return products ;
 }
 

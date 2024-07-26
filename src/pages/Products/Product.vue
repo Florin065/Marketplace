@@ -33,7 +33,7 @@
                 style="display: flex; width: 700px; flex-direction: column; align-items: flex-start; gap: 10px; align-self: stretch; border-radius: 28px 0px 0px 28px;"
             >
                 <q-img
-                    :src="product.images[imgTab]"
+                    :src="images[imgTab]"
                     style="width: 700px; height: 700px; border-radius: 28px 0px 0px 28px; background: #FFF"
                     fit="contain"
                 />
@@ -44,8 +44,8 @@
                 >
 
                     <q-tabs v-model="imgTab">
-                        <q-tab v-for="(img, index) in product.images" :key="index" :name="index">
-                            <q-img :src="img" style="width: 100px; height: 100px; border-radius: 6px; background: url(<path-to-image>) lightgray 50% / cover no-repeat; background: #FFF"/>
+                        <q-tab v-for="(img, index) in images" :key="index" :name="index">
+                            <q-img :src="img" style="width: 100px; height: 100px; border-radius: 6px; background: url(<path-to-image>) lightgray 50% / cover no-repeat; background: #FFF" @click="imgTab = String(index)"/>
                         </q-tab>
                     </q-tabs>
                     
@@ -64,7 +64,7 @@
                 <div
                     class="text-left" 
                     style="color: var(--color-text, #09090B); font-family: Inter; font-size: 30px; font-style: normal; font-weight: 700; line-height: 42px; align-self: stretch;">
-                    {{ product.name }}
+                    {{ product.title }}
                 </div>
                 
                 <!-- Description -->
@@ -76,31 +76,51 @@
                         vertical
                         styl="display: flex; width: 324px; flex-direction: column; align-items: flex-start; gap: 24px; align-self: stretch;"
                     >
-                
-                        <!-- Dimension -->
                         <q-card-section
-                            vertical
-                            style="display: flex; flex-direction: column; align-items: center; gap: 12px; align-self: stretch;"
+                            horizontal
+                            v-for="variant in product.variants"
                         >
-                        
-                            <div style="color: var(--color-text, #09090B); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 500; line-height: 38px; "> Dimensiune </div>
-                        
+                            <!-- Type -->
+                            <q-card-section
+                                vertical
+                                style="display: flex; flex-direction: column; align-items: center; gap: 12px; align-self: stretch;"
+                            >
                             <q-card-section
                                 horizontal
-                                style="display: flex; justify-content: center; align-items: center; align-content: center; gap: 12px; align-self: stretch; flex-wrap: wrap; max-width: 324px;"
+                                style="display: flex; justify-content: center; align-items: center; align-content: center; gap: 12px; align-self: stretch; flex-wrap: wrap; max-width: 100%;"
+                            >
+                                <div>
+                                    <div style="color: var(--color-text, #09090B); font-family: Inter; font-size: 24px; font-style: normal; font-weight: 500; line-height: 38px;" class="clickable-card-section" @click="() => selectVariant(variant)"> {{ variant.name }} </div>
+                                </div>
+                                <div
+                                    v-for="option in variant.types"
+                                    style="display: flex; align-items: center; gap: 12px; align-self: stretch; flex-wrap: wrap; max-width: 100%; color: var(--color-text-disabled, #A1A1AA); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 400; line-height: 24px;"
                                 >
-                                
-                                <q-btn
-                                    v-for="dimension in product.dimensions"
-                                    :label="dimension"
-                                    style="display: flex; height: var(--Size-size-input-lg, 44px);
-                                      width: 72px;
-                                      padding: var(--Spacing-spacing-sm, 8px) var (--Spacing-spacing-lg, 16px);
-                                      align-items: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-input, 6px);
-                                      border: 1px solid var(--color-border-info-muted, #60A5FA); background: var(--color-bg, #FFF);
-                                      box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);"
-                                />
+                                    <div
+                                        :style="selectedVariant === variant ? 'color: var(--color-text, #09090B); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 500; line-height: 24px;' : ''"
+                                    >
+                                        {{ option.type }}: {{ option.value }} {{ option.unit }}
+                                    </div>
 
+                                </div>
+                                <!-- <q-btn
+                                    v-for="option in variant.types"
+                                    :label="option.type + ' ' + option.value + ' ' + option.unit"
+                                    style="display: flex; height: var(--Size-size-input-lg, 44px);
+                                    padding: var(--Spacing-spacing-sm, 8px) var (--Spacing-spacing-lg, 16px);
+                                    align-items: center; gap: var(--Spacing-spacing-sm, 8px); border-radius: var(--Radii-radius-input, 6px);
+                                    border: 1px solid var(--color-border-info-muted, #60A5FA); background: var(--color-bg, #FFF);
+                                    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);"
+                                /> -->
+                            </q-card-section>
+                                <!-- <q-card-section
+                                    horizontal
+                                    style="display: flex; justify-content: center; align-items: center; align-content: center; gap: 12px; align-self: stretch; flex-wrap: wrap; max-width: 100%;"
+                                    >
+                                    
+
+
+                                </q-card-section> -->
                             </q-card-section>
                         </q-card-section>
 
@@ -139,7 +159,7 @@
                                     <div
                                         style="overflow: hidden; color: var(--color-text-disabled, #A1A1AA); text-overflow: ellipsis; font-family: Inter; font-size: 14px; font-style: normal; font-weight: 400; line-height: 20px;"
                                     >
-                                        sac
+                                        prod
                                     </div>
 
                                 </div>
@@ -154,91 +174,7 @@
 
                     </q-card-section>
 
-                    <!-- Delivery and Return-->
-                    <q-card-section
-                        vertical
-                        style="display: flex; padding: var(--Spacing-spacing-md, 12px) 0px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 12px; align-self: stretch;"
-                    >
-                        <!-- Delivery -->
-                        <q-card-section
-                            horizontal
-                            style="display: flex; align-items: center; gap: 30px; align-self: stretch;"
-                        >
-
-                            <div
-                                style="display: flex; align-items: center; gap: 12px; align-self: stretch;"
-                            >
-                                <q-card style="display: flex; padding: 6px; align-items: center; gap: 10px; align-self: stretch; border-radius: 6px; background: var(--blue1, #2563EB);">
-                                    <q-icon size="sm">
-                                        <q-img src="@/assets/truck.svg"/>
-                                    </q-icon>
-                                </q-card>
-
-                                <q-card-section
-                                    vertical
-                                    style="display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 6px;"
-                                >
-                                    <div
-                                        style="color: var(--color-icon-muted, #71717A); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; /* 142.857% */"
-                                    >
-                                        Livrat de Firma S.R.L.
-                                    </div>
-
-                                    <q-card-section
-                                        horizontal
-                                        style="display: flex; align-items: center; gap: 6px;"
-                                    >
-
-                                        <div style="color: var(--color-icon-muted, #71717A); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; /* 142.857% */">
-
-                                            pana la data de
-                                        </div>
-
-                                        <div
-                                            style="color: var(--color-icon-interactive, #2563EB); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 600; line-height: 24px; /* 150% */"
-                                        >
-                                            08 iulie.
-                                        </div>
-
-                                    </q-card-section>
-
-                                </q-card-section>
-                            </div>
-                            </q-card-section>
-
-
-                            <!-- Return -->
-                            <q-card-section
-                                horizontal
-                                style="display: flex; align-items: center; gap: 12px; align-self: stretch;"
-                            >
-                                <q-card
-                                    style="display: flex; padding: 6px; align-items: center; gap: 10px; align-self: stretch; border-radius: 6px; background: var(--blue1, #2563EB);"
-                                >
-                                    <q-icon size="sm">
-                                        <q-img src="@/assets/star.svg"/>
-                                    </q-icon>
-                                </q-card>
-
-                                <q-card-section
-                                    vertical
-                                    style="display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 6px;"
-                                >
-                                    <div 
-                                        style = "color: var(--color-icon-muted, #71717A); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; /* 142.857% */"
-                                    >
-                                        Retur Gratuit în <span style="color: var(--color-icon, #18181B); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px;">30 zile.</span> <q-icon size="sm"><q-img src="@/assets/document.svg"/></q-icon>
-                                    </div>
-
-                                    <div 
-                                        style = "color: var(--color-icon-muted, #71717A); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px; /* 142.857% */"
-                                    >
-                                        Garantie inclusa  <span style="color: var(--color-icon, #18181B); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 500; line-height: 20px;">12 luni.</span> <q-icon size="sm"><q-img src="@/assets/document.svg"/></q-icon>
-                                    </div>
-                                </q-card-section>
-
-                        </q-card-section>
-                    </q-card-section>
+                    <!-- TODO: After making the types and the options for each type, show the price for the selected one -->
 
                     <!-- Price -->
                     <q-card-section
@@ -254,7 +190,7 @@
                             <div
                                 style="color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 600; line-height: 20px;"
                             >
-                                {{ product.oldPrice}}
+                                {{  selectedVariant? selectedVariant.price : '0' }}
                             </div>
 
                             <div
@@ -279,23 +215,24 @@
                             <div
                                 style="color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px;"
                             >
-                                {{ product.price }}
+                                {{ selectedVariant? selectedVariant.price : '0'}}
                             </div>
 
                             <div
                                 style="color: var(--green, #0CD496); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 600; line-height: 32px;"
                             >
-                                {{ product.currency }}/sac
+                                {{ currency }} / product
                             </div>
                         </q-card-section>
 
                         <q-btn
                             style="display: flex; padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); flex: 1 0 0; align-self: stretch; border-radius: var(--Spacing-spacing-sm, 8px); border: 1px solid var(--color-text-onColor, #FFF); background: var(--green, #0CD496);"
-                        > 
-                        
+                            :disable="!selectedVariant"
+                            > 
+                            
                             <div
                                 style="color: var(--color-text-onColor, #FFF); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 600; line-height: 24px;"
-                                @click = "() => addedToCart()"
+                                @click = "() => selectedVariant? addedToCart() : Notify.create({message: 'Selectati o varianta', color: 'negative', position: 'top', timeout: 2000})"
                             >
                                 Adaugă în coș
                             </div>
@@ -321,21 +258,21 @@
                         align="justify"
                         style="display: flex; padding: var(--Spacing-spacing-2xs, 4px); justify-content: space-between; align-items: center; align-self: stretch; border-radius: var(--Radii-radius, 6px); background: var(--color-bg-subtle, #FAFAFA);"
                     >
-                        <q-tab name="1" label="Recenzii" />
-                        <q-tab name="2" label="Descriere" />
+                        <q-tab name="1" label="Descriere" />
+                        <q-tab v-if="$q.screen.gt.sm" name="2" label="Specificatii Tehnice" />
                         <q-tab v-if="$q.screen.gt.sm" name="3" label="Ghiduri" />
-                        <q-tab v-if="$q.screen.gt.sm" name="4" label="Specificatii Tehnice" />
+                        <q-tab name="4" label="Recenzii" />
                     </q-tabs>
                     <q-tab-panels animated v-model="productTabs">
 
                         <q-tab-panel
-                            name="1"
+                            name="4"
                             style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 1 0 0;"
                         >
                         <div class="row items-center" style="display: flex; justify-content: space-between; align-items: center; align-self: stretch;">
-                            <div class="text-h5">Opiniile Clienților {{ product.reviews.average }} / 5</div>
+                            <div class="text-h5">Opiniile Clienților {{ productt.reviews.average }} / 5</div>
                             <q-rating
-                                v-model="product.reviews.average"
+                                v-model="productt.reviews.average"
                                 color="orange"
                                 readonly
                                 size="md"
@@ -345,7 +282,7 @@
                                 no-dimming
                                 max="5"
                             />
-                            <div class="q-ml-md">{{ product.reviews.total }} recenzii</div>
+                            <div class="q-ml-md">{{ productt.reviews.total }} recenzii</div>
                         </div>
                         
                         <q-scroll-area style="height: 31vh; align-self: stretch; overflow-y: auto; width: 55vw;">
@@ -354,13 +291,13 @@
                             >
                                 <q-card class="q-pa-md q-mb-md">
                                     
-                                    <q-bar class="q-mt-md" v-for="(stars, index) in product.reviews.stars" :key="index"  style="display: flex; align-items: center; gap: 12px; align-self: stretch; background: transparent">
+                                    <q-bar class="q-mt-md" v-for="(stars, index) in productt.reviews.stars" :key="index"  style="display: flex; align-items: center; gap: 12px; align-self: stretch; background: transparent">
                                     
                                         <div style="display: flex; width: 200px; justify-content: flex-end; align-items: center; gap: 5px;">
                                             <q-icon v-for="i in 5-index" size="md" name="bi-star-fill" color="orange"></q-icon>
                                         </div>
                                         <q-linear-progress
-                                            :value="product.reviews.stars[4-index] / product.reviews.total"
+                                            :value="productt.reviews.stars[4-index] / productt.reviews.total"
                                             color="orange"
                                             class="q-ml-md"
                                             track-color="grey-4"
@@ -368,13 +305,13 @@
                                         />
 
                                         <div style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 600; line-height: 32px; width: 31px;">
-                                            {{ product.reviews.stars[4-index] }}
+                                            {{ productt.reviews.stars[4-index] }}
                                         </div>
                                     
                                     </q-bar>
                                 </q-card>
                             
-                                <q-card v-for="review in product.reviews.comments" :key="review.uID" style="display: flex; flex-direction: column; align-items:  flex-start; gap: 14px; align-self: stretch;">
+                                <q-card v-for="review in productt.reviews.comments" :key="review.uID" style="display: flex; flex-direction: column; align-items:  flex-start; gap: 14px; align-self: stretch;">
                                     <div style="display: flex; justify-content: space-between; align-items: center; align-self: stretch;">
 
                                         <div
@@ -414,7 +351,7 @@
                         </q-tab-panel>
 
                         <q-tab-panel
-                            name="2"
+                            name="1"
                             style="display:flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 1 0 0;"
                         >
                             <div
@@ -429,16 +366,7 @@
                                 <div
                                     style="align-self: stretch; color: var(--color-text, #09090B); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 600; line-height: 24px; text-align: left;"
                                 >
-                                    Cimentul Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild este recomandat pentru betoane simple si armate, rezistent la inghet-dezghet, avand domenii de utilizare precum:
-                                    <br/>
-                                    <br/>
-                                    - constructii civile si industriale: fundatii, stalpi, grinzi, diafragme, pereti interiori si exteriori, plansee, scari, camasuieli, estacade si canale pentru conducte, centuri, subzidiri, egalizari, etc.
-                                    <br/>
-                                    <br/>
-                                    - lucrari de arta: culei, pile, predale, suprabetonari, chesoane, fundatii etc.;
-                                    <br/>
-                                    <br/>
-                                    - prefabricate: elemente de fundatii, stalpi, grinzi, stalpi centrifugati si vibrati pentru LEA 0.4KV, dale, pavele, borduri, elemente de planseu, chesoane, tuburi de canalizare, boltari, placi si stalpi de gard, elemente de peroane CF, elemente spatiale tip camera, elemente de atic, ornamente arhitecturale etc.
+                                    {{  product.description  }}
                                 </div>
 
                             </q-scroll-area>
@@ -470,7 +398,7 @@
                         </q-tab-panel>
 
                         <q-tab-panel
-                            name="4"
+                            name="2"
                             style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 1 0 0;"
                         >
                             <div style="max-height: 27.29vh;">
@@ -582,22 +510,22 @@
                     <div class="row no-wrap" style="display: flex; gap: 25px;">
                     
                         <q-card
-                            v-for="prod in product.boughtTogether"
+                            v-for="prod in productsPreviews"
                             bordered
                             style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
                         >
                     
-                            <div class="text-h6" @click="prod.func"> {{ prod.label }} </div>
+                            <div class="text-h6" @click="productClick(prod.SKU, prod.category)"> {{ prod.title }} </div>
                             <q-card-section
                                 horizontal
                                 syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
                             >
 
                                 <q-img
-                                    :src="prod.image.src"
-                                    :style="prod.image.style"
-                                    :fit="prod.image.fit"
-                                    @click="prod.func"
+                                    :src="prod.featuredImage"
+                                    style="width: 9vw; height: 20vh;"
+                                    fit="contain"
+                                    @click="productClick(prod.SKU, prod.category)"
                                 />
 
                                 <q-card-section
@@ -609,7 +537,7 @@
 
                                     <div
                                             style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
-                                        > {{ prod.discount }} {{ prod.currency }} </div>
+                                        > {{ prod.discount == 0? prod.price:prod.discount }} {{ currency }} </div>
 
                                 </q-card-section>
                             </q-card-section>
@@ -632,15 +560,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import logout from '@/firebase/firebase-logout'
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import {auth} from '@/firebase/firebase';
 import { Notify } from 'quasar';
+
+import { getProductDetails, getProductsPreview } from '@/functions';
+import { Product, productPreview, Variant } from '@/types/ProductTypes';
+import { range } from 'pdf-lib';
+import { se } from 'date-fns/locale';
 
 const router = useRouter();
 
 const search = ref<string>('');
+const currency = ref<string>('LEI');
 
 const isLogged = ref<boolean>(false);
 isLogged.value = auth.currentUser !== null;
@@ -733,12 +667,12 @@ const decreaseQuantity = () => {
 const quantity = ref<number>(1);
 
 const tab = ref<string>('1');
-const productTabs = ref<string>('2');
+const productTabs = ref<string>('1');
 
 const hiddenBoughtTogether = ref<boolean>(false);
 
 
-const product = {
+const productt = {
     SKU: 1,
     name: "Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40 kg",
     images: ["https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/ciment2.png?alt=media&token=5394417a-2fc2-4eb6-ab64-5fe63cb4a48e", "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/cablu_cupru-removebg-preview.png?alt=media&token=5c30e3f7-5330-4236-9171-06b478367824", "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465", "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1"],
@@ -865,7 +799,55 @@ const product = {
     }
 }
 
-const imgTab = ref<string>('1');
+const productsPreviews = ref<productPreview[]>([]);
+
+const imgTab = ref<string>('0');
+
+const productClick = (SKU: number, category: string) => {
+    router.push(`/product/${category}/${SKU}`);
+}
+
+const product = ref<Product>({});
+const images = ref<string[]>([]);
+
+const selectedVariant = ref<Variant>(null);
+
+const selectVariant = (variant) => {
+    selectedVariant.value = variant;
+    if (product.value && product.value.variants) {
+        imgTab.value = (product.value.variants.indexOf(variant) + 1).toString();
+    }
+}
+
+const route = useRoute();
+const fetchData = async () => {
+    try{
+        const SKU = route.params.id;
+        const category = route.params.category;
+        productsPreviews.value = await getProductsPreview();
+        product.value = await getProductDetails(SKU, category);
+        if (product.value) {
+            images.value = [];
+            imgTab.value = '0';
+            images.value.push(product.value.featuredImage);
+            product.value.variants.forEach(variant => {
+                images.value.push(variant.image);
+            });
+            selectedVariant.value = null;
+        }
+} catch (error) {
+        console.error(error);
+    }
+}
+
+watch(() => route.params.id, async () => {
+    await fetchData();
+})
+
+onMounted(async () => {
+    await fetchData();
+})
+
 
 </script>
 

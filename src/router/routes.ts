@@ -37,7 +37,7 @@ const routes: RouteRecordRaw[] = [
         component: () => Home,
       },
       {
-        path: 'product/:id',
+        path: 'product/:category/:id',
         name: 'product-id',
         component: () => import('@@/Products/Product.vue'),
       },

@@ -41,7 +41,7 @@ export type UserData = {
 }
 
 export const categories = [
-    'Casă și faianță',
+    'Casă și grădină',
     'Electrice și iluminat',
     'Materiale de construcție',
     'Instalații termice și sanitare',
