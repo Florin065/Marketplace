@@ -476,10 +476,17 @@ interface Product {
   tags: string[];
   // pdfFiles: string[];
   // excelFiles: string[];
-  currency: string;
   discount: number;
   variants: Variant[];
   reviews: Review[];
+}
+
+interface productPreview {
+    SKU: string;
+    title: string;
+    featuredImage: string;
+    price: number;
+    discount: number;
 }
 
 interface VariantType {
@@ -504,7 +511,6 @@ const productData = ref<Product>({
   tags: [],
   // pdfFiles: [],
   // excelFiles: [],
-  currency: 'RON',
   discount: 0,
   reviews: [],
   variants: [
@@ -599,7 +605,7 @@ const typeOptions = [
   { name: 'Type of Cut', units: ['Rough', 'Smooth', 'Sawn', 'Planed'], valueType: 'dropdown/string' },
 ];
 
-// TODO: File upload to Firebase Storage. This will return the link to the firebase storage file
+// Uploads a file to the Firebase Storage and returns the URL
 const uploadFile = async (file, SKU) => {
   // Upload the file to Firebase Storage
   const type = file.type.split('/')[1];
@@ -710,9 +716,18 @@ const saveChanges = async () => {
         productData.value.variants[i].image = await uploadFile(productData.value.variants[i].image, productData.value.variants[i].sku);
       }
 
-      // Send the data to the backend
-    await setDoc(doc(db, `products/${productData.value.category}/items`, productData.value.SKU), productData.value);
+    const previewData: productPreview = {
+        SKU: productData.value.SKU,
+        title: productData.value.title,
+        featuredImage: productData.value.featuredImage,
+        price: productData.value.variants[0].price,
+        discount: productData.value.discount,
+    };
 
+    // Send the data to the backend
+    await setDoc(doc(db, `products/${productData.value.category}/items`, productData.value.SKU), productData.value);
+    await setDoc(doc(db, `products/${productData.value.category}/previews`, productData.value.SKU), previewData);
+    
     Notify.create({message: 'Product saved successfully', color: 'positive', position: 'top'});
 
     route.push('/dashboard/overview');
