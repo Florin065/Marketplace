@@ -465,36 +465,9 @@ import { useRouter } from 'vue-router';
 import {db, storage} from '@/firebase/firebase';
 import { setDoc, doc } from 'firebase/firestore';
 import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
-
-// TODO: Move the types to a separate file so they can be accessed from other components
-interface Product {
-  SKU: string;
-  title: string;
-  description: string;
-  featuredImage: string | File;
-  category: string;
-  tags: string[];
-  // pdfFiles: string[];
-  // excelFiles: string[];
-  discount: number;
-  variants: Variant[];
-  reviews: Review[];
-}
-
-interface productPreview {
-    SKU: string;
-    title: string;
-    featuredImage: string;
-    price: number;
-    discount: number;
-}
-
-interface VariantType {
-  type: string;
-  unit: string;
-  value: number | string;
-}
-
+import Product from '@/types/ProductTypes';
+import Variant from '@/types/VariantTypes';
+import { productPreview } from '@/types/ProductTypes';
 
 interface CategoryType {
     name: string;
@@ -531,27 +504,8 @@ const productData = ref<Product>({
     },
   ],
 });
+
 const images = ref<File[]>([]);
-
-interface Variant {
-  image: File | string | null;
-  imagePreview: string;
-  name: string;
-  sku: string;
-  inStock: number;
-  price: number;
-  discountType: '%' | 'RON';
-  discountPrice: number | 'Discounted';
-  types: VariantType[];
-}
-
-interface Review {
-  name: string;
-  email: string;
-  rating: number;
-  review: string;
-}
-
 const route = useRouter();
 
 // Basic product information
