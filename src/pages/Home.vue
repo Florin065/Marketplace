@@ -244,22 +244,22 @@
                     <div class="row no-wrap" style="display: flex; gap: 25px;">
                     
                         <q-card
-                            v-for="prod in testProducts"
+                            v-for="prod in productsPreviews"
                             bordered
                             style="width:100%; display: flex; padding: 18px 16px; flex-direction: column; justify-content: center; align-items: flex-start; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px); border: 1px solid var(--color-border-info-muted, #60A5FA);background: #FFF; text-align: left;"
                         >
                     
-                            <div class="text-h6" @click="prod.func"> {{ prod.label }} </div>
+                            <div class="text-h6" @click="productClick(prod.SKU)"> {{ prod.title }} </div>
                             <q-card-section
                                 horizontal
                                 syle="display: flex; width: 334px; padding: 12px; align-items: center; gap: 10px; border-radius: var(--Spacing-spacing-2xl, 32px);"
                             >
 
                                 <q-img
-                                    :src="prod.image.src"
-                                    :style="prod.image.style"
-                                    :fit="prod.image.fit"
-                                    @click="prod.func"
+                                    :src="prod.featuredImage"
+                                    style="width: 9vw; height: 20vh;"
+                                    fit="contain"
+                                    @click="productClick(prod.SKU)"
                                 />
 
                                 <q-card-section
@@ -271,7 +271,7 @@
 
                                     <div
                                             style="width: 150px; height: 96px; color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px; text-align: center;"
-                                        > {{ prod.discount }} {{ prod.currency }} </div>
+                                        > {{ prod.discount == 0? prod.price:prod.discount }} {{ currency }} </div>
 
                                 </q-card-section>
                             </q-card-section>
@@ -370,11 +370,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import logout from '@/firebase/firebase-logout'
 import { useRouter } from 'vue-router';
 import {auth} from '@/firebase/firebase';
 import { Notify } from 'quasar';
+
+import { getProductsPreview, getProductDetails } from '@/functions'; 
+import { productPreview } from '../types/ProductTypes';
 
 const router = useRouter();
 
@@ -414,73 +417,11 @@ const popularSearches = [
     }
 ];
 
-const testProducts = [
-    {
-        SKU: 1,
-        label: "Caramida interior / exterior, rosii, 10 tone.",
-        price: 32.99,
-        discount: 28.99,
-        currency: "LEI",
-        image: {
-            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/caramida_Bg.png?alt=media&token=23f0f3f0-1169-4c8c-bcfb-8007a5774945",
-            style: "width: 9vw; height: 20vh;",
-            fit: "contain"
-        },
-        func: () => router.push('/product/1'),
-    },
-    {
-        SKU: 2,
-        label: "Cablu electric litat MYF (1.5MM-100M./rola)",
-        price: 32.99,
-        discount: 28.99,
-        image: {
-            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/cablu_cupru-removebg-preview.png?alt=media&token=5c30e3f7-5330-4236-9171-06b478367824",
-            style: "width: 9vw; height: 20vh;",
-            fit: "contain"
-        },
-        func: () => router.push('/product/2'),
-    },
-    {
-        SKU: 3,
-        label: "Lemne de foc paletizate, 0.8 mc, fag, 1.2 m x 1.45 m",
-        price: 32.99,
-        discount: 28.99,
-        currency: "LEI",
-        image: {
-            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/paleti_lemn-removebg-preview.png?alt=media&token=09faa330-6682-42f6-a79c-51bba2f01ef1",
-            style: "width: 9vw; height: 20vh;",
-            fit: "contain"
-        },
-        func: () => router.push('/product/3')
-    },
-    {
-        SKU: 4,
-        label: "BCA Ytong Design, 599 x 75 x 199 mm (LxGxH)",
-        price: 32.99,
-        discount: 28.99,
-        currency: "LEI",
-        image: {
-            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/BCA-removebg-preview.png?alt=media&token=5ec49478-ce72-4177-87e5-6be5e5ce2b4f",
-            style: "width: 9vw; height: 20vh;",
-            fit: "contain"
-        },
-        func: () => router.push('/product/4')
-    },
-    {
-        SKU: 5,
-        label: 'Ciment Portland Heidelberg Materials CEM II B-M (S-LL) 42.5 R, EvoBuild, 40kg',
-        price: 32.99,
-        discount: 28.99,
-        currency: "LEI",
-        image: {
-            src: "https://firebasestorage.googleapis.com/v0/b/marketplace-ee3bf.appspot.com/o/sac_ciment.png?alt=media&token=fca04947-f2f5-433c-ace0-ad3b216c9465",
-            style: "width: 9vw; height: 20vh;",
-            fit: "contain"
-        },
-        func: () => router.push('/product/5')
-    }
+const currency = ref<string>('LEI');
 
-]
+const productClick = (SKU: number) => {
+    router.push(`/product/${SKU}`);
+}
 
 const categories = [
     {
@@ -537,6 +478,19 @@ const scrollRight = () => {
     position.value += scrollDistance;
     scrollAreaRef.value.setScrollPosition('horizontal', position.value, scrollDuration);
 }
+
+const productsPreviews = ref<any>([]);
+
+onMounted(async () => {
+    console.log('Home page mounted');
+    try{
+        productsPreviews.value = await getProductsPreview();
+        console.log(productsPreviews);
+    } catch (error) {
+        console.error(error);
+    }
+})
+
 </script>
 
 <style scoped>

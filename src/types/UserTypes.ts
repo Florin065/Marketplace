@@ -39,3 +39,11 @@ export type UserData = {
     registrationNumber: string,
     platitorTVA: boolean,
 }
+
+export const categories = [
+    'Casă și faianță',
+    'Electrice și iluminat',
+    'Materiale de construcție',
+    'Instalații termice și sanitare',
+    'Vopsea și finisaje',
+];

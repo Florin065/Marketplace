@@ -22,9 +22,9 @@ export interface productPreview {
 }
 
 export interface VariantType {
-type: string;
-unit: string;
-value: number | string;
+    type: string;
+    unit: string;
+    value: number | string;
 }
 
 export interface Variant {
