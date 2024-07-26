@@ -674,6 +674,7 @@ const saveChanges = async () => {
         SKU: productData.value.SKU,
         title: productData.value.title,
         featuredImage: productData.value.featuredImage,
+        category: productData.value.category,
         price: productData.value.variants[0].price,
         discount: productData.value.discount,
     };

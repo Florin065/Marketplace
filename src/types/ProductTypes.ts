@@ -16,6 +16,7 @@ export interface productPreview {
     SKU: string;
     title: string;
     featuredImage: string;
+    category: string;
     price: number;
     discount: number;
 }
