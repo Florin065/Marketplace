@@ -12,204 +12,206 @@
           fit="contain" @click="() => router.push('/')"/>
       </q-toolbar>
     </q-header>
-    <q-page class="flex-center" style="background: #FFF">
-      <div>
-        <h4 class="text-h4 text-bold" style="color:#0CD496; margin-bottom: 10px;">Formular de înregistrare</h4>
-      </div>
+    <q-page class="q-pa-md">
+      <div style="background: white; border-radius: 20px; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); padding: 0px;">
+        <div>
+          <h4 class="text-h4 text-bold" style="color:#0CD496; margin-bottom: 10px;">Formular de înregistrare</h4>
+        </div>
 
-      <q-tabs dense class="text-bold text-primary">
-        <q-tab style="width:500px;" name="persoana_fizica" label="Persoană fizică" @click="helper.tab = 'persoana_fizica'; formData.isPersoanaFizica = true; clearFormData()"/>
-        <q-tab style="width:500px;" name="persoana_juridica" label="Persoană Juridică" @click="helper.tab = 'persoana_juridica'; formData.isPersoanaFizica = false; clearFormData()"/>
-      </q-tabs>
+        <q-tabs dense class="text-bold text-primary">
+          <q-tab style="width:500px;" name="persoana_fizica" label="Persoană fizică" @click="helper.tab = 'persoana_fizica'; formData.isPersoanaFizica = true; clearFormData()"/>
+          <q-tab style="width:500px;" name="persoana_juridica" label="Persoană Juridică" @click="helper.tab = 'persoana_juridica'; formData.isPersoanaFizica = false; clearFormData()"/>
+        </q-tabs>
 
-      <q-card style="width: 1000px; height: fit; border-radius: 16px">
-        <q-card-section>
-          <q-form @submit="submitForm">
-            <q-tab-panels v-model="helper.tab">
-              <q-tab-panel name="persoana_fizica">
-                <div style="text-align: left; color:#2563EB; margin-top: -20px">Date persoană fizică</div>
+        <q-card style="width: 1000px; height: fit; border-radius: 16px">
+          <q-card-section>
+            <q-form @submit="submitForm">
+              <q-tab-panels v-model="helper.tab">
+                <q-tab-panel name="persoana_fizica">
+                  <div style="text-align: left; color:#2563EB; margin-top: -20px">Date persoană fizică</div>
+                  <q-separator />
+                  <div class="row">
+                    <div class="col">
+                      <div style="text-align: left; margin-left: -4px; margin-top:1em">Nume <span style="color:red">*</span></div>
+                      <q-input v-model="formData.nume"
+                        outlined dense class="q-pa-sm" required style="margin-left: -15px;"
+                      />
+                    </div>
+                    
+                    <div class="col">
+                      <div style="text-align: left; margin-left: 10px; margin-top:1em">Prenume <span style="color:red">*</span></div>
+                      <q-input v-model="formData.prenume"
+                        outlined dense class="q-pa-sm" required style="margin-right: -15px;"
+                      />
+                    </div>
+                  </div>
+                </q-tab-panel>
+
+              <q-tab-panel name="persoana_juridica">
+                <div style="text-align: left; color:#2563EB; margin-top: -20px">Date persoană juridică</div>
                 <q-separator />
-                <div class="row">
-                  <div class="col">
-                    <div style="text-align: left; margin-left: -4px; margin-top:1em">Nume <span style="color:red">*</span></div>
-                    <q-input v-model="formData.nume"
-                      outlined dense class="q-pa-sm" required style="margin-left: -15px;"
-                    />
-                  </div>
-                  
-                  <div class="col">
-                    <div style="text-align: left; margin-left: 10px; margin-top:1em">Prenume <span style="color:red">*</span></div>
-                    <q-input v-model="formData.prenume"
-                      outlined dense class="q-pa-sm" required style="margin-right: -15px;"
-                    />
-                  </div>
+                <div class="col">
+                  <div style="text-align: left; margin-left: -5px; margin-top:1em">Nume Companie <span style="color:red">*</span></div>
+                  <q-input v-model="formData.denumire_companie"
+                    outlined dense class="q-pa-sm" required style="margin-left: -15px; margin-right: -15px;"
+                  />
                 </div>
+
+              <div class="row">
+                <div class="col">
+                  <div style="text-align: left; margin-left: -5px;">CIF/CUI  <span style="color:red">* <span v-if="!isCuiValid" style="color:red">CUI invalid</span></span></div>
+                  <q-input v-model="formData.cui"
+                    outlined dense class="q-pa-sm" required style="margin-left: -15px;"
+                  />
+                </div>
+
+                <div class="col">
+                  <div style="text-align: left; margin-left: 10px;">Număr de înregistrare la registrul comerțului (J/F) <span style="color:red">*</span></div>
+                  <q-input v-model="formData.numar_inregistrare"
+                    outlined dense class="q-pa-sm" required style="margin-right: -15px;"
+                  />
+                </div>
+              </div>
+
+              <div style="text-align: left">
+                <q-checkbox size="sm" v-model="formData.platitorTVA" label="Companie plătitoare de TVA" color="primary" style="margin-left:-15px" />
+                <span style="color:red; margin-left:3px">*</span>
+              </div>
               </q-tab-panel>
+            </q-tab-panels>
 
-            <q-tab-panel name="persoana_juridica">
-              <div style="text-align: left; color:#2563EB; margin-top: -20px">Date persoană juridică</div>
-              <q-separator />
-              <div class="col">
-                <div style="text-align: left; margin-left: -5px; margin-top:1em">Nume Companie <span style="color:red">*</span></div>
-                <q-input v-model="formData.denumire_companie"
-                  outlined dense class="q-pa-sm" required style="margin-left: -15px; margin-right: -15px;"
-                />
+              <div class="row">
+                <div class="col">
+                  <div style="text-align: left; margin-left: 10px;">Țară <span style="color:red">*</span></div>
+                  <q-select v-model="formData.tara" :options="locationData.optionsCountries" option-value="iso2" option-label="country" @filter="filterCountries"
+                    use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
+                  >
+                    <template v-slot:no-option>
+                      <q-item>
+                        <q-item-section class="text-grey">
+                          No results
+                        </q-item-section>
+                      </q-item>
+                    </template>
+                  </q-select>
+                </div>
+
+                <div class="col">
+                  <div style="text-align: left; margin-left: 10px;">Județ <span style="color:red">*</span></div>
+                  <q-select v-model="formData.judet" :options="locationData.optionsStates" option-value="state" option-label="name" @filter="filterCounties"
+                    use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
+                  >
+                    <template v-slot:no-option>
+                      <q-item>
+                        <q-item-section class="text-grey">
+                          No results
+                        </q-item-section>
+                      </q-item>
+                    </template>
+                  </q-select>
+                </div>
               </div>
 
-            <div class="row">
-              <div class="col">
-                <div style="text-align: left; margin-left: -5px;">CIF/CUI  <span style="color:red">* <span v-if="!isCuiValid" style="color:red">CUI invalid</span></span></div>
-                <q-input v-model="formData.cui"
-                  outlined dense class="q-pa-sm" required style="margin-left: -15px;"
-                />
-              </div>
-
-              <div class="col">
-                <div style="text-align: left; margin-left: 10px;">Număr de înregistrare la registrul comerțului (J/F) <span style="color:red">*</span></div>
-                <q-input v-model="formData.numar_inregistrare"
-                  outlined dense class="q-pa-sm" required style="margin-right: -15px;"
-                />
-              </div>
-            </div>
-
-            <div style="text-align: left">
-              <q-checkbox size="sm" v-model="formData.platitorTVA" label="Companie plătitoare de TVA" color="primary" style="margin-left:-15px" />
-              <span style="color:red; margin-left:3px">*</span>
-            </div>
-            </q-tab-panel>
-          </q-tab-panels>
-
-            <div class="row">
-              <div class="col">
-                <div style="text-align: left; margin-left: 10px;">Țară <span style="color:red">*</span></div>
-                <q-select v-model="formData.tara" :options="locationData.optionsCountries" option-value="iso2" option-label="country" @filter="filterCountries"
-                  use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
-                >
-                  <template v-slot:no-option>
-                    <q-item>
-                      <q-item-section class="text-grey">
-                        No results
-                      </q-item-section>
-                    </q-item>
-                  </template>
-                </q-select>
-              </div>
-
-              <div class="col">
-                <div style="text-align: left; margin-left: 10px;">Județ <span style="color:red">*</span></div>
-                <q-select v-model="formData.judet" :options="locationData.optionsStates" option-value="state" option-label="name" @filter="filterCounties"
-                  use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
-                >
-                  <template v-slot:no-option>
-                    <q-item>
-                      <q-item-section class="text-grey">
-                        No results
-                      </q-item-section>
-                    </q-item>
-                  </template>
-                </q-select>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col">
-                <div style="text-align: left; margin-left: 10px;">Localitate <span style="color: red;">*</span></div>
-                <q-select v-model="formData.localitate" :options="locationData.optionsCities" option-value="city" option-label="name" @filter="filterCities"
-                  use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
-                >
-                  <template v-slot:no-option>
-                    <q-item>
-                      <q-item-section class="text-grey">
-                        No results
-                      </q-item-section>
-                    </q-item>
-                  </template>
-                </q-select>
-              </div>
-              
-              <div class="col">
-                <div style="text-align: left; margin-left: 10px;">Adresă <span style="color:red">*</span></div>
-                <q-input v-model="formData.adresa"
-                  outlined dense class="q-pa-sm" required
-                />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col">
-                <div style="text-align: left; margin-left: 10px;">Email <span style="color:red">*</span></div>
-                <q-input v-model="formData.email"
-                  outlined dense class="q-pa-sm" required
-                />
-              </div>
-
-              <div class="col">
-                <div style="text-align: left; margin-left: 10px;">Număr de telefon <span style="color:red">*</span></div>
-                <q-input v-model="helper.numar_telefon"
-                  outlined dense class="q-pa-sm" required
-                >
-                  <template v-slot:prepend>
-                    <q-select v-model="helper.prefix_tara" :options="countryCodes"
-                      dense style="width:55px; margin-left:-12px" />
-                  </template>
-                </q-input>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col">
-                <div style="text-align: left; margin-left: 10px;">Parolă <span style="color:red">*</span></div>
-                <q-input v-model="formData.parola" :type="helper.showPassword ? 'text' : 'password'"
-                  outlined dense class="q-pa-sm" required
-                >
-                  <template v-slot:prepend>
-                    <q-icon name="lock" />
-                  </template>
-                  <template v-slot:append>
-                    <q-icon :name="helper.showPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(helper.showPassword)" />
-                  </template>
-                </q-input>
-              </div>
+              <div class="row">
+                <div class="col">
+                  <div style="text-align: left; margin-left: 10px;">Localitate <span style="color: red;">*</span></div>
+                  <q-select v-model="formData.localitate" :options="locationData.optionsCities" option-value="city" option-label="name" @filter="filterCities"
+                    use-input fill-input input-debounce="0" hide-selected dense outlined class="q-pa-sm"
+                  >
+                    <template v-slot:no-option>
+                      <q-item>
+                        <q-item-section class="text-grey">
+                          No results
+                        </q-item-section>
+                      </q-item>
+                    </template>
+                  </q-select>
+                </div>
                 
-              <div class="col">
-                <div style="text-align: left; margin-left: 10px;">Confirmare parolă <span style="color:red">
-                  *
-                  <span v-if="!passwordsMatch" style="color:red">Parolele nu se potrivesc</span>
-                </span></div>
-                <q-input v-model="formData.confirmare_parola" :type="helper.showConfirmPassword ? 'text' : 'password'"
-                  outlined dense class="q-pa-sm" required
-                >
-                  <template v-slot:prepend>
-                    <q-icon name="lock" />
-                  </template>
-                  <template v-slot:append>
-                    <q-icon :name="helper.showConfirmPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(helper.showConfirmPassword, 'confirm')" />
-                  </template>
-                </q-input>
-                
+                <div class="col">
+                  <div style="text-align: left; margin-left: 10px;">Adresă <span style="color:red">*</span></div>
+                  <q-input v-model="formData.adresa"
+                    outlined dense class="q-pa-sm" required
+                  />
+                </div>
               </div>
-            </div>
-          </q-form>
-        </q-card-section>
-      </q-card>
 
-      <div style="text-align: left">
-        <q-checkbox size="sm" v-model="helper.terms" label="Sunt de acord cu termenii și condițiile" color="primary" />
-        <span style="color:red; margin-left:3px">*</span>
-      </div>
+              <div class="row">
+                <div class="col">
+                  <div style="text-align: left; margin-left: 10px;">Email <span style="color:red">*</span></div>
+                  <q-input v-model="formData.email"
+                    outlined dense class="q-pa-sm" required
+                  />
+                </div>
 
-      <div class="q-mt-md text-center">
-        <q-btn :disabled="!passwordsMatch || !isFormValid"
-        label="Creează cont"
-        text-color="white"
-        style="background: #0CD496; width: 1000px; height: 50px"
-        unelevated
-        @click="submitForm" />
-      </div>
+                <div class="col">
+                  <div style="text-align: left; margin-left: 10px;">Număr de telefon <span style="color:red">*</span></div>
+                  <q-input v-model="helper.numar_telefon"
+                    outlined dense class="q-pa-sm" required
+                  >
+                    <template v-slot:prepend>
+                      <q-select v-model="helper.prefix_tara" :options="countryCodes"
+                        dense style="width:55px; margin-left:-12px" />
+                    </template>
+                  </q-input>
+                </div>
+              </div>
 
-      <div class="q-mt-lg text-center">
-        <span>Ai deja cont?</span>
-        <q-btn flat label="Autentificare" color="primary" @click="navigateToLogin" />
+              <div class="row">
+                <div class="col">
+                  <div style="text-align: left; margin-left: 10px;">Parolă <span style="color:red">*</span></div>
+                  <q-input v-model="formData.parola" :type="helper.showPassword ? 'text' : 'password'"
+                    outlined dense class="q-pa-sm" required
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="lock" />
+                    </template>
+                    <template v-slot:append>
+                      <q-icon :name="helper.showPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(helper.showPassword)" />
+                    </template>
+                  </q-input>
+                </div>
+                  
+                <div class="col">
+                  <div style="text-align: left; margin-left: 10px;">Confirmare parolă <span style="color:red">
+                    *
+                    <span v-if="!passwordsMatch" style="color:red">Parolele nu se potrivesc</span>
+                  </span></div>
+                  <q-input v-model="formData.confirmare_parola" :type="helper.showConfirmPassword ? 'text' : 'password'"
+                    outlined dense class="q-pa-sm" required
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="lock" />
+                    </template>
+                    <template v-slot:append>
+                      <q-icon :name="helper.showConfirmPassword ? 'visibility_off' : 'visibility'" @click="togglePasswordVisibility(helper.showConfirmPassword, 'confirm')" />
+                    </template>
+                  </q-input>
+                  
+                </div>
+              </div>
+            </q-form>
+          </q-card-section>
+        </q-card>
+
+        <div style="text-align: left">
+          <q-checkbox size="sm" v-model="helper.terms" label="Sunt de acord cu termenii și condițiile" color="primary" />
+          <span style="color:red; margin-left:3px">*</span>
+        </div>
+
+        <div class="q-mt-md text-center">
+          <q-btn :disabled="!passwordsMatch || !isFormValid"
+          label="Creează cont"
+          text-color="white"
+          style="background: #0CD496; width: 1000px; height: 50px"
+          unelevated
+          @click="submitForm" />
+        </div>
+
+        <div class="q-mt-lg text-center">
+          <span>Ai deja cont?</span>
+          <q-btn flat label="Autentificare" color="primary" @click="navigateToLogin" />
+        </div>
       </div>
     </q-page>
   </div>
