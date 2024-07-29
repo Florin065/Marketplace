@@ -22,10 +22,9 @@
             </q-card-section>
         </q-banner>
 
-        <!-- TODO: Stuff above will be the layout for all pages. Below will be the content of the page. -->
         <q-card-section
             horizontal
-            style="display: flex; height: 832px; padding: 10px 0px; align-items: center; gap: 10px; flex-shrink: 0; align-self: stretch;"
+            style="display: flex; padding: 10px 0px; align-items: center; gap: 10px; flex-shrink: 0; align-self: stretch;"
         >
             <!-- Photos on the left -->
             <q-card-section
@@ -83,7 +82,7 @@
                             <!-- Type -->
                             <q-card-section
                                 vertical
-                                style="display: flex; flex-direction: column; align-items: center; gap: 12px; align-self: stretch;"
+                                style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; align-self: stretch; max-width: 35vw;"
                             >
                             <q-card-section
                                 horizontal
@@ -190,7 +189,7 @@
                             <div
                                 style="color: rgba(238, 13, 80, 0.80); font-family: Inter; font-size: 14px; font-style: normal; font-weight: 600; line-height: 20px;"
                             >
-                                {{  selectedVariant? selectedVariant.price : '0' }}
+                                {{  selectedVariant? selectedVariant.price : `De la ${minPrice}` }}
                             </div>
 
                             <div
@@ -215,7 +214,7 @@
                             <div
                                 style="color: var(--green, #0CD496); font-family: Inter; font-size: 36px; font-style: normal; font-weight: 800; line-height: 48px;"
                             >
-                                {{ selectedVariant? selectedVariant.price : '0'}}
+                                {{ selectedVariant? selectedVariant.price : `De la ${minPrice}` }}
                             </div>
 
                             <div
@@ -226,7 +225,7 @@
                         </q-card-section>
 
                         <q-btn
-                            style="display: flex; padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); flex: 1 0 0; align-self: stretch; border-radius: var(--Spacing-spacing-sm, 8px); border: 1px solid var(--color-text-onColor, #FFF); background: var(--green, #0CD496);"
+                            style="display: flex; padding: var(--Spacing-spacing-sm, 8px) var(--Spacing-spacing-lg, 16px); justify-content: center; align-items: center; gap: var(--Spacing-spacing-sm, 8px); flex: 1 0 0; align-self: stretch; border-radius: var(--Spacing-spacing-sm, 8px); border: 1px solid var(--color-text-onColor, #FFF); background: var(--green, #0CD496); max-height: 64px;"
                             :disable="!selectedVariant"
                             > 
                             
@@ -269,84 +268,121 @@
                             name="4"
                             style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex: 1 0 0;"
                         >
-                        <div class="row items-center" style="display: flex; justify-content: space-between; align-items: center; align-self: stretch;">
-                            <div class="text-h5">Opiniile Clienților {{ productt.reviews.average }} / 5</div>
-                            <q-rating
-                                v-model="productt.reviews.average"
-                                color="orange"
-                                readonly
-                                size="md"
-                                icon-selected="bi-star-fill"
-                                icon-half="bi-star-half"
-                                icon="bi-star"
-                                no-dimming
-                                max="5"
-                            />
-                            <div class="q-ml-md">{{ productt.reviews.total }} recenzii</div>
-                        </div>
-                        
-                        <q-scroll-area style="height: 31vh; align-self: stretch; overflow-y: auto; width: 55vw;">
-                            <div
-                                style="align-self: stretch; color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 600; line-height: 32px;"
-                            >
-                                <q-card class="q-pa-md q-mb-md">
-                                    
-                                    <q-bar class="q-mt-md" v-for="(stars, index) in productt.reviews.stars" :key="index"  style="display: flex; align-items: center; gap: 12px; align-self: stretch; background: transparent">
-                                    
-                                        <div style="display: flex; width: 200px; justify-content: flex-end; align-items: center; gap: 5px;">
-                                            <q-icon v-for="i in 5-index" size="md" name="bi-star-fill" color="orange"></q-icon>
-                                        </div>
-                                        <q-linear-progress
-                                            :value="productt.reviews.stars[4-index] / productt.reviews.total"
-                                            color="orange"
-                                            class="q-ml-md"
-                                            track-color="grey-4"
-                                            style="display: flex; height: 36px; padding-right: 335px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 4px; background: var(--color-bg-subtle, #FAFAFA);"
-                                        />
-
-                                        <div style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 600; line-height: 32px; width: 31px;">
-                                            {{ productt.reviews.stars[4-index] }}
-                                        </div>
-                                    
-                                    </q-bar>
-                                </q-card>
-                            
-                                <q-card v-for="review in productt.reviews.comments" :key="review.uID" style="display: flex; flex-direction: column; align-items:  flex-start; gap: 14px; align-self: stretch;">
-                                    <div style="display: flex; justify-content: space-between; align-items: center; align-self: stretch;">
-
-                                        <div
-                                            style="display: flex; width: auto; align-items: center; align-content: center; gap: 0px 20px; flex-wrap: wrap;"
-                                        >
-                                            <q-avatar
-                                                style="border-radius: 60px; background: url(<path-to-image>) lightgray 50% / cover no-repeat; width: 64px; height: 64px; flex-shrink: 0;" 
-                                            >
-                                                <q-img :src="review.avatar" />
-                                            </q-avatar>
-
-                                            {{ review.name }}
-                                        </div>
-
-                                        <q-rating
-                                            v-model="review.rating"
-                                            color="orange"
-                                            readonly
-                                            size="md"
-                                            icon-selected="bi-star-fill"
-                                            icon-half="bi-star-half"
-                                            icon="bi-star"
-                                            no-dimming
-                                            max="5"
-                                        />
-
-                                    </div>
-
-                                    <div style="color: var(--color-text, #09090B); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 400; line-height: 24px; align-self: stretch; text-align: left">
-                                        {{ review.comment }}
-                                    </div>
-                                    
-                                </q-card>
+                        <div v-if="true">
+                            <div class="row items-center" style="display: flex; justify-content: space-between; align-items: center; align-self: stretch;">
+                                <div class="text-h5">Opiniile Clienților {{ productt.reviews.average }} / 5</div>
+                                <q-rating
+                                    v-model="productt.reviews.average"
+                                    color="orange"
+                                    readonly
+                                    size="md"
+                                    icon-selected="bi-star-fill"
+                                    icon-half="bi-star-half"
+                                    icon="bi-star"
+                                    no-dimming
+                                    max="5"
+                                />
+                                <div class="q-ml-md">{{ productt.reviews.comments.length }} recenzii</div>
                             </div>
-                        </q-scroll-area>
+                            
+                            <q-scroll-area style="height: 31vh; align-self: stretch; overflow-y: auto; width: 55vw;">
+                                <div
+                                    style="align-self: stretch; color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 600; line-height: 32px;"
+                                >
+                                    <q-card class="q-pa-md q-mb-md">
+                                        
+                                        <q-bar class="q-mt-md" v-for="(stars, index) in productt.reviews.stars" :key="index"  style="display: flex; align-items: center; gap: 12px; align-self: stretch; background: transparent">
+                                        
+                                            <div style="display: flex; width: 200px; justify-content: flex-end; align-items: center; gap: 5px;">
+                                                <q-icon v-for="i in 5-index" size="md" name="bi-star-fill" color="orange"></q-icon>
+                                            </div>
+                                            <q-linear-progress
+                                                :value="productt.reviews.stars[4-index] / productt.reviews.comments.length"
+                                                color="orange"
+                                                class="q-ml-md"
+                                                track-color="grey-4"
+                                                style="display: flex; height: 36px; padding-right: 335px; justify-content: center; align-items: center; gap: 10px; flex: 1 0 0; border-radius: 4px; background: var(--color-bg-subtle, #FAFAFA);"
+                                            />
+
+                                            <div style="color: var(--color-text, #09090B); font-family: Inter; font-size: 20px; font-style: normal; font-weight: 600; line-height: 32px; width: 31px;">
+                                                {{ productt.reviews.stars[4-index] }}
+                                            </div>
+                                        
+                                        </q-bar>
+
+                                        <!-- TODO: Popup for review. -->
+                                        <q-btn label="Adauga recenzie" @click="prompt = true" />
+                                    </q-card>
+                                
+                                    <q-card v-for="review in productt.reviews.comments" :key="review.uID" style="display: flex; flex-direction: column; align-items:  flex-start; gap: 14px; align-self: stretch;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; align-self: stretch;">
+
+                                            <div
+                                                style="display: flex; width: auto; align-items: center; align-content: center; gap: 0px 20px; flex-wrap: wrap;"
+                                            >
+                                                <q-avatar
+                                                    style="border-radius: 60px; background: url(<path-to-image>) lightgray 50% / cover no-repeat; width: 64px; height: 64px; flex-shrink: 0;" 
+                                                >
+                                                    <q-img :src="review.avatar" />
+                                                </q-avatar>
+
+                                                {{ review.name }}
+                                            </div>
+
+                                            <q-rating
+                                                v-model="review.rating"
+                                                color="orange"
+                                                readonly
+                                                size="md"
+                                                icon-selected="bi-star-fill"
+                                                icon-half="bi-star-half"
+                                                icon="bi-star"
+                                                no-dimming
+                                                max="5"
+                                            />
+
+                                        </div>
+
+                                        <div style="color: var(--color-text, #09090B); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 400; line-height: 24px; align-self: stretch; text-align: left">
+                                            {{ review.comment }}
+                                        </div>
+                                        
+                                    </q-card>
+                                </div>
+                            </q-scroll-area>
+                        </div>
+                        <div v-else>
+                            <div class="text-h6">Nu exista recenzii pentru acest produs</div>
+                            <q-btn label="Adauga recenzie" @click="{prompt = true;}" />
+                        </div>
+                        <q-dialog v-model="prompt" persistent>
+                                            <q-card style="display:flex; flex-direction: column; min-width: 400px; padding: 20px;">
+                                            <q-card-section>
+                                                <div class="text-h6">Adauga un review</div>
+                                            </q-card-section>
+                                            
+                                                <q-input v-model="review.name" label="Nume" />
+                                                <q-input v-model="review.email" label="Email" />
+                                                <q-input v-model="review.title" label="Titlu" />
+                                                <!-- <q-rating v-model="review.rating" color="orange" icon-selected="bi-star-fill" icon-half="bi-star-half" icon="bi-star" no-dimming max="5" /> -->
+                                                 <q-rating
+                                                    v-model="stars"
+                                                    color="orange"
+                                                    size="md"
+                                                    icon-selected="bi-star-fill"
+                                                    icon-half="bi-star-half"
+                                                    icon="bi-star"
+                                                    no-dimming
+                                                    max="5"
+                                                />
+                                                <q-input v-model="review.review" label="Comentariu" />
+                                    
+                                            <q-card-actions align="right" class="text-primary">
+                                                <q-btn flat label="Cancel" v-close-popup />
+                                                <q-btn flat label="Adauga review" v-close-popup @click="postReview" />
+                                            </q-card-actions>
+                                            </q-card>
+                                        </q-dialog>
                         
                         </q-tab-panel>
 
@@ -361,7 +397,7 @@
                             </div>
 
                             <!-- Descrierea produsului, luata din DB -->
-                             <!-- TODO: Add description into product -->
+                             <!-- TODO: Make a parser for the description -->
                             <q-scroll-area style="height: 178px; align-self: stretch; overflow-y: auto; width: 55vw;">
                                 <div
                                     style="align-self: stretch; color: var(--color-text, #09090B); font-family: Inter; font-size: 16px; font-style: normal; font-weight: 600; line-height: 24px; text-align: left;"
@@ -467,7 +503,7 @@
                 style="display: flex; align-items: center; gap: 25px; align-self: stretch;"
             >
             
-                <div style="color: var(--color-icon, #18181B); font-family: Inter; font-size: 30px; font-style: normal; font-weight: 600; line-height: 42px;">Cumpărate des împreună</div>
+                <div style="color: var(--color-icon, #18181B); font-family: Inter; font-size: 30px; font-style: normal; font-weight: 600; line-height: 42px; ">Cumpărate des împreună</div>
         
                 <q-btn
                     style="display: flex; align-items: center; gap: 6px; align-self: stretch;"
@@ -566,10 +602,11 @@ import { useRouter, useRoute } from 'vue-router';
 import {auth} from '@/firebase/firebase';
 import { Notify } from 'quasar';
 
-import { getProductDetails, getProductsPreview } from '@/functions';
-import { Product, productPreview, Variant } from '@/types/ProductTypes';
+import { getProductDetails, getProductsPreview, addedToCart } from '@/functions';
+import { Product, productPreview, Variant, Review } from '@/types/ProductTypes';
 import { range } from 'pdf-lib';
 import { se } from 'date-fns/locale';
+import { addReview } from '../../functions';
 
 const router = useRouter();
 
@@ -581,6 +618,8 @@ isLogged.value = auth.currentUser !== null;
 
 const position = ref<number>(0);
 const scrollAreaRef = ref<any>(null);
+
+const prompt = ref<boolean>(false);
 
 const columns = [
     { name: 'attribute', align: 'left', label: 'Model', field: 'attribute' },
@@ -617,15 +656,6 @@ const scrollRight = () => {
     scrollAreaRef.value.setScrollPosition('horizontal', position.value, scrollDuration);
 }
 
-const addedToCart = () => {
-    Notify.create({
-        message: 'Produsul a fost adaugat in cos!',
-        color: 'positive',
-        position: 'top',
-        timeout: 2000
-    });
-}
-
 const addedToFav = () => {
     Notify.create({
         message: 'Produsul a fost adaugat la favorite!',
@@ -652,6 +682,24 @@ const Share = () => {
         position: 'top',
         timeout: 2000
     });
+}
+
+const review = ref<Review>({
+    uID: '',
+    name: '',
+    rating: 0,
+    comment: '',
+    avatar: ''
+});
+const stars = ref<number>(0);
+
+const postReview = () => {
+    console.log(review.value);
+    const SKU = route.params.id as string;
+    const category = route.params.category as string;
+    console.log(SKU);
+    console.log(stars);
+    // addReview(SKU, category, review.value);
 }
 
 const increaseQuantity = () => {
@@ -799,6 +847,8 @@ const productt = {
     }
 }
 
+const minPrice = ref<number>(0);
+
 const productsPreviews = ref<productPreview[]>([]);
 
 const imgTab = ref<string>('0');
@@ -835,6 +885,14 @@ const fetchData = async () => {
             });
             selectedVariant.value = null;
         }
+
+        // Calculate the minimum price
+        product.value.variants.forEach(variant => {
+            if (+variant.price < minPrice.value || minPrice.value === 0) {
+                minPrice.value = +variant.price;
+            }
+        });
+
 } catch (error) {
         console.error(error);
     }
@@ -859,8 +917,8 @@ onMounted(async () => {
     padding-bottom: 20px;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: space-between;
     gap: 16px;
-
 }
 
 .discountBanner {

@@ -1,3 +1,5 @@
+import { Review } from "./ProductTypes";
+
 export type UserForm = {
     nume: string,// persoana fizica
     prenume: string, // persoana fizica
@@ -21,7 +23,7 @@ export type UserProducts = {
     favorites: [string],
     orders: [string],
     history: [string],
-    reviews: [{stars: number, review: string, product: string}],
+    reviews: [Review],
 }
 
 export type UserData = {

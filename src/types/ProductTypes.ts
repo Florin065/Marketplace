@@ -9,7 +9,7 @@ export interface Product {
     // excelFiles: string[];
     discount: number;
     variants: Variant[];
-    reviews: Review[];
+    reviews: Reviews;
   }
   
 export interface productPreview {
@@ -40,8 +40,16 @@ export interface Variant {
   }
   
 export interface Review {
-    name: string;
+    uID: string;
+    name: string; 
     email: string;
+    reviewTitle: string;
     rating: number;
     review: string;
   }
+
+export interface Reviews {
+  stars: number[];
+  averageRating: number;
+  comments: Review[];
+}

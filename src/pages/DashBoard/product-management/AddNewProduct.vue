@@ -485,7 +485,11 @@
     // pdfFiles: [],
     // excelFiles: [],
     discount: 0,
-    reviews: [],
+    reviews: {
+        stars: [0, 0, 0, 0, 0],
+        averageRating: 0,
+        comments: [],
+    },
     variants: [
       {
         image: null,
